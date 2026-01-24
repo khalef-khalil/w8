@@ -1,0 +1,510 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'app_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for French (`fr`).
+class AppLocalizationsFr extends AppLocalizations {
+  AppLocalizationsFr([String locale = 'fr']) : super(locale);
+
+  @override
+  String get appTitle => 'Suivi de Poids';
+
+  @override
+  String get addWeight => 'Ajouter Poids';
+
+  @override
+  String get weightTracking => 'Suivi de Poids';
+
+  @override
+  String get retry => 'Réessayer';
+
+  @override
+  String get errorLoading => 'Erreur lors du chargement';
+
+  @override
+  String get startTrackingPrompt => 'Commencez à suivre votre poids';
+
+  @override
+  String get addFirstWeighIn => 'Ajoutez votre première pesée pour commencer';
+
+  @override
+  String get currentWeight => 'Poids Actuel';
+
+  @override
+  String get progressToGoal => 'Progrès vers l\'objectif (+15kg)';
+
+  @override
+  String get start => 'Départ';
+
+  @override
+  String get goal => 'Objectif';
+
+  @override
+  String get weeks => 'Semaines';
+
+  @override
+  String get medians => 'Médianes';
+
+  @override
+  String get notEnoughData => 'Pas assez de données';
+
+  @override
+  String get addWeighInsForChart => 'Ajoutez des pesées pour voir le graphique';
+
+  @override
+  String get weeklyEvolution => 'Évolution Hebdomadaire (Médiane)';
+
+  @override
+  String get recentWeighIns => 'Dernières Pesées';
+
+  @override
+  String get today => 'Aujourd\'hui';
+
+  @override
+  String get yesterday => 'Hier';
+
+  @override
+  String get save => 'Enregistrer';
+
+  @override
+  String get weightSaved => 'Poids enregistré avec succès';
+
+  @override
+  String get validationError => 'Erreur de validation';
+
+  @override
+  String get warning => 'Avertissement';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get confirm => 'Confirmer';
+
+  @override
+  String get weightKg => 'Poids (kg)';
+
+  @override
+  String get weightLbs => 'Poids (lbs)';
+
+  @override
+  String get weightHint => 'Ex: 70.50';
+
+  @override
+  String get targetWeightHint => 'Ex: 85.00';
+
+  @override
+  String errorWithMessage(String message) {
+    return 'Erreur : $message';
+  }
+
+  @override
+  String get pleaseEnterWeight => 'Veuillez entrer un poids';
+
+  @override
+  String get pleaseEnterValidWeight =>
+      'Veuillez entrer un poids valide (0-300 kg)';
+
+  @override
+  String get pleaseEnterValidWeightLbs =>
+      'Veuillez entrer un poids valide (0–660 lbs)';
+
+  @override
+  String get date => 'Date';
+
+  @override
+  String get time => 'Heure';
+
+  @override
+  String get register => 'Enregistrer';
+
+  @override
+  String get welcomeTitle => 'Bienvenue dans w8';
+
+  @override
+  String get welcomeSubtitle =>
+      'Ton compagnon pour suivre ta progression de poids. Gagne 15kg en 6 mois ou définis ton propre objectif.';
+
+  @override
+  String get featureMedianTitle => 'Médiane hebdomadaire';
+
+  @override
+  String get featureMedianDesc =>
+      'Calcule automatiquement la médiane pour lisser les fluctuations.';
+
+  @override
+  String get featureSmartTitle => 'Suivi intelligent';
+
+  @override
+  String get featureSmartDesc => 'Détecte les anomalies et valide tes données.';
+
+  @override
+  String get featureProgressTitle => 'Progression claire';
+
+  @override
+  String get featureProgressDesc =>
+      'Vois où tu en es par rapport à ton objectif.';
+
+  @override
+  String get getStarted => 'Commencer';
+
+  @override
+  String get languageTitle => 'Choisis ta langue';
+
+  @override
+  String get languageSubtitle =>
+      'L\'app utilisera cette langue. Tu pourras la modifier plus tard dans les paramètres.';
+
+  @override
+  String get languageEnglish => 'English';
+
+  @override
+  String get languageFrench => 'Français';
+
+  @override
+  String get goalConfigTitle => 'Configuration de l\'objectif';
+
+  @override
+  String get whatIsYourGoal => 'Quel est ton objectif ?';
+
+  @override
+  String get configureGoal => 'Configure ton objectif personnalisé';
+
+  @override
+  String get goalType => 'Type d\'objectif';
+
+  @override
+  String get gain => 'Gagner';
+
+  @override
+  String get lose => 'Perdre';
+
+  @override
+  String get maintain => 'Maintenir';
+
+  @override
+  String get initialWeightKg => 'Poids initial (kg)';
+
+  @override
+  String get targetWeightKg => 'Poids cible (kg)';
+
+  @override
+  String get goalStartDate => 'Date de début de l\'objectif';
+
+  @override
+  String get selectDate => 'Sélectionner une date';
+
+  @override
+  String get durationMonths => 'Durée (mois)';
+
+  @override
+  String get durationHint => 'Ex: 6';
+
+  @override
+  String get continueButton => 'Continuer';
+
+  @override
+  String get goalSummary => 'Résumé de ton objectif';
+
+  @override
+  String goalSummaryFromTo(String initial, String target, int months) {
+    return 'Passer de ${initial}kg à ${target}kg en $months mois';
+  }
+
+  @override
+  String perMonth(String rate) {
+    return '≈ $rate kg/mois';
+  }
+
+  @override
+  String get enterInitialWeight => 'Entrez un poids initial';
+
+  @override
+  String get enterTargetWeight => 'Entrez un poids cible';
+
+  @override
+  String get enterDuration => 'Entrez une durée';
+
+  @override
+  String get invalidWeight => 'Poids invalide (0-500 kg)';
+
+  @override
+  String get invalidDuration => 'Durée invalide (1-24 mois)';
+
+  @override
+  String get targetMustBeGreater =>
+      'Le poids cible doit être supérieur au poids initial.';
+
+  @override
+  String get targetMustBeLess =>
+      'Le poids cible doit être inférieur au poids initial.';
+
+  @override
+  String get errorSaving => 'Erreur lors de la sauvegarde';
+
+  @override
+  String get invalidData => 'Données invalides';
+
+  @override
+  String get selectGoalType => 'Sélectionne un type d\'objectif';
+
+  @override
+  String get invalidGoalStartDate => 'Date de début invalide';
+
+  @override
+  String get preferencesTitle => 'Préférences';
+
+  @override
+  String get personalizeExperience => 'Personnalise ton expérience';
+
+  @override
+  String get configurePreferences =>
+      'Configure tes préférences pour une expérience optimale';
+
+  @override
+  String get weightUnit => 'Unité de poids';
+
+  @override
+  String get kilograms => 'Kilogrammes (kg)';
+
+  @override
+  String get pounds => 'Livres (lbs)';
+
+  @override
+  String get weekStartsOn => 'Début de semaine';
+
+  @override
+  String get monday => 'Lundi';
+
+  @override
+  String get tuesday => 'Mardi';
+
+  @override
+  String get wednesday => 'Mercredi';
+
+  @override
+  String get thursday => 'Jeudi';
+
+  @override
+  String get friday => 'Vendredi';
+
+  @override
+  String get saturday => 'Samedi';
+
+  @override
+  String get sunday => 'Dimanche';
+
+  @override
+  String get firstWeighInTitle => 'Première pesée';
+
+  @override
+  String get addFirstWeighInTitle => 'Ajoute ta première pesée';
+
+  @override
+  String yourGoalIs(String initial, String target, int months) {
+    return 'Ton objectif : ${initial}kg → ${target}kg en $months mois';
+  }
+
+  @override
+  String initialWeightConfigured(String weight) {
+    return 'Poids initial configuré : ${weight}kg';
+  }
+
+  @override
+  String get weightVeryDifferent =>
+      'Poids très différent du poids initial. Vérifiez votre saisie.';
+
+  @override
+  String get finishAndStart => 'Terminer et commencer';
+
+  @override
+  String get insights => 'Insights';
+
+  @override
+  String get ahead => 'En avance';
+
+  @override
+  String get behind => 'En retard';
+
+  @override
+  String get onTrack => 'Sur la bonne voie';
+
+  @override
+  String daysAhead(int count) {
+    return '$count jours d\'avance';
+  }
+
+  @override
+  String daysBehind(int count) {
+    return '$count jours de retard';
+  }
+
+  @override
+  String get keepItUp => 'Continue comme ça !';
+
+  @override
+  String get speedOfProgress => 'Vitesse de progression';
+
+  @override
+  String get current => 'Actuelle';
+
+  @override
+  String get required => 'Requise';
+
+  @override
+  String get kgPerWeek => 'kg/semaine';
+
+  @override
+  String percentOfRequired(String percent) {
+    return '$percent% de la vitesse requise';
+  }
+
+  @override
+  String get prediction => 'Prédiction';
+
+  @override
+  String goalReachedInDays(int count) {
+    return 'Objectif atteint dans $count jours';
+  }
+
+  @override
+  String estimatedDate(String date) {
+    return 'Date estimée : $date';
+  }
+
+  @override
+  String daysAfterExpected(int count) {
+    return '$count jours après la date prévue';
+  }
+
+  @override
+  String daysBeforeExpected(int count) {
+    return '$count jours avant la date prévue';
+  }
+
+  @override
+  String get progressVsTime => 'Progression : Temps vs Poids';
+
+  @override
+  String get timeProgress => 'Progression temporelle';
+
+  @override
+  String get timeElapsed => 'Temps écoulé';
+
+  @override
+  String get weightProgress => 'Progression poids';
+
+  @override
+  String get actualChange => 'Gain/perte réel';
+
+  @override
+  String aheadByPercent(String percent) {
+    return 'En avance de $percent%';
+  }
+
+  @override
+  String behindByPercent(String percent) {
+    return 'En retard de $percent%';
+  }
+
+  @override
+  String get perfectlySynced => 'Parfaitement synchronisé avec l\'objectif';
+
+  @override
+  String get settingsTitle => 'Paramètres';
+
+  @override
+  String get progressTitle => 'Progression';
+
+  @override
+  String get historyTitle => 'Historique';
+
+  @override
+  String get insightsTitle => 'Insights';
+
+  @override
+  String get navHome => 'Accueil';
+
+  @override
+  String get navProgress => 'Progression';
+
+  @override
+  String get navHistory => 'Historique';
+
+  @override
+  String get navInsights => 'Insights';
+
+  @override
+  String get navSettings => 'Paramètres';
+
+  @override
+  String get monthsUnit => 'mois';
+
+  @override
+  String get kgUnit => 'kg';
+
+  @override
+  String get lbsUnit => 'lbs';
+
+  @override
+  String get lbsPerWeek => 'lbs/semaine';
+
+  @override
+  String get progressLabel => 'Progression';
+
+  @override
+  String weightToGo(String value) {
+    return '$value kg à prendre';
+  }
+
+  @override
+  String weightToLose(String value) {
+    return '$value kg à perdre';
+  }
+
+  @override
+  String get weightToGoLabel => 'À prendre';
+
+  @override
+  String get weightToLoseLabel => 'À perdre';
+
+  @override
+  String weeksLeft(int count) {
+    return '$count semaines restantes';
+  }
+
+  @override
+  String get weeksLeftLabel => 'Semaines restantes';
+
+  @override
+  String get goalWeight => 'Poids objectif';
+
+  @override
+  String get chartGoalLine => 'Objectif';
+
+  @override
+  String get chartStartLine => 'Départ';
+
+  @override
+  String get edit => 'Modifier';
+
+  @override
+  String get delete => 'Supprimer';
+
+  @override
+  String get editWeight => 'Modifier la pesée';
+
+  @override
+  String get deleteEntryTitle => 'Supprimer cette pesée ?';
+
+  @override
+  String get deleteEntryMessage => 'Cette action est irréversible.';
+
+  @override
+  String get entryDeleted => 'Pesée supprimée';
+
+  @override
+  String get weightUpdated => 'Pesée mise à jour';
+}

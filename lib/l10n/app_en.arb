@@ -1,0 +1,254 @@
+{
+  "@@locale": "en",
+  "appTitle": "Weight Tracker",
+  "addWeight": "Add Weight",
+  "weightTracking": "Weight Tracking",
+  "retry": "Retry",
+  "errorLoading": "Error loading",
+  "startTrackingPrompt": "Start tracking your weight",
+  "addFirstWeighIn": "Add your first weigh-in to get started",
+  "currentWeight": "Current Weight",
+  "progressToGoal": "Progress to goal (+15kg)",
+  "start": "Start",
+  "goal": "Goal",
+  "weeks": "Weeks",
+  "medians": "Medians",
+  "notEnoughData": "Not enough data",
+  "addWeighInsForChart": "Add weigh-ins to see the chart",
+  "weeklyEvolution": "Weekly Evolution (Median)",
+  "recentWeighIns": "Recent Weigh-ins",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "save": "Save",
+  "weightSaved": "Weight saved successfully",
+  "validationError": "Validation error",
+  "warning": "Warning",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "weightKg": "Weight (kg)",
+  "weightLbs": "Weight (lbs)",
+  "weightHint": "e.g. 70.50",
+  "targetWeightHint": "e.g. 85.00",
+  "errorWithMessage": "Error: {message}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  },
+  "pleaseEnterWeight": "Please enter a weight",
+  "pleaseEnterValidWeight": "Please enter a valid weight (0–300 kg)",
+  "pleaseEnterValidWeightLbs": "Please enter a valid weight (0–660 lbs)",
+  "date": "Date",
+  "time": "Time",
+  "register": "Register",
+
+  "welcomeTitle": "Welcome to w8",
+  "welcomeSubtitle": "Your companion for tracking weight progress. Gain 15kg in 6 months or set your own goal.",
+  "featureMedianTitle": "Weekly median",
+  "featureMedianDesc": "Automatically computes the median to smooth fluctuations.",
+  "featureSmartTitle": "Smart tracking",
+  "featureSmartDesc": "Detects anomalies and validates your data.",
+  "featureProgressTitle": "Clear progress",
+  "featureProgressDesc": "See where you stand relative to your goal.",
+  "getStarted": "Get Started",
+
+  "languageTitle": "Choose your language",
+  "languageSubtitle": "The app will use this language. You can change it later in settings.",
+  "languageEnglish": "English",
+  "languageFrench": "Français",
+
+  "goalConfigTitle": "Goal configuration",
+  "whatIsYourGoal": "What's your goal?",
+  "configureGoal": "Configure your personal goal",
+  "goalType": "Goal type",
+  "gain": "Gain",
+  "lose": "Lose",
+  "maintain": "Maintain",
+  "initialWeightKg": "Initial weight (kg)",
+  "targetWeightKg": "Target weight (kg)",
+  "goalStartDate": "Goal start date",
+  "selectDate": "Select a date",
+  "durationMonths": "Duration (months)",
+  "durationHint": "e.g. 6",
+  "continueButton": "Continue",
+  "goalSummary": "Your goal summary",
+  "goalSummaryFromTo": "From {initial}kg to {target}kg in {months} months",
+  "@goalSummaryFromTo": {
+    "placeholders": {
+      "initial": {"type": "String"},
+      "target": {"type": "String"},
+      "months": {"type": "int"}
+    }
+  },
+  "perMonth": "≈ {rate} kg/month",
+  "@perMonth": {
+    "placeholders": {
+      "rate": {"type": "String"}
+    }
+  },
+  "enterInitialWeight": "Enter an initial weight",
+  "enterTargetWeight": "Enter a target weight",
+  "enterDuration": "Enter a duration",
+  "invalidWeight": "Invalid weight (0–500 kg)",
+  "invalidDuration": "Invalid duration (1–24 months)",
+  "targetMustBeGreater": "Target weight must be greater than initial weight for gain goals.",
+  "targetMustBeLess": "Target weight must be less than initial weight for loss goals.",
+  "errorSaving": "Error saving",
+  "invalidData": "Invalid data",
+  "selectGoalType": "Select a goal type",
+  "invalidGoalStartDate": "Invalid start date",
+
+  "preferencesTitle": "Preferences",
+  "personalizeExperience": "Personalize your experience",
+  "configurePreferences": "Configure your preferences for the best experience",
+  "weightUnit": "Weight unit",
+  "kilograms": "Kilograms (kg)",
+  "pounds": "Pounds (lbs)",
+  "weekStartsOn": "Week starts on",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+
+  "firstWeighInTitle": "First weigh-in",
+  "addFirstWeighInTitle": "Add your first weigh-in",
+  "yourGoalIs": "Your goal: {initial}kg → {target}kg in {months} months",
+  "@yourGoalIs": {
+    "placeholders": {
+      "initial": {"type": "String"},
+      "target": {"type": "String"},
+      "months": {"type": "int"}
+    }
+  },
+  "initialWeightConfigured": "Initial weight configured: {weight}kg",
+  "@initialWeightConfigured": {
+    "placeholders": {
+      "weight": {"type": "String"}
+    }
+  },
+  "weightVeryDifferent": "Weight very different from configured initial. Please check.",
+  "finishAndStart": "Finish and start",
+
+  "insights": "Insights",
+  "ahead": "Ahead",
+  "behind": "Behind",
+  "onTrack": "On track",
+  "daysAhead": "{count} days ahead",
+  "@daysAhead": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "daysBehind": "{count} days behind",
+  "@daysBehind": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "keepItUp": "Keep it up!",
+  "speedOfProgress": "Speed of progress",
+  "current": "Current",
+  "required": "Required",
+  "kgPerWeek": "kg/week",
+  "percentOfRequired": "{percent}% of required speed",
+  "@percentOfRequired": {
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+  "prediction": "Prediction",
+  "goalReachedInDays": "Goal reached in {count} days",
+  "@goalReachedInDays": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "estimatedDate": "Estimated date: {date}",
+  "@estimatedDate": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "daysAfterExpected": "{count} days after expected",
+  "@daysAfterExpected": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "daysBeforeExpected": "{count} days before expected",
+  "@daysBeforeExpected": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "progressVsTime": "Progress: Time vs Weight",
+  "timeProgress": "Time progress",
+  "timeElapsed": "Time elapsed",
+  "weightProgress": "Weight progress",
+  "actualChange": "Actual change",
+  "aheadByPercent": "Ahead by {percent}%",
+  "@aheadByPercent": {
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+  "behindByPercent": "Behind by {percent}%",
+  "@behindByPercent": {
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+  "perfectlySynced": "Perfectly in sync with your goal",
+
+  "settingsTitle": "Settings",
+  "progressTitle": "Progress",
+  "historyTitle": "History",
+  "insightsTitle": "Insights",
+  "navHome": "Home",
+  "navProgress": "Progress",
+  "navHistory": "History",
+  "navInsights": "Insights",
+  "navSettings": "Settings",
+  "monthsUnit": "months",
+  "kgUnit": "kg",
+  "lbsUnit": "lbs",
+  "lbsPerWeek": "lbs/week",
+
+  "progressLabel": "Progress",
+  "weightToGo": "{value} kg to go",
+  "@weightToGo": {
+    "placeholders": {
+      "value": {"type": "String"}
+    }
+  },
+  "weightToLose": "{value} kg to lose",
+  "@weightToLose": {
+    "placeholders": {
+      "value": {"type": "String"}
+    }
+  },
+  "weightToGoLabel": "Weight to go",
+  "weightToLoseLabel": "Weight to lose",
+  "weeksLeft": "{count} weeks left",
+  "@weeksLeft": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "weeksLeftLabel": "Weeks left",
+  "goalWeight": "Goal weight",
+  "chartGoalLine": "Goal",
+  "chartStartLine": "Start",
+
+  "edit": "Edit",
+  "delete": "Delete",
+  "editWeight": "Edit weight",
+  "deleteEntryTitle": "Delete weigh-in?",
+  "deleteEntryMessage": "This action cannot be undone.",
+  "entryDeleted": "Weigh-in deleted",
+  "weightUpdated": "Weigh-in updated"
+}

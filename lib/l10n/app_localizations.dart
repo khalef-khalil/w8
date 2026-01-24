@@ -1,0 +1,1045 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations_en.dart';
+import 'app_localizations_fr.dart';
+
+// ignore_for_file: type=lint
+
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
+///
+/// Applications need to include `AppLocalizations.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'l10n/app_localizations.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: AppLocalizations.localizationsDelegates,
+///   supportedLocales: AppLocalizations.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the AppLocalizations.supportedLocales
+/// property.
+abstract class AppLocalizations {
+  AppLocalizations(String locale)
+      : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+
+  final String localeName;
+
+  static AppLocalizations? of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations);
+  }
+
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('en'),
+    Locale('fr')
+  ];
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight Tracker'**
+  String get appTitle;
+
+  /// No description provided for @addWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Weight'**
+  String get addWeight;
+
+  /// No description provided for @weightTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight Tracking'**
+  String get weightTracking;
+
+  /// No description provided for @retry.
+  ///
+  /// In en, this message translates to:
+  /// **'Retry'**
+  String get retry;
+
+  /// No description provided for @errorLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading'**
+  String get errorLoading;
+
+  /// No description provided for @startTrackingPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Start tracking your weight'**
+  String get startTrackingPrompt;
+
+  /// No description provided for @addFirstWeighIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first weigh-in to get started'**
+  String get addFirstWeighIn;
+
+  /// No description provided for @currentWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Weight'**
+  String get currentWeight;
+
+  /// No description provided for @progressToGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress to goal (+15kg)'**
+  String get progressToGoal;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @goal.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get goal;
+
+  /// No description provided for @weeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Weeks'**
+  String get weeks;
+
+  /// No description provided for @medians.
+  ///
+  /// In en, this message translates to:
+  /// **'Medians'**
+  String get medians;
+
+  /// No description provided for @notEnoughData.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough data'**
+  String get notEnoughData;
+
+  /// No description provided for @addWeighInsForChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Add weigh-ins to see the chart'**
+  String get addWeighInsForChart;
+
+  /// No description provided for @weeklyEvolution.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly Evolution (Median)'**
+  String get weeklyEvolution;
+
+  /// No description provided for @recentWeighIns.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Weigh-ins'**
+  String get recentWeighIns;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @yesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get yesterday;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @weightSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight saved successfully'**
+  String get weightSaved;
+
+  /// No description provided for @validationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Validation error'**
+  String get validationError;
+
+  /// No description provided for @warning.
+  ///
+  /// In en, this message translates to:
+  /// **'Warning'**
+  String get warning;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @weightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get weightKg;
+
+  /// No description provided for @weightLbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (lbs)'**
+  String get weightLbs;
+
+  /// No description provided for @weightHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 70.50'**
+  String get weightHint;
+
+  /// No description provided for @targetWeightHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 85.00'**
+  String get targetWeightHint;
+
+  /// No description provided for @errorWithMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {message}'**
+  String errorWithMessage(String message);
+
+  /// No description provided for @pleaseEnterWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a weight'**
+  String get pleaseEnterWeight;
+
+  /// No description provided for @pleaseEnterValidWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid weight (0–300 kg)'**
+  String get pleaseEnterValidWeight;
+
+  /// No description provided for @pleaseEnterValidWeightLbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid weight (0–660 lbs)'**
+  String get pleaseEnterValidWeightLbs;
+
+  /// No description provided for @date.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get date;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @welcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to w8'**
+  String get welcomeTitle;
+
+  /// No description provided for @welcomeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your companion for tracking weight progress. Gain 15kg in 6 months or set your own goal.'**
+  String get welcomeSubtitle;
+
+  /// No description provided for @featureMedianTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly median'**
+  String get featureMedianTitle;
+
+  /// No description provided for @featureMedianDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatically computes the median to smooth fluctuations.'**
+  String get featureMedianDesc;
+
+  /// No description provided for @featureSmartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Smart tracking'**
+  String get featureSmartTitle;
+
+  /// No description provided for @featureSmartDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Detects anomalies and validates your data.'**
+  String get featureSmartDesc;
+
+  /// No description provided for @featureProgressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear progress'**
+  String get featureProgressTitle;
+
+  /// No description provided for @featureProgressDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'See where you stand relative to your goal.'**
+  String get featureProgressDesc;
+
+  /// No description provided for @getStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get getStarted;
+
+  /// No description provided for @languageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your language'**
+  String get languageTitle;
+
+  /// No description provided for @languageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'The app will use this language. You can change it later in settings.'**
+  String get languageSubtitle;
+
+  /// No description provided for @languageEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get languageEnglish;
+
+  /// No description provided for @languageFrench.
+  ///
+  /// In en, this message translates to:
+  /// **'Français'**
+  String get languageFrench;
+
+  /// No description provided for @goalConfigTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal configuration'**
+  String get goalConfigTitle;
+
+  /// No description provided for @whatIsYourGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your goal?'**
+  String get whatIsYourGoal;
+
+  /// No description provided for @configureGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure your personal goal'**
+  String get configureGoal;
+
+  /// No description provided for @goalType.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal type'**
+  String get goalType;
+
+  /// No description provided for @gain.
+  ///
+  /// In en, this message translates to:
+  /// **'Gain'**
+  String get gain;
+
+  /// No description provided for @lose.
+  ///
+  /// In en, this message translates to:
+  /// **'Lose'**
+  String get lose;
+
+  /// No description provided for @maintain.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintain'**
+  String get maintain;
+
+  /// No description provided for @initialWeightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial weight (kg)'**
+  String get initialWeightKg;
+
+  /// No description provided for @targetWeightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Target weight (kg)'**
+  String get targetWeightKg;
+
+  /// No description provided for @goalStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal start date'**
+  String get goalStartDate;
+
+  /// No description provided for @selectDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a date'**
+  String get selectDate;
+
+  /// No description provided for @durationMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'Duration (months)'**
+  String get durationMonths;
+
+  /// No description provided for @durationHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 6'**
+  String get durationHint;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueButton;
+
+  /// No description provided for @goalSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goal summary'**
+  String get goalSummary;
+
+  /// No description provided for @goalSummaryFromTo.
+  ///
+  /// In en, this message translates to:
+  /// **'From {initial}kg to {target}kg in {months} months'**
+  String goalSummaryFromTo(String initial, String target, int months);
+
+  /// No description provided for @perMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'≈ {rate} kg/month'**
+  String perMonth(String rate);
+
+  /// No description provided for @enterInitialWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter an initial weight'**
+  String get enterInitialWeight;
+
+  /// No description provided for @enterTargetWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a target weight'**
+  String get enterTargetWeight;
+
+  /// No description provided for @enterDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a duration'**
+  String get enterDuration;
+
+  /// No description provided for @invalidWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid weight (0–500 kg)'**
+  String get invalidWeight;
+
+  /// No description provided for @invalidDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid duration (1–24 months)'**
+  String get invalidDuration;
+
+  /// No description provided for @targetMustBeGreater.
+  ///
+  /// In en, this message translates to:
+  /// **'Target weight must be greater than initial weight for gain goals.'**
+  String get targetMustBeGreater;
+
+  /// No description provided for @targetMustBeLess.
+  ///
+  /// In en, this message translates to:
+  /// **'Target weight must be less than initial weight for loss goals.'**
+  String get targetMustBeLess;
+
+  /// No description provided for @errorSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Error saving'**
+  String get errorSaving;
+
+  /// No description provided for @invalidData.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid data'**
+  String get invalidData;
+
+  /// No description provided for @selectGoalType.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a goal type'**
+  String get selectGoalType;
+
+  /// No description provided for @invalidGoalStartDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid start date'**
+  String get invalidGoalStartDate;
+
+  /// No description provided for @preferencesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Preferences'**
+  String get preferencesTitle;
+
+  /// No description provided for @personalizeExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Personalize your experience'**
+  String get personalizeExperience;
+
+  /// No description provided for @configurePreferences.
+  ///
+  /// In en, this message translates to:
+  /// **'Configure your preferences for the best experience'**
+  String get configurePreferences;
+
+  /// No description provided for @weightUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight unit'**
+  String get weightUnit;
+
+  /// No description provided for @kilograms.
+  ///
+  /// In en, this message translates to:
+  /// **'Kilograms (kg)'**
+  String get kilograms;
+
+  /// No description provided for @pounds.
+  ///
+  /// In en, this message translates to:
+  /// **'Pounds (lbs)'**
+  String get pounds;
+
+  /// No description provided for @weekStartsOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Week starts on'**
+  String get weekStartsOn;
+
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get sunday;
+
+  /// No description provided for @firstWeighInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'First weigh-in'**
+  String get firstWeighInTitle;
+
+  /// No description provided for @addFirstWeighInTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your first weigh-in'**
+  String get addFirstWeighInTitle;
+
+  /// No description provided for @yourGoalIs.
+  ///
+  /// In en, this message translates to:
+  /// **'Your goal: {initial}kg → {target}kg in {months} months'**
+  String yourGoalIs(String initial, String target, int months);
+
+  /// No description provided for @initialWeightConfigured.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial weight configured: {weight}kg'**
+  String initialWeightConfigured(String weight);
+
+  /// No description provided for @weightVeryDifferent.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight very different from configured initial. Please check.'**
+  String get weightVeryDifferent;
+
+  /// No description provided for @finishAndStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish and start'**
+  String get finishAndStart;
+
+  /// No description provided for @insights.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get insights;
+
+  /// No description provided for @ahead.
+  ///
+  /// In en, this message translates to:
+  /// **'Ahead'**
+  String get ahead;
+
+  /// No description provided for @behind.
+  ///
+  /// In en, this message translates to:
+  /// **'Behind'**
+  String get behind;
+
+  /// No description provided for @onTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'On track'**
+  String get onTrack;
+
+  /// No description provided for @daysAhead.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days ahead'**
+  String daysAhead(int count);
+
+  /// No description provided for @daysBehind.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days behind'**
+  String daysBehind(int count);
+
+  /// No description provided for @keepItUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it up!'**
+  String get keepItUp;
+
+  /// No description provided for @speedOfProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed of progress'**
+  String get speedOfProgress;
+
+  /// No description provided for @current.
+  ///
+  /// In en, this message translates to:
+  /// **'Current'**
+  String get current;
+
+  /// No description provided for @required.
+  ///
+  /// In en, this message translates to:
+  /// **'Required'**
+  String get required;
+
+  /// No description provided for @kgPerWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'kg/week'**
+  String get kgPerWeek;
+
+  /// No description provided for @percentOfRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% of required speed'**
+  String percentOfRequired(String percent);
+
+  /// No description provided for @prediction.
+  ///
+  /// In en, this message translates to:
+  /// **'Prediction'**
+  String get prediction;
+
+  /// No description provided for @goalReachedInDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal reached in {count} days'**
+  String goalReachedInDays(int count);
+
+  /// No description provided for @estimatedDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated date: {date}'**
+  String estimatedDate(String date);
+
+  /// No description provided for @daysAfterExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days after expected'**
+  String daysAfterExpected(int count);
+
+  /// No description provided for @daysBeforeExpected.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days before expected'**
+  String daysBeforeExpected(int count);
+
+  /// No description provided for @progressVsTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress: Time vs Weight'**
+  String get progressVsTime;
+
+  /// No description provided for @timeProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Time progress'**
+  String get timeProgress;
+
+  /// No description provided for @timeElapsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Time elapsed'**
+  String get timeElapsed;
+
+  /// No description provided for @weightProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight progress'**
+  String get weightProgress;
+
+  /// No description provided for @actualChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Actual change'**
+  String get actualChange;
+
+  /// No description provided for @aheadByPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Ahead by {percent}%'**
+  String aheadByPercent(String percent);
+
+  /// No description provided for @behindByPercent.
+  ///
+  /// In en, this message translates to:
+  /// **'Behind by {percent}%'**
+  String behindByPercent(String percent);
+
+  /// No description provided for @perfectlySynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Perfectly in sync with your goal'**
+  String get perfectlySynced;
+
+  /// No description provided for @settingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settingsTitle;
+
+  /// No description provided for @progressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progressTitle;
+
+  /// No description provided for @historyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get historyTitle;
+
+  /// No description provided for @insightsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get insightsTitle;
+
+  /// No description provided for @navHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get navHome;
+
+  /// No description provided for @navProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get navProgress;
+
+  /// No description provided for @navHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get navHistory;
+
+  /// No description provided for @navInsights.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights'**
+  String get navInsights;
+
+  /// No description provided for @navSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get navSettings;
+
+  /// No description provided for @monthsUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'months'**
+  String get monthsUnit;
+
+  /// No description provided for @kgUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get kgUnit;
+
+  /// No description provided for @lbsUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'lbs'**
+  String get lbsUnit;
+
+  /// No description provided for @lbsPerWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'lbs/week'**
+  String get lbsPerWeek;
+
+  /// No description provided for @progressLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get progressLabel;
+
+  /// No description provided for @weightToGo.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} kg to go'**
+  String weightToGo(String value);
+
+  /// No description provided for @weightToLose.
+  ///
+  /// In en, this message translates to:
+  /// **'{value} kg to lose'**
+  String weightToLose(String value);
+
+  /// No description provided for @weightToGoLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight to go'**
+  String get weightToGoLabel;
+
+  /// No description provided for @weightToLoseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight to lose'**
+  String get weightToLoseLabel;
+
+  /// No description provided for @weeksLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} weeks left'**
+  String weeksLeft(int count);
+
+  /// No description provided for @weeksLeftLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Weeks left'**
+  String get weeksLeftLabel;
+
+  /// No description provided for @goalWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal weight'**
+  String get goalWeight;
+
+  /// No description provided for @chartGoalLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get chartGoalLine;
+
+  /// No description provided for @chartStartLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get chartStartLine;
+
+  /// No description provided for @edit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get edit;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @editWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit weight'**
+  String get editWeight;
+
+  /// No description provided for @deleteEntryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete weigh-in?'**
+  String get deleteEntryTitle;
+
+  /// No description provided for @deleteEntryMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This action cannot be undone.'**
+  String get deleteEntryMessage;
+
+  /// No description provided for @entryDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Weigh-in deleted'**
+  String get entryDeleted;
+
+  /// No description provided for @weightUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Weigh-in updated'**
+  String get weightUpdated;
+}
+
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
+  const _AppLocalizationsDelegate();
+
+  @override
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
+  }
+
+  @override
+  bool isSupported(Locale locale) =>
+      <String>['en', 'fr'].contains(locale.languageCode);
+
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+
+AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
+    case 'fr':
+      return AppLocalizationsFr();
+  }
+
+  throw FlutterError(
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
+}
