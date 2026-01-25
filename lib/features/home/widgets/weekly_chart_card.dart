@@ -7,11 +7,21 @@ import '../../../core/extensions/l10n_context.dart';
 import '../../../core/utils/date_utils.dart' as date_utils;
 import '../../../core/utils/weight_converter.dart';
 import '../../../core/models/goal_configuration.dart';
+import '../../../core/models/chart_time_range.dart';
 import '../../../core/widgets/education_overlay.dart';
 import '../../../models/weight_entry.dart';
 
 /// Max number of weekly medians to show (mobile data-density best practice).
 const int _kMaxWeeksDisplayed = 16;
+
+/// Chart zoom state
+class _ChartZoomState {
+  double minX = 0;
+  double maxX = 0;
+  double minY = 0;
+  double maxY = 0;
+  bool isZoomed = false;
+}
 
 /// Chart height as fraction of viewport; clamped to [200, 280].
 double _chartHeight(double viewportHeight) {
@@ -33,7 +43,7 @@ int _yDecimals(double width) {
   return width < 360 ? 1 : 2;
 }
 
-class WeeklyChartCard extends StatelessWidget {
+class WeeklyChartCard extends StatefulWidget {
   const WeeklyChartCard({
     super.key,
     required this.entries,
@@ -50,14 +60,29 @@ class WeeklyChartCard extends StatelessWidget {
   final WeekStartDay weekStartsOn;
 
   @override
+  State<WeeklyChartCard> createState() => _WeeklyChartCardState();
+}
+
+class _WeeklyChartCardState extends State<WeeklyChartCard> {
+  ChartTimeRange _selectedTimeRange = ChartTimeRange.all;
+  _ChartZoomState? _zoomState;
+
+  @override
   Widget build(BuildContext context) {
     final weeklyMedians = date_utils.AppDateUtils.getWeeklyMedians(
-      entries,
-      weekStartsOn,
+      widget.entries,
+      widget.weekStartsOn,
     );
-    final displayed = weeklyMedians.length > _kMaxWeeksDisplayed
-        ? weeklyMedians.sublist(weeklyMedians.length - _kMaxWeeksDisplayed)
-        : weeklyMedians;
+    
+    // Filter by time range
+    final filteredMedians = _filterByTimeRange(weeklyMedians);
+    
+    // Apply zoom if active, otherwise use default display logic
+    final displayed = _zoomState?.isZoomed == true
+        ? _getZoomedData(filteredMedians)
+        : (filteredMedians.length > _kMaxWeeksDisplayed
+            ? filteredMedians.sublist(filteredMedians.length - _kMaxWeeksDisplayed)
+            : filteredMedians);
 
     if (displayed.isEmpty) {
       return Card(
@@ -103,15 +128,18 @@ class WeeklyChartCard extends StatelessWidget {
     final range = maxData - minData;
     final padding = range > 0 ? range * 0.2 : 1.0;
 
-    double minY = minData - padding;
-    double maxY = maxData + padding;
-    if (initialWeight != null) {
-      minY = math.min(minY, initialWeight!);
-      maxY = math.max(maxY, initialWeight!);
-    }
-    if (targetWeight != null) {
-      minY = math.min(minY, targetWeight!);
-      maxY = math.max(maxY, targetWeight!);
+    double minY = _zoomState?.isZoomed == true ? _zoomState!.minY : (minData - padding);
+    double maxY = _zoomState?.isZoomed == true ? _zoomState!.maxY : (maxData + padding);
+    
+    if (!(_zoomState?.isZoomed == true)) {
+      if (widget.initialWeight != null) {
+        minY = math.min(minY, widget.initialWeight!);
+        maxY = math.max(maxY, widget.initialWeight!);
+      }
+      if (widget.targetWeight != null) {
+        minY = math.min(minY, widget.targetWeight!);
+        maxY = math.max(maxY, widget.targetWeight!);
+      }
     }
     final span = maxY - minY;
     minY -= span * 0.05;
@@ -127,14 +155,14 @@ class WeeklyChartCard extends StatelessWidget {
     final primary = Theme.of(context).colorScheme.primary;
     final bodySmall = Theme.of(context).textTheme.bodySmall;
 
-    final unitStr = unit == WeightUnit.lbs ? l10n.lbsUnit : l10n.kgUnit;
+    final unitStr = widget.unit == WeightUnit.lbs ? l10n.lbsUnit : l10n.kgUnit;
     final horizontalLines = <HorizontalLine>[];
-    if (targetWeight != null) {
+    if (widget.targetWeight != null) {
       final targetDisplay =
-          WeightConverter.forDisplay(targetWeight!, unit);
+          WeightConverter.forDisplay(widget.targetWeight!, widget.unit);
       horizontalLines.add(
         HorizontalLine(
-          y: targetWeight!,
+          y: widget.targetWeight!,
           color: primary.withValues(alpha: 0.6),
           strokeWidth: 1.5,
           dashArray: [4, 4],
@@ -150,14 +178,14 @@ class WeeklyChartCard extends StatelessWidget {
         ),
       );
     }
-    if (initialWeight != null &&
-        (targetWeight == null ||
-            (initialWeight! - targetWeight!).abs() > 0.01)) {
+    if (widget.initialWeight != null &&
+        (widget.targetWeight == null ||
+            (widget.initialWeight! - widget.targetWeight!).abs() > 0.01)) {
       final initialDisplay =
-          WeightConverter.forDisplay(initialWeight!, unit);
+          WeightConverter.forDisplay(widget.initialWeight!, widget.unit);
       horizontalLines.add(
         HorizontalLine(
-          y: initialWeight!,
+          y: widget.initialWeight!,
           color: surfaceVariant,
           strokeWidth: 1,
           dashArray: [2, 4],
@@ -187,14 +215,42 @@ class WeeklyChartCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                 ),
-                EducationButton(
-                  contentId: 'weekly_medians',
-                  tooltip: context.l10n.learnMore,
-                  child: Icon(
-                    Icons.help_outline_rounded,
-                    size: 20,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    // Time range selector
+                    PopupMenuButton<ChartTimeRange>(
+                      icon: Icon(
+                        Icons.filter_list_rounded,
+                        size: 20,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      tooltip: context.l10n.timeRange,
+                      onSelected: (range) {
+                        setState(() {
+                          _selectedTimeRange = range;
+                          _zoomState = null; // Reset zoom when changing range
+                        });
+                      },
+                      itemBuilder: (context) => ChartTimeRange.values
+                          .map((range) => PopupMenuItem(
+                                value: range,
+                                child: Text(range.getLabel(context)),
+                              ))
+                          .toList(),
+                    ),
+                    const SizedBox(width: 8),
+                    // Help button
+                    EducationButton(
+                      contentId: 'weekly_medians',
+                      tooltip: context.l10n.learnMore,
+                      child: Icon(
+                        Icons.help_outline_rounded,
+                        size: 20,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -247,7 +303,7 @@ class WeeklyChartCard extends StatelessWidget {
                         interval: yInterval,
                         getTitlesWidget: (value, meta) {
                           final display =
-                              WeightConverter.forDisplay(value, unit);
+                              WeightConverter.forDisplay(value, widget.unit);
                           return Text(
                             display.toStringAsFixed(yDecimals),
                             style: bodySmall?.copyWith(
@@ -295,7 +351,7 @@ class WeeklyChartCard extends StatelessWidget {
                           final dateStr =
                               DateFormat('dd/MM/yy', locale).format(e.key);
                           final display =
-                              WeightConverter.forDisplay(e.value, unit);
+                              WeightConverter.forDisplay(e.value, widget.unit);
                           final valueStr =
                               '${display.toStringAsFixed(2)} $unitStr';
                           return LineTooltipItem(
@@ -306,8 +362,10 @@ class WeeklyChartCard extends StatelessWidget {
                       },
                     ),
                   ),
-                  minX: 0,
-                  maxX: (displayed.length - 1).toDouble(),
+                  minX: _zoomState?.isZoomed == true ? _zoomState!.minX : 0,
+                  maxX: _zoomState?.isZoomed == true 
+                      ? _zoomState!.maxX 
+                      : (displayed.length - 1).toDouble(),
                   minY: minY,
                   maxY: maxY,
                   lineBarsData: [
@@ -338,5 +396,27 @@ class WeeklyChartCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// Filter weekly medians by selected time range
+  List<MapEntry<DateTime, double>> _filterByTimeRange(
+      List<MapEntry<DateTime, double>> medians) {
+    final startDate = _selectedTimeRange.getStartDate();
+    if (startDate == null) return medians;
+    
+    return medians.where((entry) => entry.key.isAfter(startDate) || 
+        entry.key.isAtSameMomentAs(startDate)).toList();
+  }
+
+  /// Get zoomed data based on zoom state
+  List<MapEntry<DateTime, double>> _getZoomedData(
+      List<MapEntry<DateTime, double>> medians) {
+    if (_zoomState == null || !_zoomState!.isZoomed) return medians;
+    
+    final startIndex = _zoomState!.minX.toInt().clamp(0, medians.length - 1);
+    final endIndex = _zoomState!.maxX.toInt().clamp(0, medians.length - 1);
+    
+    if (startIndex >= endIndex) return medians;
+    return medians.sublist(startIndex, endIndex + 1);
   }
 }

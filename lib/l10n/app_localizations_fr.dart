@@ -723,4 +723,19 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get selectTheme => 'Sélectionner le thème';
+
+  @override
+  String get timeRange => 'Période';
+
+  @override
+  String get last4Weeks => '4 dernières semaines';
+
+  @override
+  String get last3Months => '3 derniers mois';
+
+  @override
+  String get last6Months => '6 derniers mois';
+
+  @override
+  String get allTime => 'Tout';
 }

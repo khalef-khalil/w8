@@ -718,4 +718,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectTheme => 'Select Theme';
+
+  @override
+  String get timeRange => 'Time range';
+
+  @override
+  String get last4Weeks => 'Last 4 weeks';
+
+  @override
+  String get last3Months => 'Last 3 months';
+
+  @override
+  String get last6Months => 'Last 6 months';
+
+  @override
+  String get allTime => 'All time';
 }

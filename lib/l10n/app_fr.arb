@@ -245,5 +245,11 @@
   "lightTheme": "Clair",
   "darkTheme": "Sombre",
   "systemTheme": "Système",
-  "selectTheme": "Sélectionner le thème"
+  "selectTheme": "Sélectionner le thème",
+
+  "timeRange": "Période",
+  "last4Weeks": "4 dernières semaines",
+  "last3Months": "3 derniers mois",
+  "last6Months": "6 derniers mois",
+  "allTime": "Tout"
 }
