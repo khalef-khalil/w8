@@ -198,7 +198,7 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
       if (!mounted) return;
 
       if (success) {
-      // Check for celebrations and achievements
+        // Check for celebrations and achievements
       final entries = HiveStorageService.getWeightEntries();
       final goalConfig = GoalStorageService.getGoalConfiguration();
       final metrics = goalConfig != null
