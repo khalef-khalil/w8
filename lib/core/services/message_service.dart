@@ -1,6 +1,4 @@
-import '../models/validation_result.dart';
 import '../models/goal_configuration.dart';
-import '../utils/weight_converter.dart';
 
 /// Service pour générer des messages utilisateur-friendly et encourageants
 class MessageService {

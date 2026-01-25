@@ -9,7 +9,6 @@ import '../../../core/providers/locale_provider.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/utils/week_start_day_labels.dart';
 import '../../home/viewmodels/home_viewmodel.dart';
-import 'edit_goal_screen.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -169,7 +168,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 icon: Icons.edit_rounded,
                 title: context.l10n.editGoal,
                 subtitle: context.l10n.editGoalDescription,
-                onTap: () => context.push('/settings/edit-goal'),
+                onTap: () => context.push('/settings/edit-goal').then((_) {
+                  // Refresh when returning from edit goal
+                  ref.read(homeViewModelProvider.notifier).refresh();
+                }),
               ),
               const SizedBox(height: 12),
               // Data Management Section
@@ -237,7 +239,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       if (format == null) return;
 
       String data;
-      String filename;
       
       if (format == 'csv') {
         data = await DataExportService.exportToCSV();

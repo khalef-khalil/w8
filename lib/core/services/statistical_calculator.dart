@@ -1,7 +1,6 @@
 import '../../models/weight_entry.dart';
 import '../utils/date_utils.dart' as date_utils;
 import '../models/goal_configuration.dart';
-import 'smoothing_calculator.dart';
 
 /// Service pour les calculs statistiques avancés
 class StatisticalCalculator {
