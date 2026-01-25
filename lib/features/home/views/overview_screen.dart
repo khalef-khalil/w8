@@ -81,10 +81,7 @@ class OverviewScreen extends ConsumerWidget {
                   ],
                 ],
               ] else if (state.entries.length >= 2) ...[
-                // Show placeholder for weekly evolution and other sections
-                _buildWeeklyEvolutionPlaceholder(context, state.totalDaysTracked),
-                const SizedBox(height: 24),
-                // Insights placeholder
+                // Show placeholder for all gated sections (weekly evolution, insights, etc.)
                 _buildInsightsPlaceholder(context, state.totalDaysTracked),
               ],
             ],
@@ -579,57 +576,6 @@ class OverviewScreen extends ConsumerWidget {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildWeeklyEvolutionPlaceholder(BuildContext context, int daysTracked) {
-    final daysRemaining = (7 - daysTracked).clamp(0, 7);
-    
-    return Card(
-      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Icon(
-              Icons.show_chart_rounded,
-              size: 48,
-              color: Theme.of(context).colorScheme.onSurfaceVariant,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.insightsComingSoon,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              context.l10n.insightsComingSoonMessage,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 16),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Text(
-                context.l10n.insightsDaysRemaining(daysRemaining),
-                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
