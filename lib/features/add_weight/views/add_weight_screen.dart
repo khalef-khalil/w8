@@ -343,17 +343,18 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Semantics(
-          label: context.l10n.back,
+          label: 'Back',
           button: true,
           child: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            if (_isEdit) {
-              context.pop();
-            } else {
-              context.go('/');
-            }
-          },
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              if (_isEdit) {
+                context.pop();
+              } else {
+                context.go('/');
+              }
+            },
+          ),
         ),
         title: Text(
           _isEdit ? context.l10n.editWeight : context.l10n.addWeight,
