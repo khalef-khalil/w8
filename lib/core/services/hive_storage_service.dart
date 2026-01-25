@@ -93,6 +93,7 @@ class HiveStorageService {
   /// Utilise un timestamp ISO8601 comme clé pour permettre plusieurs entrées par jour
   static Future<void> saveWeightEntry(WeightEntry entry) async {
     if (_weightEntriesBox == null) throw Exception('Hive non initialisé');
+    MetricsCache.clearCache(); // Clear cache when entries change
     
     // Utiliser une clé basée sur le timestamp complet (ISO8601) pour permettre plusieurs entrées par jour
     final key = _getTimestampKey(entry.date);
