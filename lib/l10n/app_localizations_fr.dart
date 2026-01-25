@@ -705,6 +705,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get tipsAndEducation => 'Conseils et éducation';
 
   @override
+  String get tipsAndEducationDescription =>
+      'Apprendre sur le suivi du poids et les meilleures pratiques';
+
+  @override
+  String get allAchievements => 'Tous les succès';
+
+  @override
   String get recommendations => 'Recommandations';
 
   @override

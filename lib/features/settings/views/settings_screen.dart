@@ -9,10 +9,8 @@ import '../../../core/services/reminder_service.dart';
 import '../../../core/services/achievement_service.dart';
 import '../../../core/services/preferences_service.dart';
 import '../../../core/models/achievement.dart';
-import '../../../core/models/education_content.dart';
 import '../../../core/models/user_preferences.dart';
 import '../../../core/providers/theme_provider.dart';
-import '../../../core/widgets/education_overlay.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/utils/week_start_day_labels.dart';
@@ -259,7 +257,15 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
               ),
               const SizedBox(height: 12),
-              _buildAchievementsSection(context),
+              _DataManagementCard(
+                icon: Icons.emoji_events_rounded,
+                title: context.l10n.achievements,
+                subtitle: context.l10n.achievementsProgress(
+                  AchievementService.getUnlockedAchievements().length,
+                  AchievementType.values.length,
+                ),
+                onTap: () => context.push('/settings/achievements'),
+              ),
               const SizedBox(height: 32),
               // Goal Management Section
               Text(
@@ -287,7 +293,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     ),
               ),
               const SizedBox(height: 12),
-              _buildEducationSection(context),
+              _DataManagementCard(
+                icon: Icons.school_rounded,
+                title: context.l10n.tipsAndEducation,
+                subtitle: context.l10n.tipsAndEducationDescription,
+                onTap: () => context.push('/settings/education'),
+              ),
               const SizedBox(height: 32),
               // Data Management Section
               Text(
@@ -420,132 +431,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     }
   }
 
-  Widget _buildAchievementsSection(BuildContext context) {
-    final achievements = AchievementService.getUnlockedAchievements();
-    final allTypes = AchievementType.values;
-    final unlockedCount = achievements.length;
-    final totalCount = allTypes.length;
-
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  context.l10n.achievementsProgress(unlockedCount, totalCount),
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-                Text(
-                  '${(unlockedCount / totalCount * 100).toStringAsFixed(0)}%',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            // Show unlocked achievements
-            if (achievements.isEmpty)
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Center(
-                  child: Text(
-                    context.l10n.noAchievementsYet,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              )
-            else
-              Wrap(
-                spacing: 12,
-                runSpacing: 12,
-                children: achievements.take(6).map((achievement) {
-                  return _AchievementBadge(
-                    achievement: achievement,
-                    isUnlocked: true,
-                  );
-                }).toList(),
-              ),
-            if (achievements.length > 6) ...[
-              const SizedBox(height: 8),
-              TextButton(
-                onPressed: () {
-                  // TODO: Navigate to full achievements screen
-                },
-                child: Text(context.l10n.viewAllAchievements),
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildEducationSection(BuildContext context) {
-    final allContent = EducationContentLibrary.getAllContent();
-    
-    return Column(
-      children: allContent.map((content) {
-        return Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Card(
-            child: ListTile(
-              leading: Icon(
-                _getEducationIcon(content.icon),
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              title: Text(content.title),
-              subtitle: Text(
-                content.content.split('\n').first,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-              trailing: const Icon(Icons.chevron_right_rounded),
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (ctx) => EducationOverlay(
-                    content: content,
-                    onDismiss: () => Navigator.of(ctx).pop(),
-                  ),
-                );
-              },
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  IconData _getEducationIcon(String? iconName) {
-    if (iconName == null) return Icons.info_rounded;
-    switch (iconName) {
-      case 'water_drop':
-        return Icons.water_drop_rounded;
-      case 'trending_up':
-        return Icons.trending_up_rounded;
-      case 'check_circle':
-        return Icons.check_circle_rounded;
-      case 'pause_circle':
-        return Icons.pause_circle_rounded;
-      case 'insights':
-        return Icons.insights_rounded;
-      case 'favorite':
-        return Icons.favorite_rounded;
-      default:
-        return Icons.info_rounded;
-    }
-  }
 
   String _getThemeLabel(BuildContext context, ThemeMode mode) {
     switch (mode) {
@@ -583,87 +468,6 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       setState(() {
         _preferences = PreferencesService.getPreferences();
       });
-    }
-  }
-}
-
-class _AchievementBadge extends StatelessWidget {
-  final Achievement? achievement;
-  final AchievementType? type;
-  final bool isUnlocked;
-  final double progress;
-
-  const _AchievementBadge({
-    this.achievement,
-    this.type,
-    required this.isUnlocked,
-    this.progress = 0.0,
-  }) : assert(achievement != null || type != null);
-
-  @override
-  Widget build(BuildContext context) {
-    final title = achievement != null
-        ? achievement!.title
-        : Achievement.getTitle(type!);
-    final icon = achievement != null
-        ? achievement!.icon
-        : Achievement.getIcon(type!);
-
-    return Tooltip(
-      message: title,
-      child: Container(
-        width: 56,
-        height: 56,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: isUnlocked
-              ? Theme.of(context).colorScheme.primaryContainer
-              : Theme.of(context).colorScheme.surfaceContainerHighest,
-          border: Border.all(
-            color: isUnlocked
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.outline,
-            width: isUnlocked ? 2 : 1,
-          ),
-        ),
-        child: Icon(
-          _getIconData(icon),
-          color: isUnlocked
-              ? Theme.of(context).colorScheme.onPrimaryContainer
-              : Theme.of(context).colorScheme.onSurfaceVariant,
-          size: 28,
-        ),
-      ),
-    );
-  }
-
-  IconData _getIconData(String iconName) {
-    // Map icon names to Material icons
-    switch (iconName) {
-      case 'flag':
-        return Icons.flag_rounded;
-      case 'local_fire_department':
-        return Icons.local_fire_department_rounded;
-      case 'whatshot':
-        return Icons.whatshot_rounded;
-      case 'emoji_events':
-        return Icons.emoji_events_rounded;
-      case 'looks_one':
-        return Icons.looks_one_rounded;
-      case 'looks_two':
-        return Icons.looks_two_rounded;
-      case 'looks_3':
-        return Icons.looks_3_rounded;
-      case 'military_tech':
-        return Icons.military_tech_rounded;
-      case 'check_circle':
-        return Icons.check_circle_rounded;
-      case 'verified':
-        return Icons.verified_rounded;
-      case 'workspace_premium':
-        return Icons.workspace_premium_rounded;
-      default:
-        return Icons.star_rounded;
     }
   }
 }

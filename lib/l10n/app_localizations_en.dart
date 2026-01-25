@@ -699,6 +699,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tipsAndEducation => 'Tips & Education';
 
   @override
+  String get tipsAndEducationDescription =>
+      'Learn about weight tracking and best practices';
+
+  @override
+  String get allAchievements => 'All Achievements';
+
+  @override
   String get recommendations => 'Recommendations';
 
   @override

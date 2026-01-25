@@ -10,6 +10,8 @@ import '../../features/onboarding/views/preferences_screen.dart';
 import '../../features/onboarding/views/first_entry_screen.dart';
 import '../../features/onboarding/views/language_selection_screen.dart';
 import '../../features/settings/views/edit_goal_screen.dart';
+import '../../features/settings/views/education_page.dart';
+import '../../features/settings/views/achievements_page.dart';
 import '../../core/services/goal_storage_service.dart';
 
 /// Custom page transitions
@@ -142,6 +144,22 @@ final appRouter = GoRouter(
       name: 'edit-goal',
       pageBuilder: (context, state) => _buildPageWithTransition(
         const EditGoalScreen(),
+        state,
+      ),
+    ),
+    GoRoute(
+      path: '/settings/education',
+      name: 'education',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const EducationPage(),
+        state,
+      ),
+    ),
+    GoRoute(
+      path: '/settings/achievements',
+      name: 'achievements',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const AchievementsPage(),
         state,
       ),
     ),

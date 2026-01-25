@@ -1370,6 +1370,18 @@ abstract class AppLocalizations {
   /// **'Tips & Education'**
   String get tipsAndEducation;
 
+  /// No description provided for @tipsAndEducationDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn about weight tracking and best practices'**
+  String get tipsAndEducationDescription;
+
+  /// No description provided for @allAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'All Achievements'**
+  String get allAchievements;
+
   /// No description provided for @recommendations.
   ///
   /// In en, this message translates to:
