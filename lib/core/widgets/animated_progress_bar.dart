@@ -90,7 +90,9 @@ class _AnimatedProgressBarState extends State<AnimatedProgressBar>
             ClipRRect(
               borderRadius: BorderRadius.circular(widget.height / 2),
               child: Align(
-                alignment: Alignment.centerLeft,
+                alignment: Directionality.of(context) == TextDirection.rtl
+                    ? Alignment.centerRight
+                    : Alignment.centerLeft,
                 child: Container(
                   height: widget.height,
                   width: MediaQuery.of(context).size.width * animatedProgress,
@@ -100,6 +102,12 @@ class _AnimatedProgressBarState extends State<AnimatedProgressBar>
                         progressColor,
                         progressColor.withValues(alpha: 0.8),
                       ],
+                      begin: Directionality.of(context) == TextDirection.rtl
+                          ? Alignment.centerRight
+                          : Alignment.centerLeft,
+                      end: Directionality.of(context) == TextDirection.rtl
+                          ? Alignment.centerLeft
+                          : Alignment.centerRight,
                     ),
                   ),
                 ),
@@ -109,8 +117,13 @@ class _AnimatedProgressBarState extends State<AnimatedProgressBar>
             if (_milestones.isNotEmpty)
               ..._milestones.map((milestone) {
                 if (milestone > animatedProgress) return const SizedBox.shrink();
+                final isRtl = Directionality.of(context) == TextDirection.rtl;
+                final position = isRtl
+                    ? MediaQuery.of(context).size.width * (1.0 - milestone) - 2
+                    : MediaQuery.of(context).size.width * milestone - 2;
                 return Positioned(
-                  left: MediaQuery.of(context).size.width * milestone - 2,
+                  left: isRtl ? null : position,
+                  right: isRtl ? position : null,
                   top: 0,
                   child: Container(
                     width: 4,

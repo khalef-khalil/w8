@@ -205,16 +205,19 @@ class InsightsCard extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         // Barre de progression de la vitesse
-        ClipRRect(
-          borderRadius: BorderRadius.circular(4),
-          child: LinearProgressIndicator(
-            value: ratio.clamp(0.0, 1.5), // Max à 150% pour ne pas dépasser
-            minHeight: 8,
-            backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-            valueColor: AlwaysStoppedAnimation<Color>(
-              ratio >= 1.0
-                  ? Colors.green
-                  : (ratio >= 0.9 ? Colors.orange : Colors.red),
+        Directionality(
+          textDirection: Directionality.of(context),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: LinearProgressIndicator(
+              value: ratio.clamp(0.0, 1.5), // Max à 150% pour ne pas dépasser
+              minHeight: 8,
+              backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
+              valueColor: AlwaysStoppedAnimation<Color>(
+                ratio >= 1.0
+                    ? Colors.green
+                    : (ratio >= 0.9 ? Colors.orange : Colors.red),
+              ),
             ),
           ),
         ),

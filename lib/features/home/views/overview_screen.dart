@@ -66,8 +66,10 @@ class OverviewScreen extends ConsumerWidget {
                 weekStartsOn:
                     state.goalConfig?.weekStartDay ?? WeekStartDay.monday,
               ),
-              // Insights (if we have enough data)
-              if (state.metrics != null && state.entries.length >= 2) ...[
+              // Insights (if we have enough data - at least 7 days of usage)
+              if (state.metrics != null && 
+                  state.entries.length >= 2 && 
+                  state.totalDaysTracked >= 7) ...[
                 const SizedBox(height: 24),
                 InsightsCard(metrics: state.metrics!),
                 const SizedBox(height: 24),
