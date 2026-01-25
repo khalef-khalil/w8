@@ -54,13 +54,6 @@ class WeightTrackerApp extends ConsumerWidget {
           seedColor: const Color(0xFF6366F1), // Indigo
           brightness: Brightness.light,
         ),
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF6366F1), // Indigo
-          brightness: Brightness.dark,
-        ),
         cardTheme: CardThemeData(
           elevation: 0,
           shape: RoundedRectangleBorder(
