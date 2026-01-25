@@ -164,6 +164,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get languageFrench => 'Français';
 
   @override
+  String get languageArabic => 'العربية';
+
+  @override
   String get goalConfigTitle => 'Configuration de l\'objectif';
 
   @override

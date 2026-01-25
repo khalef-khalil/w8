@@ -1,0 +1,372 @@
+{
+  "@@locale": "ar",
+  "appTitle": "تتبع الوزن",
+  "addWeight": "إضافة وزن",
+  "weightTracking": "تتبع الوزن",
+  "retry": "إعادة المحاولة",
+  "errorLoading": "خطأ في التحميل",
+  "startTrackingPrompt": "ابدأ بتتبع وزنك",
+  "addFirstWeighIn": "أضف أول قياس وزن للبدء",
+  "currentWeight": "الوزن الحالي",
+  "progressToGoal": "التقدم نحو الهدف (+15 كجم)",
+  "start": "البداية",
+  "goal": "الهدف",
+  "weeks": "أسابيع",
+  "medians": "متوسطات",
+  "notEnoughData": "لا توجد بيانات كافية",
+  "addWeighInsForChart": "أضف قياسات الوزن لرؤية الرسم البياني",
+  "weeklyEvolution": "التطور الأسبوعي (المتوسط)",
+  "recentWeighIns": "قياسات الوزن الأخيرة",
+  "today": "اليوم",
+  "yesterday": "أمس",
+  "save": "حفظ",
+  "weightSaved": "تم حفظ الوزن بنجاح",
+  "validationError": "خطأ في التحقق",
+  "warning": "تحذير",
+  "cancel": "إلغاء",
+  "confirm": "تأكيد",
+  "weightKg": "الوزن (كجم)",
+  "weightLbs": "الوزن (رطل)",
+  "weightHint": "مثال: 70.50",
+  "targetWeightHint": "مثال: 85.00",
+  "errorWithMessage": "خطأ: {message}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "message": {"type": "String"}
+    }
+  },
+  "pleaseEnterWeight": "يرجى إدخال وزن",
+  "pleaseEnterValidWeight": "يرجى إدخال وزن صحيح (0-300 كجم)",
+  "pleaseEnterValidWeightLbs": "يرجى إدخال وزن صحيح (0-660 رطل)",
+  "date": "التاريخ",
+  "time": "الوقت",
+  "register": "تسجيل",
+
+  "welcomeTitle": "مرحباً بك في w8",
+  "welcomeSubtitle": "رفيقك لتتبع تقدم وزنك. اكتسب 15 كجم في 6 أشهر أو حدد هدفك الخاص.",
+  "featureMedianTitle": "المتوسط الأسبوعي",
+  "featureMedianDesc": "يحسب المتوسط تلقائياً لتخفيف التقلبات.",
+  "featureSmartTitle": "تتبع ذكي",
+  "featureSmartDesc": "يكتشف الشذوذات ويحقق من بياناتك.",
+  "featureProgressTitle": "تقدم واضح",
+  "featureProgressDesc": "انظر أين أنت بالنسبة لهدفك.",
+  "getStarted": "ابدأ",
+
+  "languageTitle": "اختر لغتك",
+  "languageSubtitle": "سيستخدم التطبيق هذه اللغة. يمكنك تغييرها لاحقاً في الإعدادات.",
+  "languageEnglish": "English",
+  "languageFrench": "Français",
+  "languageArabic": "العربية",
+
+  "goalConfigTitle": "تكوين الهدف",
+  "whatIsYourGoal": "ما هو هدفك؟",
+  "configureGoal": "قم بتكوين هدفك الشخصي",
+  "goalType": "نوع الهدف",
+  "gain": "زيادة",
+  "lose": "فقدان",
+  "maintain": "الحفاظ",
+  "initialWeightKg": "الوزن الأولي (كجم)",
+  "targetWeightKg": "الوزن المستهدف (كجم)",
+  "goalStartDate": "تاريخ بداية الهدف",
+  "selectDate": "اختر تاريخاً",
+  "durationMonths": "المدة (أشهر)",
+  "durationHint": "مثال: 6",
+  "continueButton": "متابعة",
+  "goalSummary": "ملخص هدفك",
+  "goalSummaryFromTo": "من {initial} كجم إلى {target} كجم في {months} أشهر",
+  "@goalSummaryFromTo": {
+    "placeholders": {
+      "initial": {"type": "String"},
+      "target": {"type": "String"},
+      "months": {"type": "int"}
+    }
+  },
+  "perMonth": "≈ {rate} كجم/شهر",
+  "@perMonth": {
+    "placeholders": {
+      "rate": {"type": "String"}
+    }
+  },
+  "enterInitialWeight": "أدخل وزناً أولياً",
+  "enterTargetWeight": "أدخل وزناً مستهدفاً",
+  "enterDuration": "أدخل مدة",
+  "invalidWeight": "وزن غير صحيح (0-500 كجم)",
+  "invalidDuration": "مدة غير صحيحة (1-24 شهراً)",
+  "targetMustBeGreater": "يجب أن يكون الوزن المستهدف أكبر من الوزن الأولي لأهداف الزيادة.",
+  "targetMustBeLess": "يجب أن يكون الوزن المستهدف أقل من الوزن الأولي لأهداف الفقدان.",
+  "errorSaving": "خطأ في الحفظ",
+  "invalidData": "بيانات غير صحيحة",
+  "selectGoalType": "اختر نوع الهدف",
+  "invalidGoalStartDate": "تاريخ بداية غير صحيح",
+
+  "preferencesTitle": "التفضيلات",
+  "personalizeExperience": "خصص تجربتك",
+  "configurePreferences": "قم بتكوين تفضيلاتك للحصول على أفضل تجربة",
+  "weightUnit": "وحدة الوزن",
+  "kilograms": "كيلوغرامات (كجم)",
+  "pounds": "أرطال (رطل)",
+  "weekStartsOn": "يبدأ الأسبوع في",
+  "monday": "الاثنين",
+  "tuesday": "الثلاثاء",
+  "wednesday": "الأربعاء",
+  "thursday": "الخميس",
+  "friday": "الجمعة",
+  "saturday": "السبت",
+  "sunday": "الأحد",
+
+  "firstWeighInTitle": "أول قياس وزن",
+  "addFirstWeighInTitle": "أضف أول قياس وزن",
+  "yourGoalIs": "هدفك: {initial} كجم → {target} كجم في {months} أشهر",
+  "@yourGoalIs": {
+    "placeholders": {
+      "initial": {"type": "String"},
+      "target": {"type": "String"},
+      "months": {"type": "int"}
+    }
+  },
+  "initialWeightConfigured": "الوزن الأولي المكون: {weight} كجم",
+  "@initialWeightConfigured": {
+    "placeholders": {
+      "weight": {"type": "String"}
+    }
+  },
+  "weightVeryDifferent": "الوزن مختلف جداً عن الوزن الأولي المكون. يرجى التحقق.",
+  "finishAndStart": "إنهاء والبدء",
+
+  "insights": "رؤى",
+  "ahead": "متقدم",
+  "behind": "متأخر",
+  "onTrack": "على المسار الصحيح",
+  "daysAhead": "متقدم {count} أيام",
+  "@daysAhead": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "daysBehind": "متأخر {count} أيام",
+  "@daysBehind": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "keepItUp": "استمر!",
+  "speedOfProgress": "سرعة التقدم",
+  "current": "الحالي",
+  "required": "المطلوب",
+  "kgPerWeek": "كجم/أسبوع",
+  "percentOfRequired": "{percent}% من السرعة المطلوبة",
+  "@percentOfRequired": {
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+  "prediction": "التنبؤ",
+  "goalReachedInDays": "سيتم الوصول للهدف في {count} أيام",
+  "@goalReachedInDays": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "estimatedDate": "التاريخ المقدر: {date}",
+  "@estimatedDate": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "daysAfterExpected": "{count} أيام بعد المتوقع",
+  "@daysAfterExpected": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "daysBeforeExpected": "{count} أيام قبل المتوقع",
+  "@daysBeforeExpected": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+
+  "progressVsTime": "التقدم: الوقت مقابل الوزن",
+  "timeProgress": "تقدم الوقت",
+  "timeElapsed": "الوقت المنقضي",
+  "weightProgress": "تقدم الوزن",
+  "actualChange": "التغيير الفعلي",
+  "aheadByPercent": "متقدم بنسبة {percent}%",
+  "@aheadByPercent": {
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+  "behindByPercent": "متأخر بنسبة {percent}%",
+  "@behindByPercent": {
+    "placeholders": {
+      "percent": {"type": "String"}
+    }
+  },
+  "perfectlySynced": "متزامن تماماً مع هدفك",
+
+  "settingsTitle": "الإعدادات",
+  "progressTitle": "التقدم",
+  "historyTitle": "السجل",
+  "insightsTitle": "الرؤى",
+  "navHome": "الرئيسية",
+  "navProgress": "التقدم",
+  "navHistory": "السجل",
+  "navInsights": "الرؤى",
+  "navSettings": "الإعدادات",
+  "navOverview": "نظرة عامة",
+  "overviewTitle": "نظرة عامة",
+  "monthsUnit": "أشهر",
+  "kgUnit": "كجم",
+  "lbsUnit": "رطل",
+  "lbsPerWeek": "رطل/أسبوع",
+
+  "progressLabel": "التقدم",
+  "weightToGo": "{value} كجم متبقية",
+  "@weightToGo": {
+    "placeholders": {
+      "value": {"type": "String"}
+    }
+  },
+  "weightToLose": "{value} كجم للفقدان",
+  "@weightToLose": {
+    "placeholders": {
+      "value": {"type": "String"}
+    }
+  },
+  "weightToGoLabel": "الوزن المتبقي",
+  "weightToLoseLabel": "الوزن للفقدان",
+  "weeksLeft": "متبقي {count} أسابيع",
+  "@weeksLeft": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "weeksLeftLabel": "الأسابيع المتبقية",
+  "goalWeight": "الوزن المستهدف",
+  "chartGoalLine": "الهدف",
+  "chartStartLine": "البداية",
+
+  "edit": "تعديل",
+  "delete": "حذف",
+  "editWeight": "تعديل الوزن",
+  "deleteEntryTitle": "حذف قياس الوزن؟",
+  "deleteEntryMessage": "لا يمكن التراجع عن هذا الإجراء.",
+  "entryDeleted": "تم حذف قياس الوزن",
+  "weightUpdated": "تم تحديث قياس الوزن",
+
+  "dataManagement": "إدارة البيانات",
+  "exportData": "تصدير البيانات",
+  "exportDataDescription": "قم بتصدير بيانات وزنك بتنسيق CSV أو JSON",
+  "exportAsCSV": "تصدير كـ CSV",
+  "exportAsCSVDescription": "تنسيق قيم مفصولة بفواصل، سهل الفتح في Excel",
+  "exportAsJSON": "تصدير كـ JSON",
+  "exportAsJSONDescription": "تنسيق JSON مع جميع البيانات بما في ذلك تكوين الهدف",
+  "exportDataReady": "بياناتك جاهزة للنسخ:",
+  "copyToClipboard": "نسخ إلى الحافظة",
+  "dataCopiedToClipboard": "تم نسخ البيانات إلى الحافظة",
+  "errorExporting": "خطأ في التصدير",
+  "close": "إغلاق",
+
+  "currentStreak": "السلسلة الحالية",
+  "daysInARow": "{count} أيام متتالية",
+  "@daysInARow": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "longestStreak": "الأطول: {count} أيام",
+  "@longestStreak": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "makingProgress": "إحراز تقدم",
+  "validationError": "خطأ في التحقق",
+  "justChecking": "التحقق فقط",
+  "yesContinue": "نعم، متابعة",
+  "weightSavedSuccess": "رائع! تم حفظ الوزن بنجاح",
+  "weightUpdatedSuccess": "تم التحديث! تم حفظ إدخالك",
+
+  "editGoal": "تعديل الهدف",
+  "editYourGoal": "عدل هدفك",
+  "editGoalDescription": "قم بتحديث إعدادات هدفك",
+  "goalManagement": "إدارة الهدف",
+  "goalUpdated": "تم تحديث الهدف بنجاح",
+  "initialWeightLbs": "الوزن الأولي (رطل)",
+  "targetWeightLbs": "الوزن المستهدف (رطل)",
+
+  "reminders": "التذكيرات",
+  "enableReminders": "تفعيل التذكيرات اليومية",
+  "enableRemindersDescription": "احصل على إشعار لتتبع وزنك",
+  "reminderTime": "وقت التذكير",
+  "notificationPermissionRequired": "إذن الإشعارات مطلوب لتفعيل التذكيرات",
+  "notSet": "غير محدد",
+
+  "achievements": "الإنجازات",
+  "achievementsProgress": "{unlocked} من {total} مفتوحة",
+  "@achievementsProgress": {
+    "placeholders": {
+      "unlocked": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "noAchievementsYet": "استمر في التتبع لفتح الإنجازات!",
+  "viewAllAchievements": "عرض الكل",
+
+  "addContext": "إضافة سياق (اختياري)",
+  "addContextDescription": "تتبع العوامل التي قد تؤثر على وزنك",
+  "sleepQuality": "جودة النوم",
+  "stressLevel": "مستوى التوتر",
+  "exercisedToday": "تم التمرين اليوم",
+  "mealTiming": "توقيت الوجبة",
+  "selectMealTiming": "اختر متى قمت بالوزن",
+  "beforeBreakfast": "قبل الإفطار",
+  "afterBreakfast": "بعد الإفطار",
+  "beforeLunch": "قبل الغداء",
+  "afterLunch": "بعد الغداء",
+  "beforeDinner": "قبل العشاء",
+  "afterDinner": "بعد العشاء",
+  "other": "أخرى",
+  "notes": "ملاحظات",
+  "notesHint": "أضف أي ملاحظات إضافية...",
+
+  "patternInsights": "رؤى الأنماط",
+  "tryThis": "جرب هذا",
+
+  "learnMore": "تعلم المزيد",
+  "gotIt": "فهمت",
+  "tipsAndEducation": "نصائح وتعليم",
+  "tipsAndEducationDescription": "تعلم عن تتبع الوزن وأفضل الممارسات",
+  "allAchievements": "جميع الإنجازات",
+
+  "recommendations": "التوصيات",
+
+  "appearance": "المظهر",
+  "theme": "المظهر",
+  "lightTheme": "فاتح",
+  "darkTheme": "داكن",
+  "systemTheme": "النظام",
+  "selectTheme": "اختر المظهر",
+
+  "timeRange": "النطاق الزمني",
+  "last4Weeks": "آخر 4 أسابيع",
+  "last3Months": "آخر 3 أشهر",
+  "last6Months": "آخر 6 أشهر",
+  "allTime": "كل الوقت",
+
+  "zoomedIn": "مكبر",
+  "resetZoom": "إعادة تعيين",
+
+  "dataPoints": "نقاط البيانات",
+  "midpoint": "النقطة الوسطى",
+  "latest": "الأحدث",
+
+  "loadMore": "تحميل المزيد",
+
+  "somethingWentWrong": "حدث خطأ ما",
+  "errorOccurred": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+  "goBack": "العودة",
+  "errorSaving": "خطأ في حفظ الإدخال. يرجى المحاولة مرة أخرى.",
+  "errorDeleting": "خطأ في حذف الإدخال. يرجى المحاولة مرة أخرى."
+}

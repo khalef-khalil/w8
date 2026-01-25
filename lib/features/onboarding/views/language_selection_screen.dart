@@ -50,6 +50,8 @@ class _LanguageSelectionScreenState extends ConsumerState<LanguageSelectionScree
               _buildOption(context, 'en', context.l10n.languageEnglish),
               const SizedBox(height: 12),
               _buildOption(context, 'fr', context.l10n.languageFrench),
+              const SizedBox(height: 12),
+              _buildOption(context, 'ar', context.l10n.languageArabic),
               const SizedBox(height: 32),
               SizedBox(
                 width: double.infinity,

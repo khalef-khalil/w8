@@ -125,6 +125,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               isSelected: locale == 'fr',
               onTap: () => _setLocale('fr'),
             ),
+            const SizedBox(height: 12),
+            _OptionCard(
+              label: context.l10n.languageArabic,
+              isSelected: locale == 'ar',
+              onTap: () => _setLocale('ar'),
+            ),
             const SizedBox(height: 32),
             if (config != null) ...[
               Text(
