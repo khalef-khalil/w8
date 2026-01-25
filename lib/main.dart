@@ -9,13 +9,35 @@ import 'core/models/user_preferences.dart';
 import 'core/routing/app_router.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/providers/theme_provider.dart';
+import 'core/widgets/error_boundary.dart';
 import 'l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await HiveStorageService.init();
-  await ReminderService.initialize();
+  // Set up error handling
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    // In production, send to crash reporting service
+    debugPrint('Flutter error: ${details.exception}');
+    debugPrint('Stack trace: ${details.stack}');
+  };
+
+  // Handle errors outside Flutter framework
+  PlatformDispatcher.instance.onError = (error, stack) {
+    debugPrint('Platform error: $error');
+    debugPrint('Stack trace: $stack');
+    return true;
+  };
+
+  try {
+    await HiveStorageService.init();
+    await ReminderService.initialize();
+  } catch (e, stackTrace) {
+    debugPrint('Initialization error: $e');
+    debugPrint('Stack trace: $stackTrace');
+    // Continue anyway - app might still work
+  }
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

@@ -359,5 +359,11 @@
   "midpoint": "Midpoint",
   "latest": "Latest",
 
-  "loadMore": "Load more"
+  "loadMore": "Load more",
+
+  "somethingWentWrong": "Something went wrong",
+  "errorOccurred": "An error occurred. Please try again.",
+  "goBack": "Go back",
+  "errorSaving": "Error saving entry. Please try again.",
+  "errorDeleting": "Error deleting entry. Please try again."
 }

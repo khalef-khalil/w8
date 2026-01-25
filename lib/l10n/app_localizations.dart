@@ -539,7 +539,7 @@ abstract class AppLocalizations {
   /// No description provided for @errorSaving.
   ///
   /// In en, this message translates to:
-  /// **'Error saving'**
+  /// **'Error saving entry. Please try again.'**
   String get errorSaving;
 
   /// No description provided for @invalidData.
@@ -1477,6 +1477,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Load more'**
   String get loadMore;
+
+  /// No description provided for @somethingWentWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong'**
+  String get somethingWentWrong;
+
+  /// No description provided for @errorOccurred.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred. Please try again.'**
+  String get errorOccurred;
+
+  /// No description provided for @goBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back'**
+  String get goBack;
+
+  /// No description provided for @errorDeleting.
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting entry. Please try again.'**
+  String get errorDeleting;
 }
 
 class _AppLocalizationsDelegate

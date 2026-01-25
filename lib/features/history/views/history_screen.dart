@@ -9,6 +9,7 @@ import '../../../core/services/hive_storage_service.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/utils/weight_converter.dart';
 import '../../../core/widgets/empty_state.dart';
+import '../../../core/widgets/error_boundary.dart';
 import '../../../core/models/weight_entry_tags.dart';
 import '../../../models/weight_entry.dart';
 
@@ -127,18 +128,30 @@ Future<void> _confirmDelete(
     ),
   );
   if (confirmed != true) return;
-  await HiveStorageService.deleteWeightEntry(entry.date); // entry.date is already a full DateTime
-  ref.read(homeViewModelProvider.notifier).refresh();
-  if (!context.mounted) return;
-  ScaffoldMessenger.of(context).showSnackBar(
-    SnackBar(
-      content: Text(l10n.entryDeleted),
-      behavior: SnackBarBehavior.floating,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
+  
+  try {
+    await HiveStorageService.deleteWeightEntry(entry.date); // entry.date is already a full DateTime
+    ref.read(homeViewModelProvider.notifier).refresh();
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(l10n.entryDeleted),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
       ),
-    ),
-  );
+    );
+  } catch (e, stackTrace) {
+    if (context.mounted) {
+      ErrorHandler.handleError(
+        context,
+        e,
+        stackTrace: stackTrace,
+        message: l10n.errorDeleting,
+      );
+    }
+  }
 }
 
 class _WeighInTile extends StatelessWidget {

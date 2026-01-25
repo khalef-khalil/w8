@@ -242,7 +242,8 @@ class AppLocalizationsFr extends AppLocalizations {
       'Le poids cible doit être inférieur au poids initial.';
 
   @override
-  String get errorSaving => 'Erreur lors de la sauvegarde';
+  String get errorSaving =>
+      'Erreur lors de l\'enregistrement. Veuillez réessayer.';
 
   @override
   String get invalidData => 'Données invalides';
@@ -756,4 +757,17 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get loadMore => 'Charger plus';
+
+  @override
+  String get somethingWentWrong => 'Une erreur s\'est produite';
+
+  @override
+  String get errorOccurred => 'Une erreur s\'est produite. Veuillez réessayer.';
+
+  @override
+  String get goBack => 'Retour';
+
+  @override
+  String get errorDeleting =>
+      'Erreur lors de la suppression. Veuillez réessayer.';
 }

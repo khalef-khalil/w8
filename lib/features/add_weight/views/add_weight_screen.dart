@@ -17,6 +17,7 @@ import '../../../core/models/achievement.dart';
 import '../../../core/models/weight_entry_tags.dart';
 import '../../../core/widgets/celebration_overlay.dart';
 import '../../../core/widgets/success_animation.dart';
+import '../../../core/widgets/error_boundary.dart';
 import '../../../core/utils/weight_converter.dart';
 
 class AddWeightScreen extends ConsumerStatefulWidget {
@@ -189,13 +190,14 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
       }
     }
 
-    final success = original != null
-        ? await viewModel.updateWeightEntry(original, entry)
-        : await viewModel.saveWeightEntry(entry);
+    try {
+      final success = original != null
+          ? await viewModel.updateWeightEntry(original, entry)
+          : await viewModel.saveWeightEntry(entry);
 
-    if (!mounted) return;
+      if (!mounted) return;
 
-    if (success) {
+      if (success) {
       // Check for celebrations and achievements
       final entries = HiveStorageService.getWeightEntries();
       final goalConfig = GoalStorageService.getGoalConfiguration();
@@ -217,6 +219,9 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
       );
 
       // Show success feedback
+      if (!mounted) return;
+      
+      // Handle errors gracefully
       if (!mounted) return;
       
       // If there's a celebration or achievement, show it
@@ -283,6 +288,16 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
+      );
+    } catch (e, stackTrace) {
+      // Handle errors gracefully
+      if (!mounted) return;
+      ErrorHandler.handleError(
+        context,
+        e,
+        stackTrace: stackTrace,
+        message: context.l10n.errorSaving,
+        onRetry: _saveWeight,
       );
     }
   }

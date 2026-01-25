@@ -260,5 +260,11 @@
   "midpoint": "Milieu",
   "latest": "Dernier",
 
-  "loadMore": "Charger plus"
+  "loadMore": "Charger plus",
+
+  "somethingWentWrong": "Une erreur s'est produite",
+  "errorOccurred": "Une erreur s'est produite. Veuillez réessayer.",
+  "goBack": "Retour",
+  "errorSaving": "Erreur lors de l'enregistrement. Veuillez réessayer.",
+  "errorDeleting": "Erreur lors de la suppression. Veuillez réessayer."
 }

@@ -241,7 +241,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Target weight must be less than initial weight for loss goals.';
 
   @override
-  String get errorSaving => 'Error saving';
+  String get errorSaving => 'Error saving entry. Please try again.';
 
   @override
   String get invalidData => 'Invalid data';
@@ -751,4 +751,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loadMore => 'Load more';
+
+  @override
+  String get somethingWentWrong => 'Something went wrong';
+
+  @override
+  String get errorOccurred => 'An error occurred. Please try again.';
+
+  @override
+  String get goBack => 'Go back';
+
+  @override
+  String get errorDeleting => 'Error deleting entry. Please try again.';
 }
