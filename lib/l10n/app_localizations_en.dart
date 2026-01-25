@@ -688,4 +688,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tryThis => 'Try this';
+
+  @override
+  String get learnMore => 'Learn more';
+
+  @override
+  String get gotIt => 'Got it';
+
+  @override
+  String get tipsAndEducation => 'Tips & Education';
 }

@@ -693,4 +693,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tryThis => 'Essaie ceci';
+
+  @override
+  String get learnMore => 'En savoir plus';
+
+  @override
+  String get gotIt => 'Compris';
+
+  @override
+  String get tipsAndEducation => 'Conseils et éducation';
 }

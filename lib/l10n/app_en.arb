@@ -331,5 +331,9 @@
   "notesHint": "Add any additional notes...",
 
   "patternInsights": "Pattern Insights",
-  "tryThis": "Try this"
+  "tryThis": "Try this",
+
+  "learnMore": "Learn more",
+  "gotIt": "Got it",
+  "tipsAndEducation": "Tips & Education"
 }

@@ -7,6 +7,7 @@ import '../../../core/extensions/l10n_context.dart';
 import '../../../core/utils/date_utils.dart' as date_utils;
 import '../../../core/utils/weight_converter.dart';
 import '../../../core/models/goal_configuration.dart';
+import '../../../core/widgets/education_overlay.dart';
 import '../../../models/weight_entry.dart';
 
 /// Max number of weekly medians to show (mobile data-density best practice).
@@ -177,11 +178,25 @@ class WeeklyChartCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              context.l10n.weeklyEvolution,
-              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                    fontWeight: FontWeight.bold,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.l10n.weeklyEvolution,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                EducationButton(
+                  contentId: 'weekly_medians',
+                  tooltip: context.l10n.learnMore,
+                  child: Icon(
+                    Icons.help_outline_rounded,
+                    size: 20,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
+                ),
+              ],
             ),
             const SizedBox(height: 16),
             SizedBox(

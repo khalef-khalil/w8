@@ -232,5 +232,9 @@
   "notesHint": "Ajoute des notes supplémentaires...",
 
   "patternInsights": "Insights de patterns",
-  "tryThis": "Essaie ceci"
+  "tryThis": "Essaie ceci",
+
+  "learnMore": "En savoir plus",
+  "gotIt": "Compris",
+  "tipsAndEducation": "Conseils et éducation"
 }
