@@ -236,27 +236,8 @@ This plan transforms w8 from its current state to a production-ready, psychologi
 - Review all user-facing messages
 - Test validation messages in both languages
 - Ensure tone is supportive, not judgmental
-
----
-
-#### **1.5 Fix Goal Management** (2 days)
-**Problem**: Goals are locked in, can't be edited
-
-**Implementation**:
-- [ ] Add "Edit Goal" option in Settings
-- [ ] Create goal editing screen (reuse onboarding components)
-- [ ] Allow adjusting: target weight, duration, start date
-- [ ] Recalculate progress when goal changes
-- [ ] Show warning if goal change is significant
-
-**Files to Create**:
-- `lib/features/settings/views/edit_goal_screen.dart`
-
-**Files to Modify**:
-- `lib/features/settings/views/settings_screen.dart`
-- `lib/core/services/goal_storage_service.dart`
-
-**Testing**:
+- Test goal editing flow
+- Verify progress recalculates correctly after goal changes
 - Test goal editing flow
 - Test progress recalculation
 - Test validation of new goals
