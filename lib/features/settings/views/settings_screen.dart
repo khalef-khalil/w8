@@ -546,6 +546,45 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         return Icons.info_rounded;
     }
   }
+
+  String _getThemeLabel(BuildContext context, ThemeMode mode) {
+    switch (mode) {
+      case ThemeMode.light:
+        return context.l10n.lightTheme;
+      case ThemeMode.dark:
+        return context.l10n.darkTheme;
+      case ThemeMode.system:
+        return context.l10n.systemTheme;
+    }
+  }
+
+  Future<void> _showThemeSelector(BuildContext context) async {
+    final currentMode = _preferences?.themeMode ?? ThemeMode.system;
+    final selected = await showDialog<ThemeMode>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(ctx.l10n.selectTheme),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: ThemeMode.values.map((mode) {
+            return RadioListTile<ThemeMode>(
+              title: Text(_getThemeLabel(ctx, mode)),
+              value: mode,
+              groupValue: currentMode,
+              onChanged: (value) => Navigator.of(ctx).pop(value),
+            );
+          }).toList(),
+        ),
+      ),
+    );
+
+    if (selected != null && selected != currentMode) {
+      await ref.read(themeProvider.notifier).setThemeMode(selected);
+      setState(() {
+        _preferences = PreferencesService.getPreferences();
+      });
+    }
+  }
 }
 
 class _AchievementBadge extends StatelessWidget {
