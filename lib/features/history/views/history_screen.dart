@@ -8,6 +8,7 @@ import '../../../core/extensions/l10n_context.dart';
 import '../../../core/services/hive_storage_service.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/utils/weight_converter.dart';
+import '../../../core/widgets/empty_state.dart';
 import '../../../models/weight_entry.dart';
 
 class HistoryScreen extends ConsumerWidget {
@@ -26,41 +27,8 @@ class HistoryScreen extends ConsumerWidget {
           child: entries.isEmpty
               ? SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
-                  child: SizedBox(
-                    height: 400,
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.history_rounded,
-                            size: 64,
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurfaceVariant,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            context.l10n.addFirstWeighIn,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onSurfaceVariant,
-                                ),
-                            textAlign: TextAlign.center,
-                          ),
-                          const SizedBox(height: 24),
-                          FilledButton.icon(
-                            onPressed: () => context.go('/add-weight'),
-                            icon: const Icon(Icons.add),
-                            label: Text(context.l10n.addWeight),
-                          ),
-                        ],
-                      ),
-                    ),
+                  child: NoHistoryEmptyState(
+                    onAddWeight: () => context.go('/add-weight'),
                   ),
                 )
               : SingleChildScrollView(
