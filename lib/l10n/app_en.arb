@@ -328,5 +328,8 @@
   "afterDinner": "After Dinner",
   "other": "Other",
   "notes": "Notes",
-  "notesHint": "Add any additional notes..."
+  "notesHint": "Add any additional notes...",
+
+  "patternInsights": "Pattern Insights",
+  "tryThis": "Try this"
 }

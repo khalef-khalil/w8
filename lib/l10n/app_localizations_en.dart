@@ -682,4 +682,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notesHint => 'Add any additional notes...';
+
+  @override
+  String get patternInsights => 'Pattern Insights';
+
+  @override
+  String get tryThis => 'Try this';
 }

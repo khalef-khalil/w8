@@ -1339,6 +1339,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add any additional notes...'**
   String get notesHint;
+
+  /// No description provided for @patternInsights.
+  ///
+  /// In en, this message translates to:
+  /// **'Pattern Insights'**
+  String get patternInsights;
+
+  /// No description provided for @tryThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Try this'**
+  String get tryThis;
 }
 
 class _AppLocalizationsDelegate

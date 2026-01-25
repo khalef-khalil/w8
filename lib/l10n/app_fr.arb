@@ -229,5 +229,8 @@
   "afterDinner": "Après le dîner",
   "other": "Autre",
   "notes": "Notes",
-  "notesHint": "Ajoute des notes supplémentaires..."
+  "notesHint": "Ajoute des notes supplémentaires...",
+
+  "patternInsights": "Insights de patterns",
+  "tryThis": "Essaie ceci"
 }

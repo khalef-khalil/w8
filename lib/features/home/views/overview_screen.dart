@@ -7,6 +7,8 @@ import '../widgets/insights_card.dart';
 import '../widgets/progress_comparison_card.dart';
 import '../../../core/widgets/animated_progress_bar.dart';
 import '../../../core/widgets/empty_state.dart';
+import '../../../core/services/pattern_recognition_service.dart';
+import '../../../core/models/pattern_insight.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/models/progress_metrics.dart';
@@ -68,6 +70,11 @@ class OverviewScreen extends ConsumerWidget {
                 InsightsCard(metrics: state.metrics!),
                 const SizedBox(height: 24),
                 ProgressComparisonCard(metrics: state.metrics!),
+                // Pattern insights (if we have context data)
+                if (state.entries.any((e) => e.tags != null && !e.tags!.isEmpty)) ...[
+                  const SizedBox(height: 24),
+                  _buildPatternInsights(context, state.entries),
+                ],
               ],
             ],
           ),
@@ -542,6 +549,110 @@ class OverviewScreen extends ConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildPatternInsights(BuildContext context, List<WeightEntry> entries) {
+    final analysis = PatternRecognitionService.analyzePatterns(entries);
+
+    if (!analysis.hasEnoughData || analysis.insights.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(
+                  Icons.auto_awesome_rounded,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  context.l10n.patternInsights,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            ...analysis.insights.take(3).map((insight) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            insight.title,
+                            style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Theme.of(context).colorScheme.primaryContainer,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            '${(insight.confidence * 100).toStringAsFixed(0)}%',
+                            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      insight.description,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    if (insight.suggestion != null) ...[
+                      const SizedBox(height: 8),
+                      Container(
+                        padding: const EdgeInsets.all(12),
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).colorScheme.secondaryContainer,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.lightbulb_outline_rounded,
+                              size: 20,
+                              color: Theme.of(context).colorScheme.onSecondaryContainer,
+                            ),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                insight.suggestion!,
+                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                      color: Theme.of(context).colorScheme.onSecondaryContainer,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
     );
   }
 }

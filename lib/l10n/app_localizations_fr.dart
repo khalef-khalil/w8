@@ -687,4 +687,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get notesHint => 'Ajoute des notes supplémentaires...';
+
+  @override
+  String get patternInsights => 'Insights de patterns';
+
+  @override
+  String get tryThis => 'Essaie ceci';
 }
