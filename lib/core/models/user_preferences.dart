@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// User preferences for personalization
 class UserPreferences {
   final ThemeMode themeMode;
