@@ -272,23 +272,24 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
           ),
         );
       }
-      if (_isEdit) {
-        context.pop();
+        if (_isEdit) {
+          context.pop();
+        } else {
+          context.go('/');
+        }
       } else {
-        context.go('/');
-      }
-    } else {
-      final error = ref.read(addWeightViewModelProvider);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(context.l10n.errorWithMessage(error.error?.toString() ?? '')),
-          backgroundColor: Theme.of(context).colorScheme.error,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+        final error = ref.read(addWeightViewModelProvider);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(context.l10n.errorWithMessage(error.error?.toString() ?? '')),
+            backgroundColor: Theme.of(context).colorScheme.error,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
           ),
-        ),
-      );
+        );
+      }
     } catch (e, stackTrace) {
       // Handle errors gracefully
       if (!mounted) return;
