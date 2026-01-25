@@ -45,6 +45,7 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Documentation files (except README.md)
+# Documentation files (except README.md and IMPLEMENTATION_PLAN.md)
 *.md
 !README.md
+!IMPLEMENTATION_PLAN.md
