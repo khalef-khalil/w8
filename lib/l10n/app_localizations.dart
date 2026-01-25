@@ -478,6 +478,42 @@ abstract class AppLocalizations {
   /// **'e.g. 6'**
   String get durationHint;
 
+  /// No description provided for @goalEndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal End Date'**
+  String get goalEndDate;
+
+  /// No description provided for @selectEndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Select End Date'**
+  String get selectEndDate;
+
+  /// No description provided for @useDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Use Duration'**
+  String get useDuration;
+
+  /// No description provided for @useEndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Use End Date'**
+  String get useEndDate;
+
+  /// No description provided for @calculatedEndDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculated End Date'**
+  String get calculatedEndDate;
+
+  /// No description provided for @calculatedDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculated Duration'**
+  String get calculatedDuration;
+
   /// No description provided for @continueButton.
   ///
   /// In en, this message translates to:
@@ -595,13 +631,13 @@ abstract class AppLocalizations {
   /// No description provided for @kilograms.
   ///
   /// In en, this message translates to:
-  /// **'Kilograms (kg)'**
+  /// **'Kilograms'**
   String get kilograms;
 
   /// No description provided for @pounds.
   ///
   /// In en, this message translates to:
-  /// **'Pounds (lbs)'**
+  /// **'Pounds'**
   String get pounds;
 
   /// No description provided for @weekStartsOn.

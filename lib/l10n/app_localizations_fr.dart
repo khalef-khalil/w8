@@ -206,6 +206,24 @@ class AppLocalizationsFr extends AppLocalizations {
   String get durationHint => 'Ex: 6';
 
   @override
+  String get goalEndDate => 'Date de fin de l\'objectif';
+
+  @override
+  String get selectEndDate => 'Sélectionner la date de fin';
+
+  @override
+  String get useDuration => 'Utiliser la durée';
+
+  @override
+  String get useEndDate => 'Utiliser la date de fin';
+
+  @override
+  String get calculatedEndDate => 'Date de fin calculée';
+
+  @override
+  String get calculatedDuration => 'Durée calculée';
+
+  @override
   String get continueButton => 'Continuer';
 
   @override
@@ -271,10 +289,10 @@ class AppLocalizationsFr extends AppLocalizations {
   String get weightUnit => 'Unité de poids';
 
   @override
-  String get kilograms => 'Kilogrammes (kg)';
+  String get kilograms => 'Kilogrammes';
 
   @override
-  String get pounds => 'Livres (lbs)';
+  String get pounds => 'Livres';
 
   @override
   String get weekStartsOn => 'Début de semaine';

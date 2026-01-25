@@ -202,6 +202,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get durationHint => 'مثال: 6';
 
   @override
+  String get goalEndDate => 'تاريخ نهاية الهدف';
+
+  @override
+  String get selectEndDate => 'اختر تاريخ النهاية';
+
+  @override
+  String get useDuration => 'استخدم المدة';
+
+  @override
+  String get useEndDate => 'استخدم تاريخ النهاية';
+
+  @override
+  String get calculatedEndDate => 'تاريخ النهاية المحسوب';
+
+  @override
+  String get calculatedDuration => 'المدة المحسوبة';
+
+  @override
   String get continueButton => 'متابعة';
 
   @override
@@ -265,10 +283,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get weightUnit => 'وحدة الوزن';
 
   @override
-  String get kilograms => 'كيلوغرامات (كجم)';
+  String get kilograms => 'كيلوغرامات';
 
   @override
-  String get pounds => 'أرطال (رطل)';
+  String get pounds => 'أرطال';
 
   @override
   String get weekStartsOn => 'يبدأ الأسبوع في';
