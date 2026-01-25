@@ -228,6 +228,8 @@ class _WeighInTileWithContext extends StatelessWidget {
               Theme.of(context).textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,23 +275,39 @@ class _WeighInTileWithContext extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              '${display.toStringAsFixed(2)} $unitStr',
-              style:
-                  Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+            Padding(
+              padding: const EdgeInsets.only(right: 4),
+              child: Text(
+                '${display.toStringAsFixed(2)} $unitStr',
+                style:
+                    Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+              ),
             ),
             IconButton(
               icon: const Icon(Icons.edit_outlined),
+              iconSize: 20,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(
+                minWidth: 32,
+                minHeight: 32,
+              ),
               onPressed: onEdit,
               tooltip: context.l10n.edit,
             ),
             IconButton(
               icon: Icon(
                 Icons.delete_outline,
+                size: 20,
                 color: Theme.of(context).colorScheme.error,
+              ),
+              iconSize: 20,
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(
+                minWidth: 32,
+                minHeight: 32,
               ),
               onPressed: onDelete,
               tooltip: context.l10n.delete,
