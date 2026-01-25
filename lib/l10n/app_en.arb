@@ -300,5 +300,16 @@
   "enableRemindersDescription": "Get notified to track your weight",
   "reminderTime": "Reminder Time",
   "notificationPermissionRequired": "Notification permission is required to enable reminders",
-  "notSet": "Not set"
+  "notSet": "Not set",
+
+  "achievements": "Achievements",
+  "achievementsProgress": "{unlocked} of {total} unlocked",
+  "@achievementsProgress": {
+    "placeholders": {
+      "unlocked": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "noAchievementsYet": "Keep tracking to unlock achievements!",
+  "viewAllAchievements": "View All"
 }

@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../models/weight_entry.dart';
 import '../constants/app_constants.dart';
+import 'achievement_service.dart';
 import 'goal_storage_service.dart';
 
 /// Service de stockage utilisant Hive pour une meilleure performance
@@ -29,6 +30,9 @@ class HiveStorageService {
     
     // Migrer les entrées de poids depuis les clés basées sur la date vers les clés basées sur le timestamp
     await _migrateDateKeysToTimestampKeys();
+    
+    // Initialize achievements service
+    await AchievementService.init();
   }
 
   /// Migrer les entrées depuis les clés basées sur la date vers les clés basées sur le timestamp

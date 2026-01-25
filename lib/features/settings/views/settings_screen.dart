@@ -6,6 +6,8 @@ import '../../../core/models/goal_configuration.dart';
 import '../../../core/services/goal_storage_service.dart';
 import '../../../core/services/data_export_service.dart';
 import '../../../core/services/reminder_service.dart';
+import '../../../core/services/achievement_service.dart';
+import '../../../core/models/achievement.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/utils/week_start_day_labels.dart';
@@ -223,6 +225,16 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
               ],
               const SizedBox(height: 32),
+              // Achievements Section
+              Text(
+                context.l10n.achievements,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              _buildAchievementsSection(context),
+              const SizedBox(height: 32),
               // Goal Management Section
               Text(
                 context.l10n.goalManagement,
@@ -369,6 +381,158 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           backgroundColor: Theme.of(context).colorScheme.error,
         ),
       );
+    }
+  }
+
+  Widget _buildAchievementsSection(BuildContext context) {
+    final achievements = AchievementService.getUnlockedAchievements();
+    final allTypes = AchievementType.values;
+    final unlockedCount = achievements.length;
+    final totalCount = allTypes.length;
+
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  context.l10n.achievementsProgress(unlockedCount, totalCount),
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+                Text(
+                  '${(unlockedCount / totalCount * 100).toStringAsFixed(0)}%',
+                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                        color: Theme.of(context).colorScheme.primary,
+                        fontWeight: FontWeight.bold,
+                      ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            // Show unlocked achievements
+            if (achievements.isEmpty)
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Center(
+                  child: Text(
+                    context.l10n.noAchievementsYet,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            else
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: achievements.take(6).map((achievement) {
+                  return _AchievementBadge(
+                    achievement: achievement,
+                    isUnlocked: true,
+                  );
+                }).toList(),
+              ),
+            if (achievements.length > 6) ...[
+              const SizedBox(height: 8),
+              TextButton(
+                onPressed: () {
+                  // TODO: Navigate to full achievements screen
+                },
+                child: Text(context.l10n.viewAllAchievements),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AchievementBadge extends StatelessWidget {
+  final Achievement? achievement;
+  final AchievementType? type;
+  final bool isUnlocked;
+  final double progress;
+
+  const _AchievementBadge({
+    this.achievement,
+    this.type,
+    required this.isUnlocked,
+    this.progress = 0.0,
+  }) : assert(achievement != null || type != null);
+
+  @override
+  Widget build(BuildContext context) {
+    final title = achievement != null
+        ? achievement!.title
+        : Achievement.getTitle(type!);
+    final icon = achievement != null
+        ? achievement!.icon
+        : Achievement.getIcon(type!);
+
+    return Tooltip(
+      message: title,
+      child: Container(
+        width: 56,
+        height: 56,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: isUnlocked
+              ? Theme.of(context).colorScheme.primaryContainer
+              : Theme.of(context).colorScheme.surfaceContainerHighest,
+          border: Border.all(
+            color: isUnlocked
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.outline,
+            width: isUnlocked ? 2 : 1,
+          ),
+        ),
+        child: Icon(
+          _getIconData(icon),
+          color: isUnlocked
+              ? Theme.of(context).colorScheme.onPrimaryContainer
+              : Theme.of(context).colorScheme.onSurfaceVariant,
+          size: 28,
+        ),
+      ),
+    );
+  }
+
+  IconData _getIconData(String iconName) {
+    // Map icon names to Material icons
+    switch (iconName) {
+      case 'flag':
+        return Icons.flag_rounded;
+      case 'local_fire_department':
+        return Icons.local_fire_department_rounded;
+      case 'whatshot':
+        return Icons.whatshot_rounded;
+      case 'emoji_events':
+        return Icons.emoji_events_rounded;
+      case 'looks_one':
+        return Icons.looks_one_rounded;
+      case 'looks_two':
+        return Icons.looks_two_rounded;
+      case 'looks_3':
+        return Icons.looks_3_rounded;
+      case 'military_tech':
+        return Icons.military_tech_rounded;
+      case 'check_circle':
+        return Icons.check_circle_rounded;
+      case 'verified':
+        return Icons.verified_rounded;
+      case 'workspace_premium':
+        return Icons.workspace_premium_rounded;
+      default:
+        return Icons.star_rounded;
     }
   }
 }

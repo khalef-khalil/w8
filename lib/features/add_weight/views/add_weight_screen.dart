@@ -11,7 +11,9 @@ import '../../../core/models/goal_configuration.dart';
 import '../../../core/services/goal_storage_service.dart';
 import '../../../core/services/hive_storage_service.dart';
 import '../../../core/services/celebration_service.dart';
+import '../../../core/services/achievement_service.dart';
 import '../../../core/models/progress_metrics.dart';
+import '../../../core/models/achievement.dart';
 import '../../../core/widgets/celebration_overlay.dart';
 import '../../../core/widgets/success_animation.dart';
 import '../../../core/utils/weight_converter.dart';
@@ -174,7 +176,7 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
     if (!mounted) return;
 
     if (success) {
-      // Check for celebrations
+      // Check for celebrations and achievements
       final entries = HiveStorageService.getWeightEntries();
       final goalConfig = GoalStorageService.getGoalConfiguration();
       final metrics = goalConfig != null
@@ -187,15 +189,33 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
         goalConfig: goalConfig,
       );
 
+      // Check for new achievements
+      final newAchievements = await AchievementService.checkAchievements(
+        entries: entries,
+        metrics: metrics,
+        goalConfig: goalConfig,
+      );
+
       // Show success feedback
       if (!mounted) return;
       
-      // If there's a celebration, show it instead of snackbar
-      if (celebrations.isNotEmpty) {
-        // Strong haptic feedback for celebrations
+      // If there's a celebration or achievement, show it
+      if (celebrations.isNotEmpty || newAchievements.isNotEmpty) {
+        // Strong haptic feedback for celebrations/achievements
         HapticFeedback.heavyImpact();
         setState(() {
-          _pendingCelebration = celebrations.first; // Show first celebration
+          // Prioritize achievements over celebrations
+          if (newAchievements.isNotEmpty) {
+            // Show achievement celebration (we'll use celebration overlay for achievements too)
+            final achievementType = _achievementTypeToCelebrationType(newAchievements.first.type);
+            if (achievementType != null) {
+              _pendingCelebration = achievementType;
+            } else if (celebrations.isNotEmpty) {
+              _pendingCelebration = celebrations.first;
+            }
+          } else if (celebrations.isNotEmpty) {
+            _pendingCelebration = celebrations.first;
+          }
         });
       } else {
         // Show success snackbar with animation
@@ -271,6 +291,29 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
           ),
       ],
     );
+  }
+
+  CelebrationType? _achievementTypeToCelebrationType(AchievementType achievementType) {
+    switch (achievementType) {
+      case AchievementType.firstEntry:
+        return CelebrationType.firstEntry;
+      case AchievementType.streak7Days:
+        return CelebrationType.streak7Days;
+      case AchievementType.streak30Days:
+        return CelebrationType.streak30Days;
+      case AchievementType.streak100Days:
+        return CelebrationType.streak100Days;
+      case AchievementType.progress25Percent:
+        return CelebrationType.progress25Percent;
+      case AchievementType.progress50Percent:
+        return CelebrationType.progress50Percent;
+      case AchievementType.progress75Percent:
+        return CelebrationType.progress75Percent;
+      case AchievementType.goalReached:
+        return CelebrationType.goalReached;
+      default:
+        return null;
+    }
   }
 
   Widget _buildMainContent(BuildContext context) {

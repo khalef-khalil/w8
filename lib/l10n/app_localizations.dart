@@ -1219,6 +1219,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not set'**
   String get notSet;
+
+  /// No description provided for @achievements.
+  ///
+  /// In en, this message translates to:
+  /// **'Achievements'**
+  String get achievements;
+
+  /// No description provided for @achievementsProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{unlocked} of {total} unlocked'**
+  String achievementsProgress(int unlocked, int total);
+
+  /// No description provided for @noAchievementsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep tracking to unlock achievements!'**
+  String get noAchievementsYet;
+
+  /// No description provided for @viewAllAchievements.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAllAchievements;
 }
 
 class _AppLocalizationsDelegate

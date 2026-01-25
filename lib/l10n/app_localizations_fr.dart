@@ -623,4 +623,19 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get notSet => 'Non défini';
+
+  @override
+  String get achievements => 'Succès';
+
+  @override
+  String achievementsProgress(int unlocked, int total) {
+    return '$unlocked sur $total débloqués';
+  }
+
+  @override
+  String get noAchievementsYet =>
+      'Continue à suivre pour débloquer des succès !';
+
+  @override
+  String get viewAllAchievements => 'Voir tout';
 }

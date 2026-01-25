@@ -619,4 +619,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notSet => 'Not set';
+
+  @override
+  String get achievements => 'Achievements';
+
+  @override
+  String achievementsProgress(int unlocked, int total) {
+    return '$unlocked of $total unlocked';
+  }
+
+  @override
+  String get noAchievementsYet => 'Keep tracking to unlock achievements!';
+
+  @override
+  String get viewAllAchievements => 'View All';
 }

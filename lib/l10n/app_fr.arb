@@ -201,5 +201,16 @@
   "enableRemindersDescription": "Recevoir une notification pour enregistrer ton poids",
   "reminderTime": "Heure du rappel",
   "notificationPermissionRequired": "La permission de notification est requise pour activer les rappels",
-  "notSet": "Non défini"
+  "notSet": "Non défini",
+
+  "achievements": "Succès",
+  "achievementsProgress": "{unlocked} sur {total} débloqués",
+  "@achievementsProgress": {
+    "placeholders": {
+      "unlocked": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "noAchievementsYet": "Continue à suivre pour débloquer des succès !",
+  "viewAllAchievements": "Voir tout"
 }
