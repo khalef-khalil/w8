@@ -353,5 +353,9 @@
   "allTime": "All time",
 
   "zoomedIn": "Zoomed in",
-  "resetZoom": "Reset"
+  "resetZoom": "Reset",
+
+  "dataPoints": "data points",
+  "midpoint": "Midpoint",
+  "latest": "Latest"
 }

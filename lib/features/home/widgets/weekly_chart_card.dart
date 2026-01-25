@@ -219,13 +219,16 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     // Time range selector
-                    PopupMenuButton<ChartTimeRange>(
-                      icon: Icon(
-                        Icons.filter_list_rounded,
-                        size: 20,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      tooltip: context.l10n.timeRange,
+                    Semantics(
+                      label: context.l10n.timeRange,
+                      button: true,
+                      child: PopupMenuButton<ChartTimeRange>(
+                        icon: Icon(
+                          Icons.filter_list_rounded,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        tooltip: context.l10n.timeRange,
                       onSelected: (range) {
                         setState(() {
                           _selectedTimeRange = range;
@@ -239,16 +242,21 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                                 child: Text(range.getLabel(context)),
                               ))
                           .toList(),
+                      ),
                     ),
                     const SizedBox(width: 8),
                     // Help button
-                    EducationButton(
-                      contentId: 'weekly_medians',
-                      tooltip: context.l10n.learnMore,
-                      child: Icon(
-                        Icons.help_outline_rounded,
-                        size: 20,
-                        color: Theme.of(context).colorScheme.primary,
+                    Semantics(
+                      label: context.l10n.learnMore,
+                      button: true,
+                      child: EducationButton(
+                        contentId: 'weekly_medians',
+                        tooltip: context.l10n.learnMore,
+                        child: Icon(
+                          Icons.help_outline_rounded,
+                          size: 20,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     ),
                   ],
@@ -276,31 +284,39 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                           ),
                     ),
                     const SizedBox(width: 8),
-                    TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _zoomState = null;
-                        });
-                      },
-                      style: TextButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: Text(
-                        context.l10n.resetZoom,
-                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                    Semantics(
+                      label: context.l10n.resetZoom,
+                      button: true,
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _zoomState = null;
+                          });
+                        },
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          minimumSize: const Size(44, 44), // Ensure minimum touch target
+                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        ),
+                        child: Text(
+                          context.l10n.resetZoom,
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             const SizedBox(height: 8),
-            SizedBox(
-              height: chartHeight,
-              child: GestureDetector(
+            // Data table for screen readers
+            Semantics(
+              label: _buildChartDataTableLabel(context, displayed),
+              child: ExcludeSemantics(
+                child: SizedBox(
+                  height: chartHeight,
+                  child: GestureDetector(
                 onScaleStart: (details) {
                   // Store initial zoom state when starting pinch
                   if (_zoomState == null || !_zoomState!.isZoomed) {
@@ -519,6 +535,8 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                 ),
               ),
             ),
+              ),
+            ),
           ],
         ),
       ),
@@ -545,5 +563,52 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
     
     if (startIndex >= endIndex) return medians;
     return medians.sublist(startIndex, endIndex + 1);
+  }
+
+  /// Build accessible data table label for screen readers
+  String _buildChartDataTableLabel(
+      BuildContext context, List<MapEntry<DateTime, double>> displayed) {
+    if (displayed.isEmpty) {
+      return context.l10n.notEnoughData;
+    }
+
+    final l10n = context.l10n;
+    final locale = Localizations.localeOf(context).toString();
+    final unitStr = widget.unit == WeightUnit.lbs ? l10n.lbsUnit : l10n.kgUnit;
+    final buffer = StringBuffer();
+    buffer.writeln('${l10n.weeklyEvolution}. ${displayed.length} ${l10n.dataPoints}.');
+
+    // Show first, middle, and last points for brevity
+    if (displayed.length <= 5) {
+      // Show all if 5 or fewer
+      for (final entry in displayed) {
+        final dateStr = DateFormat.yMMMd(locale).format(entry.key);
+        final weightStr = WeightConverter.forDisplay(entry.value, widget.unit)
+            .toStringAsFixed(2);
+        buffer.writeln('$dateStr: $weightStr $unitStr');
+      }
+    } else {
+      // Show first, middle, last
+      final first = displayed.first;
+      final middle = displayed[displayed.length ~/ 2];
+      final last = displayed.last;
+
+      final firstDate = DateFormat.yMMMd(locale).format(first.key);
+      final firstWeight = WeightConverter.forDisplay(first.value, widget.unit)
+          .toStringAsFixed(2);
+      buffer.writeln('$firstDate: $firstWeight $unitStr');
+
+      final middleDate = DateFormat.yMMMd(locale).format(middle.key);
+      final middleWeight = WeightConverter.forDisplay(middle.value, widget.unit)
+          .toStringAsFixed(2);
+      buffer.writeln('${l10n.midpoint}: $middleDate: $middleWeight $unitStr');
+
+      final lastDate = DateFormat.yMMMd(locale).format(last.key);
+      final lastWeight = WeightConverter.forDisplay(last.value, widget.unit)
+          .toStringAsFixed(2);
+      buffer.writeln('${l10n.latest}: $lastDate: $lastWeight $unitStr');
+    }
+
+    return buffer.toString();
   }
 }

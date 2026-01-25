@@ -342,7 +342,10 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
+        leading: Semantics(
+          label: context.l10n.back,
+          button: true,
+          child: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             if (_isEdit) {
@@ -629,20 +632,26 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
                 const SizedBox(height: 32),
                 
                 // Bouton d'enregistrement
-                ElevatedButton(
-                  onPressed: isLoading ? null : _saveWeight,
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                Semantics(
+                  label: context.l10n.save,
+                  button: true,
+                  enabled: !isLoading,
+                  child: ElevatedButton(
+                    onPressed: isLoading ? null : _saveWeight,
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      minimumSize: const Size(0, 44), // Ensure minimum touch target
+                    ),
+                    child: isLoading
+                        ? const SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : Text(context.l10n.save),
                   ),
-                  child: isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                          ),
-                        )
-                      : Text(context.l10n.save),
                 ),
               ],
             ),

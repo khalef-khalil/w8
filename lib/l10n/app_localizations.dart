@@ -1453,6 +1453,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reset'**
   String get resetZoom;
+
+  /// No description provided for @dataPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'data points'**
+  String get dataPoints;
+
+  /// No description provided for @midpoint.
+  ///
+  /// In en, this message translates to:
+  /// **'Midpoint'**
+  String get midpoint;
+
+  /// No description provided for @latest.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest'**
+  String get latest;
 }
 
 class _AppLocalizationsDelegate

@@ -739,4 +739,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resetZoom => 'Reset';
+
+  @override
+  String get dataPoints => 'data points';
+
+  @override
+  String get midpoint => 'Midpoint';
+
+  @override
+  String get latest => 'Latest';
 }

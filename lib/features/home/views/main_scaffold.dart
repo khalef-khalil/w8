@@ -54,10 +54,14 @@ class _MainScaffoldState extends State<MainScaffold> {
         title: Text(_appBarTitle(context)),
         actions: [
           if (_currentIndex == 0) ...[
-            IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () => context.go('/add-weight'),
-              tooltip: l10n.addWeight,
+            Semantics(
+              label: l10n.addWeight,
+              button: true,
+              child: IconButton(
+                icon: const Icon(Icons.add),
+                onPressed: () => context.go('/add-weight'),
+                tooltip: l10n.addWeight,
+              ),
             ),
           ],
         ],

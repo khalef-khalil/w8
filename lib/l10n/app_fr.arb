@@ -254,5 +254,9 @@
   "allTime": "Tout",
 
   "zoomedIn": "Zoom activé",
-  "resetZoom": "Réinitialiser"
+  "resetZoom": "Réinitialiser",
+
+  "dataPoints": "points de données",
+  "midpoint": "Milieu",
+  "latest": "Dernier"
 }

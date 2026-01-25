@@ -744,4 +744,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get resetZoom => 'Réinitialiser';
+
+  @override
+  String get dataPoints => 'points de données';
+
+  @override
+  String get midpoint => 'Milieu';
+
+  @override
+  String get latest => 'Dernier';
 }
