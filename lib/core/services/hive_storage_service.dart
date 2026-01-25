@@ -4,6 +4,7 @@ import '../constants/app_constants.dart';
 import '../models/weight_entry_tags.dart';
 import 'achievement_service.dart';
 import 'goal_storage_service.dart';
+import 'metrics_cache.dart';
 
 /// Service de stockage utilisant Hive pour une meilleure performance
 class HiveStorageService {

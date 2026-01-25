@@ -12,19 +12,32 @@ import '../../../core/widgets/empty_state.dart';
 import '../../../core/models/weight_entry_tags.dart';
 import '../../../models/weight_entry.dart';
 
-class HistoryScreen extends ConsumerWidget {
+class HistoryScreen extends ConsumerStatefulWidget {
   const HistoryScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends ConsumerState<HistoryScreen> {
+  static const int _itemsPerPage = 20;
+  int _displayedCount = _itemsPerPage;
+
+  @override
+  Widget build(BuildContext context) {
     final homeState = ref.watch(homeViewModelProvider);
 
     return homeState.when(
       data: (state) {
         final entries = state.entries.reversed.toList();
+        final displayedEntries = entries.take(_displayedCount).toList();
+        final hasMore = entries.length > _displayedCount;
+
         return RefreshIndicator(
-          onRefresh: () =>
-              ref.read(homeViewModelProvider.notifier).refresh(),
+          onRefresh: () {
+            setState(() => _displayedCount = _itemsPerPage);
+            return ref.read(homeViewModelProvider.notifier).refresh();
+          },
           child: entries.isEmpty
               ? SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
@@ -32,23 +45,38 @@ class HistoryScreen extends ConsumerWidget {
                     onAddWeight: () => context.go('/add-weight'),
                   ),
                 )
-              : SingleChildScrollView(
+              : ListView.builder(
                   physics: const AlwaysScrollableScrollPhysics(),
                   padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      for (final entry in entries)
-                        _WeighInTileWithContext(
-                          entry: entry,
-                          unit: state.goalConfig?.unit ?? WeightUnit.kg,
-                          onEdit: () => context.push(
-                            '/add-weight',
-                            extra: entry,
+                  itemCount: displayedEntries.length + (hasMore ? 1 : 0),
+                  itemBuilder: (context, index) {
+                    if (index == displayedEntries.length) {
+                      // Load more button
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: Center(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                _displayedCount += _itemsPerPage;
+                              });
+                            },
+                            child: Text(context.l10n.loadMore),
                           ),
-                          onDelete: () => _confirmDelete(context, ref, entry),
                         ),
-                    ],
-                  ),
+                      );
+                    }
+                    final entry = displayedEntries[index];
+                    return _WeighInTileWithContext(
+                      entry: entry,
+                      unit: state.goalConfig?.unit ?? WeightUnit.kg,
+                      onEdit: () => context.push(
+                        '/add-weight',
+                        extra: entry,
+                      ),
+                      onDelete: () => _confirmDelete(context, ref, entry),
+                    );
+                  },
                 ),
         );
       },

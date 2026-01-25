@@ -748,4 +748,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get latest => 'Latest';
+
+  @override
+  String get loadMore => 'Load more';
 }

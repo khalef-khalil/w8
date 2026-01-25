@@ -258,5 +258,7 @@
 
   "dataPoints": "points de données",
   "midpoint": "Milieu",
-  "latest": "Dernier"
+  "latest": "Dernier",
+
+  "loadMore": "Charger plus"
 }

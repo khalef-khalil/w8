@@ -753,4 +753,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get latest => 'Dernier';
+
+  @override
+  String get loadMore => 'Charger plus';
 }

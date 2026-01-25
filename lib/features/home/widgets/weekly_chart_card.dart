@@ -8,6 +8,7 @@ import '../../../core/utils/date_utils.dart' as date_utils;
 import '../../../core/utils/weight_converter.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/models/chart_time_range.dart';
+import '../../../core/services/metrics_cache.dart';
 import '../../../core/widgets/education_overlay.dart';
 import '../../../models/weight_entry.dart';
 
@@ -69,7 +70,8 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
 
   @override
   Widget build(BuildContext context) {
-    final weeklyMedians = date_utils.AppDateUtils.getWeeklyMedians(
+    // Use cached weekly medians for better performance
+    final weeklyMedians = MetricsCache.getWeeklyMedians(
       widget.entries,
       widget.weekStartsOn,
     );

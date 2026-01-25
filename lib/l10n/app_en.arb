@@ -357,5 +357,7 @@
 
   "dataPoints": "data points",
   "midpoint": "Midpoint",
-  "latest": "Latest"
+  "latest": "Latest",
+
+  "loadMore": "Load more"
 }
