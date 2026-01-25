@@ -114,22 +114,36 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
             ),
             const SizedBox(height: 12),
-            _OptionCard(
-              label: context.l10n.languageEnglish,
-              isSelected: locale == 'en',
-              onTap: () => _setLocale('en'),
-            ),
-            const SizedBox(height: 12),
-            _OptionCard(
-              label: context.l10n.languageFrench,
-              isSelected: locale == 'fr',
-              onTap: () => _setLocale('fr'),
-            ),
-            const SizedBox(height: 12),
-            _OptionCard(
-              label: context.l10n.languageArabic,
-              isSelected: locale == 'ar',
-              onTap: () => _setLocale('ar'),
+            DropdownButtonFormField<String>(
+              value: locale,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 14,
+                ),
+              ),
+              items: [
+                DropdownMenuItem(
+                  value: 'en',
+                  child: Text(context.l10n.languageEnglish),
+                ),
+                DropdownMenuItem(
+                  value: 'fr',
+                  child: Text(context.l10n.languageFrench),
+                ),
+                DropdownMenuItem(
+                  value: 'ar',
+                  child: Text(context.l10n.languageArabic),
+                ),
+              ],
+              onChanged: (String? value) {
+                if (value != null) {
+                  _setLocale(value);
+                }
+              },
             ),
             const SizedBox(height: 32),
             if (config != null) ...[
