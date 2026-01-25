@@ -82,7 +82,18 @@ class OverviewScreen extends ConsumerWidget {
           ),
         ),
       ),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            SkeletonCard(),
+            const SizedBox(height: 16),
+            SkeletonCard(),
+            const SizedBox(height: 16),
+            SkeletonCard(),
+          ],
+        ),
+      ),
       error: (error, stack) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
