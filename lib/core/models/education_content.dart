@@ -109,10 +109,13 @@ class EducationContentLibrary {
   }
 
   static EducationContent? getById(String id) {
-    return getAllContent().firstWhere(
-      (content) => content.id == id,
-      orElse: () => throw StateError('Education content not found: $id'),
-    );
+    try {
+      return getAllContent().firstWhere(
+        (content) => content.id == id,
+      );
+    } catch (e) {
+      return null;
+    }
   }
 
   static List<EducationContent> getByCategory(EducationCategory category) {
