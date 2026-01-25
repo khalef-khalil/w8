@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/models/progress_metrics.dart';
 import '../../../core/models/goal_configuration.dart';
+import '../../../core/services/insight_recommendations_service.dart';
 import '../../../core/utils/weight_converter.dart';
 
 /// Widget affichant les insights avancés
@@ -53,6 +54,10 @@ class InsightsCard extends StatelessWidget {
             // Prédiction de date
             if (predictedDate != null)
               _buildPredictionSection(context, predictedDate, comparison),
+            
+            // Actionable recommendations
+            const SizedBox(height: 16),
+            _buildRecommendationsSection(context),
           ],
         ),
       ),
@@ -342,5 +347,101 @@ class InsightsCard extends StatelessWidget {
   String _formatDate(BuildContext context, DateTime date) {
     final locale = Localizations.localeOf(context).toString();
     return DateFormat.yMMMMd(locale).format(date);
+  }
+
+  Widget _buildRecommendationsSection(BuildContext context) {
+    final recommendations = InsightRecommendationsService.getRecommendations(metrics);
+    final encouragement = InsightRecommendationsService.getEncouragementMessage(metrics);
+
+    if (recommendations.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.tertiaryContainer.withValues(alpha: 0.3),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.tertiaryContainer.withValues(alpha: 0.5),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.lightbulb_outline_rounded,
+                color: Theme.of(context).colorScheme.tertiary,
+                size: 20,
+              ),
+              const SizedBox(width: 8),
+              Text(
+                context.l10n.recommendations,
+                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onTertiaryContainer,
+                    ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // Encouragement message
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.tertiaryContainer,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.favorite_rounded,
+                  size: 20,
+                  color: Theme.of(context).colorScheme.onTertiaryContainer,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    encouragement,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.onTertiaryContainer,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          // Actionable recommendations
+          ...recommendations.take(2).map((recommendation) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.check_circle_outline_rounded,
+                    size: 18,
+                    color: Theme.of(context).colorScheme.tertiary,
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      recommendation,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
+        ],
+      ),
+    );
   }
 }

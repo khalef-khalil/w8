@@ -697,4 +697,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tipsAndEducation => 'Tips & Education';
+
+  @override
+  String get recommendations => 'Recommendations';
 }

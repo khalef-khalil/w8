@@ -1369,6 +1369,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tips & Education'**
   String get tipsAndEducation;
+
+  /// No description provided for @recommendations.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommendations'**
+  String get recommendations;
 }
 
 class _AppLocalizationsDelegate

@@ -702,4 +702,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get tipsAndEducation => 'Conseils et éducation';
+
+  @override
+  String get recommendations => 'Recommandations';
 }
