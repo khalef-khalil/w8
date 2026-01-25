@@ -45,11 +45,15 @@ class EducationOverlay extends StatelessWidget {
                           ),
                         if (content.icon != null) const SizedBox(width: 16),
                         Expanded(
-                          child: Text(
-                            content.title(context.l10n),
-                            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              content.title(context.l10n),
+                              style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
                           ),
                         ),
                         IconButton(
