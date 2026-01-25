@@ -358,7 +358,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get required => 'Requise';
 
   @override
-  String get kgPerWeek => 'kg/semaine';
+  String get kgPerWeek => 'kg/S';
 
   @override
   String percentOfRequired(String percent) {

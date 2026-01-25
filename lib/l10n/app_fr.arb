@@ -114,7 +114,7 @@
   "speedOfProgress": "Vitesse de progression",
   "current": "Actuelle",
   "required": "Requise",
-  "kgPerWeek": "kg/semaine",
+  "kgPerWeek": "kg/S",
   "percentOfRequired": "{percent}% de la vitesse requise",
   "prediction": "Prédiction",
   "goalReachedInDays": "Objectif atteint dans {count} jours",
