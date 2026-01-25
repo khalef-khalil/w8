@@ -433,6 +433,14 @@
   "emptyStateAddWeightEntry": "إضافة إدخال وزن",
   "emptyStateBuildingInsights": "بناء الرؤى",
   "emptyStateBuildingInsightsMessage": "استمر في تتبع وزنك! بمجرد أن يكون لديك بيانات كافية، سنعرض لك رؤى واتجاهات مخصصة.",
+  "insightsComingSoon": "الرؤى قادمة قريباً",
+  "insightsComingSoonMessage": "تتبع وزنك لمدة 7 أيام لفتح الرؤى وتحليل التقدم.",
+  "insightsDaysRemaining": "متبقي {days} أيام",
+  "@insightsDaysRemaining": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
   
   "recommendationBehindLoss": "أنت متأخر {deficit} {unit}/أسبوع عن الهدف. فكر في مراجعة تغذيتك ومستويات نشاطك.",
   "@recommendationBehindLoss": {

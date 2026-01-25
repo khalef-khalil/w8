@@ -435,6 +435,14 @@
   "emptyStateAddWeightEntry": "Add Weight Entry",
   "emptyStateBuildingInsights": "Building Insights",
   "emptyStateBuildingInsightsMessage": "Keep tracking your weight! Once you have enough data, we'll show you personalized insights and trends.",
+  "insightsComingSoon": "Insights Coming Soon",
+  "insightsComingSoonMessage": "Track your weight for 7 days to unlock insights and progression analysis.",
+  "insightsDaysRemaining": "{days} days remaining",
+  "@insightsDaysRemaining": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
   
   "recommendationBehindLoss": "You're {deficit} {unit}/week behind target. Consider reviewing your nutrition and activity levels.",
   "@recommendationBehindLoss": {

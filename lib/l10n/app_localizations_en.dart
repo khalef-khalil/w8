@@ -969,6 +969,18 @@ class AppLocalizationsEn extends AppLocalizations {
       'Keep tracking your weight! Once you have enough data, we\'ll show you personalized insights and trends.';
 
   @override
+  String get insightsComingSoon => 'Insights Coming Soon';
+
+  @override
+  String get insightsComingSoonMessage =>
+      'Track your weight for 7 days to unlock insights and progression analysis.';
+
+  @override
+  String insightsDaysRemaining(int days) {
+    return '$days days remaining';
+  }
+
+  @override
   String recommendationBehindLoss(String deficit, String unit) {
     return 'You\'re $deficit $unit/week behind target. Consider reviewing your nutrition and activity levels.';
   }

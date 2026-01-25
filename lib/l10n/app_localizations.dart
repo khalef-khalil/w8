@@ -1864,6 +1864,24 @@ abstract class AppLocalizations {
   /// **'Keep tracking your weight! Once you have enough data, we\'ll show you personalized insights and trends.'**
   String get emptyStateBuildingInsightsMessage;
 
+  /// No description provided for @insightsComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Insights Coming Soon'**
+  String get insightsComingSoon;
+
+  /// No description provided for @insightsComingSoonMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your weight for 7 days to unlock insights and progression analysis.'**
+  String get insightsComingSoonMessage;
+
+  /// No description provided for @insightsDaysRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days remaining'**
+  String insightsDaysRemaining(int days);
+
   /// No description provided for @recommendationBehindLoss.
   ///
   /// In en, this message translates to:

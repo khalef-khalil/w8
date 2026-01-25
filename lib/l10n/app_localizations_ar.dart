@@ -955,6 +955,18 @@ class AppLocalizationsAr extends AppLocalizations {
       'استمر في تتبع وزنك! بمجرد أن يكون لديك بيانات كافية، سنعرض لك رؤى واتجاهات مخصصة.';
 
   @override
+  String get insightsComingSoon => 'الرؤى قادمة قريباً';
+
+  @override
+  String get insightsComingSoonMessage =>
+      'تتبع وزنك لمدة 7 أيام لفتح الرؤى وتحليل التقدم.';
+
+  @override
+  String insightsDaysRemaining(int days) {
+    return 'متبقي $days أيام';
+  }
+
+  @override
   String recommendationBehindLoss(String deficit, String unit) {
     return 'أنت متأخر $deficit $unit/أسبوع عن الهدف. فكر في مراجعة تغذيتك ومستويات نشاطك.';
   }
