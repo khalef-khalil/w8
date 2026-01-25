@@ -600,4 +600,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get targetWeightLbs => 'Target weight (lbs)';
+
+  @override
+  String get reminders => 'Reminders';
+
+  @override
+  String get enableReminders => 'Enable Daily Reminders';
+
+  @override
+  String get enableRemindersDescription => 'Get notified to track your weight';
+
+  @override
+  String get reminderTime => 'Reminder Time';
+
+  @override
+  String get notificationPermissionRequired =>
+      'Notification permission is required to enable reminders';
+
+  @override
+  String get notSet => 'Not set';
 }

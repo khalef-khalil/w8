@@ -603,4 +603,24 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get targetWeightLbs => 'Poids cible (lbs)';
+
+  @override
+  String get reminders => 'Rappels';
+
+  @override
+  String get enableReminders => 'Activer les rappels quotidiens';
+
+  @override
+  String get enableRemindersDescription =>
+      'Recevoir une notification pour enregistrer ton poids';
+
+  @override
+  String get reminderTime => 'Heure du rappel';
+
+  @override
+  String get notificationPermissionRequired =>
+      'La permission de notification est requise pour activer les rappels';
+
+  @override
+  String get notSet => 'Non défini';
 }

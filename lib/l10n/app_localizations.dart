@@ -1183,6 +1183,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Target weight (lbs)'**
   String get targetWeightLbs;
+
+  /// No description provided for @reminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders'**
+  String get reminders;
+
+  /// No description provided for @enableReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Daily Reminders'**
+  String get enableReminders;
+
+  /// No description provided for @enableRemindersDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Get notified to track your weight'**
+  String get enableRemindersDescription;
+
+  /// No description provided for @reminderTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder Time'**
+  String get reminderTime;
+
+  /// No description provided for @notificationPermissionRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Notification permission is required to enable reminders'**
+  String get notificationPermissionRequired;
+
+  /// No description provided for @notSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not set'**
+  String get notSet;
 }
 
 class _AppLocalizationsDelegate

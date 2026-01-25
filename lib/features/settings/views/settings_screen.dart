@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/services/goal_storage_service.dart';
 import '../../../core/services/data_export_service.dart';
+import '../../../core/services/reminder_service.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/utils/week_start_day_labels.dart';
@@ -20,6 +21,8 @@ class SettingsScreen extends ConsumerStatefulWidget {
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   GoalConfiguration? _config;
   bool _loading = true;
+  bool _reminderEnabled = false;
+  TimeOfDay? _reminderTime;
 
   @override
   void initState() {
@@ -30,6 +33,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   void _loadConfig() {
     setState(() {
       _config = GoalStorageService.getGoalConfiguration();
+      _reminderEnabled = ReminderService.isReminderEnabled();
+      _reminderTime = ReminderService.getReminderTime();
       _loading = false;
     });
   }
@@ -155,6 +160,68 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   }
                 },
               ),
+              const SizedBox(height: 32),
+              // Reminder Section
+              Text(
+                context.l10n.reminders,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              Card(
+                child: SwitchListTile(
+                  title: Text(context.l10n.enableReminders),
+                  subtitle: Text(context.l10n.enableRemindersDescription),
+                  value: _reminderEnabled,
+                  onChanged: (value) async {
+                    // Request permissions first
+                    final granted = await ReminderService.requestPermissions();
+                    if (!granted && value) {
+                      if (!mounted) return;
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(context.l10n.notificationPermissionRequired),
+                          backgroundColor: Theme.of(context).colorScheme.error,
+                        ),
+                      );
+                      return;
+                    }
+                    
+                    await ReminderService.setReminderEnabled(value);
+                    setState(() {
+                      _reminderEnabled = value;
+                    });
+                  },
+                ),
+              ),
+              if (_reminderEnabled) ...[
+                const SizedBox(height: 12),
+                Card(
+                  child: ListTile(
+                    leading: const Icon(Icons.access_time_rounded),
+                    title: Text(context.l10n.reminderTime),
+                    subtitle: Text(
+                      _reminderTime != null
+                          ? _reminderTime!.format(context)
+                          : context.l10n.notSet,
+                    ),
+                    trailing: const Icon(Icons.chevron_right_rounded),
+                    onTap: () async {
+                      final picked = await showTimePicker(
+                        context: context,
+                        initialTime: _reminderTime ?? const TimeOfDay(hour: 9, minute: 0),
+                      );
+                      if (picked != null) {
+                        await ReminderService.setReminderTime(picked);
+                        setState(() {
+                          _reminderTime = picked;
+                        });
+                      }
+                    },
+                  ),
+                ),
+              ],
               const SizedBox(height: 32),
               // Goal Management Section
               Text(

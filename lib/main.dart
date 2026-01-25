@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'core/services/hive_storage_service.dart';
+import 'core/services/reminder_service.dart';
 import 'core/routing/app_router.dart';
 import 'core/providers/locale_provider.dart';
 import 'l10n/app_localizations.dart';
@@ -11,6 +12,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await HiveStorageService.init();
+  await ReminderService.initialize();
 
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

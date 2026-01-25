@@ -194,5 +194,12 @@
   "goalManagement": "Gestion de l'objectif",
   "goalUpdated": "Objectif mis à jour avec succès",
   "initialWeightLbs": "Poids initial (lbs)",
-  "targetWeightLbs": "Poids cible (lbs)"
+  "targetWeightLbs": "Poids cible (lbs)",
+
+  "reminders": "Rappels",
+  "enableReminders": "Activer les rappels quotidiens",
+  "enableRemindersDescription": "Recevoir une notification pour enregistrer ton poids",
+  "reminderTime": "Heure du rappel",
+  "notificationPermissionRequired": "La permission de notification est requise pour activer les rappels",
+  "notSet": "Non défini"
 }

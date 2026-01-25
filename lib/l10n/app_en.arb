@@ -293,5 +293,12 @@
   "goalManagement": "Goal Management",
   "goalUpdated": "Goal updated successfully",
   "initialWeightLbs": "Initial weight (lbs)",
-  "targetWeightLbs": "Target weight (lbs)"
+  "targetWeightLbs": "Target weight (lbs)",
+
+  "reminders": "Reminders",
+  "enableReminders": "Enable Daily Reminders",
+  "enableRemindersDescription": "Get notified to track your weight",
+  "reminderTime": "Reminder Time",
+  "notificationPermissionRequired": "Notification permission is required to enable reminders",
+  "notSet": "Not set"
 }
