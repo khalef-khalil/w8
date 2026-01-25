@@ -21,8 +21,21 @@ class InsightsCard extends StatelessWidget {
     final predictedDate = metrics.predictGoalDate();
 
     return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(begin: 0.0, end: 1.0),
+        duration: const Duration(milliseconds: 600),
+        curve: Curves.easeOutCubic,
+        builder: (context, value, child) {
+          return Opacity(
+            opacity: value,
+            child: Transform.translate(
+              offset: Offset(0, 20 * (1 - value)),
+              child: child,
+            ),
+          );
+        },
+        child: Padding(
+          padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -59,6 +72,7 @@ class InsightsCard extends StatelessWidget {
             const SizedBox(height: 16),
             _buildRecommendationsSection(context),
           ],
+        ),
         ),
       ),
     );

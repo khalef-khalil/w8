@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../models/weight_entry.dart';
 import '../../features/home/views/main_scaffold.dart';
@@ -10,6 +11,57 @@ import '../../features/onboarding/views/first_entry_screen.dart';
 import '../../features/onboarding/views/language_selection_screen.dart';
 import '../../features/settings/views/edit_goal_screen.dart';
 import '../../core/services/goal_storage_service.dart';
+
+/// Custom page transitions
+Page<T> _buildPageWithTransition<T extends Object?>(
+  Widget child,
+  GoRouterState state,
+) {
+  return CustomTransitionPage<T>(
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return FadeTransition(
+        opacity: animation,
+        child: SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0.0, 0.1),
+            end: Offset.zero,
+          ).animate(CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeOutCubic,
+          )),
+          child: child,
+        ),
+      );
+    },
+    transitionDuration: const Duration(milliseconds: 300),
+  );
+}
+
+/// Custom page class for transitions
+class CustomTransitionPage<T> extends Page<T> {
+  final Widget child;
+  final Widget Function(BuildContext, Animation<double>, Animation<double>, Widget) transitionsBuilder;
+  final Duration transitionDuration;
+
+  const CustomTransitionPage({
+    super.key,
+    required this.child,
+    required this.transitionsBuilder,
+    this.transitionDuration = const Duration(milliseconds: 300),
+  });
+
+  @override
+  Route<T> createRoute(BuildContext context) {
+    return PageRouteBuilder<T>(
+      settings: this,
+      pageBuilder: (context, animation, secondaryAnimation) => child,
+      transitionDuration: transitionDuration,
+      transitionsBuilder: transitionsBuilder,
+    );
+  }
+}
 
 /// Configuration du routeur de l'application
 final appRouter = GoRouter(
@@ -62,24 +114,36 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/',
       name: 'home',
-      builder: (context, state) => const MainScaffold(),
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const MainScaffold(),
+        state,
+      ),
     ),
     GoRoute(
       path: '/add-weight',
       name: 'add-weight',
-      builder: (context, state) => AddWeightScreen(
-        entryToEdit: state.extra as WeightEntry?,
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        AddWeightScreen(
+          entryToEdit: state.extra as WeightEntry?,
+        ),
+        state,
       ),
     ),
     GoRoute(
       path: '/history',
       name: 'history',
-      builder: (context, state) => const HistoryPage(),
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const HistoryPage(),
+        state,
+      ),
     ),
     GoRoute(
       path: '/settings/edit-goal',
       name: 'edit-goal',
-      builder: (context, state) => const EditGoalScreen(),
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const EditGoalScreen(),
+        state,
+      ),
     ),
   ],
 );

@@ -7,6 +7,7 @@ import '../widgets/insights_card.dart';
 import '../widgets/progress_comparison_card.dart';
 import '../../../core/widgets/animated_progress_bar.dart';
 import '../../../core/widgets/empty_state.dart';
+import '../../../core/widgets/loading_skeleton.dart';
 import '../../../core/services/pattern_recognition_service.dart';
 import '../../../core/models/pattern_insight.dart';
 import '../../../models/weight_entry.dart';

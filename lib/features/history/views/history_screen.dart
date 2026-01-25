@@ -10,6 +10,7 @@ import '../../../core/models/goal_configuration.dart';
 import '../../../core/utils/weight_converter.dart';
 import '../../../core/widgets/empty_state.dart';
 import '../../../core/widgets/error_boundary.dart';
+import '../../../core/widgets/loading_skeleton.dart';
 import '../../../core/models/weight_entry_tags.dart';
 import '../../../models/weight_entry.dart';
 
@@ -81,8 +82,14 @@ class _HistoryScreenState extends ConsumerState<HistoryScreen> {
                 ),
         );
       },
-      loading: () =>
-          const Center(child: CircularProgressIndicator()),
+      loading: () => ListView.builder(
+        padding: const EdgeInsets.all(20),
+        itemCount: 5,
+        itemBuilder: (context, index) => Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: SkeletonCard(),
+        ),
+      ),
       error: (e, _) => Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

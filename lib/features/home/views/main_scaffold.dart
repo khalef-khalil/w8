@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'overview_screen.dart';
 import '../../history/views/history_page.dart';
@@ -41,7 +42,11 @@ class _MainScaffoldState extends State<MainScaffold> {
       ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentIndex,
-        onDestinationSelected: (i) => setState(() => _currentIndex = i),
+        onDestinationSelected: (i) {
+          // Haptic feedback for tab changes
+          HapticFeedback.selectionClick();
+          setState(() => _currentIndex = i);
+        },
         destinations: [
           for (var i = 0; i < _tabs.length; i++)
             NavigationDestination(
