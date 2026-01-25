@@ -130,7 +130,7 @@ Future<void> _confirmDelete(
     ),
   );
   if (confirmed != true) return;
-  await HiveStorageService.deleteWeightEntry(entry.date);
+  await HiveStorageService.deleteWeightEntry(entry.date); // entry.date is already a full DateTime
   ref.read(homeViewModelProvider.notifier).refresh();
   if (!context.mounted) return;
   ScaffoldMessenger.of(context).showSnackBar(

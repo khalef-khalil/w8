@@ -250,5 +250,32 @@
   "deleteEntryTitle": "Delete weigh-in?",
   "deleteEntryMessage": "This action cannot be undone.",
   "entryDeleted": "Weigh-in deleted",
-  "weightUpdated": "Weigh-in updated"
+  "weightUpdated": "Weigh-in updated",
+
+  "dataManagement": "Data Management",
+  "exportData": "Export Data",
+  "exportDataDescription": "Export your weight data to CSV or JSON format",
+  "exportAsCSV": "Export as CSV",
+  "exportAsCSVDescription": "Comma-separated values format, easy to open in Excel",
+  "exportAsJSON": "Export as JSON",
+  "exportAsJSONDescription": "JSON format with all data including goal configuration",
+  "exportDataReady": "Your data is ready to copy:",
+  "copyToClipboard": "Copy to Clipboard",
+  "dataCopiedToClipboard": "Data copied to clipboard",
+  "errorExporting": "Error exporting data",
+  "close": "Close",
+
+  "currentStreak": "Current Streak",
+  "daysInARow": "{count} days in a row",
+  "@daysInARow": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "longestStreak": "Longest: {count} days",
+  "@longestStreak": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

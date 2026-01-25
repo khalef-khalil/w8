@@ -161,5 +161,22 @@
   "deleteEntryTitle": "Supprimer cette pesée ?",
   "deleteEntryMessage": "Cette action est irréversible.",
   "entryDeleted": "Pesée supprimée",
-  "weightUpdated": "Pesée mise à jour"
+  "weightUpdated": "Pesée mise à jour",
+
+  "dataManagement": "Gestion des données",
+  "exportData": "Exporter les données",
+  "exportDataDescription": "Exporter tes données de poids au format CSV ou JSON",
+  "exportAsCSV": "Exporter en CSV",
+  "exportAsCSVDescription": "Format valeurs séparées par des virgules, facile à ouvrir dans Excel",
+  "exportAsJSON": "Exporter en JSON",
+  "exportAsJSONDescription": "Format JSON avec toutes les données incluant la configuration de l'objectif",
+  "exportDataReady": "Tes données sont prêtes à être copiées :",
+  "copyToClipboard": "Copier dans le presse-papiers",
+  "dataCopiedToClipboard": "Données copiées dans le presse-papiers",
+  "errorExporting": "Erreur lors de l'exportation",
+  "close": "Fermer",
+
+  "currentStreak": "Série actuelle",
+  "daysInARow": "{count} jours d'affilée",
+  "longestStreak": "Record : {count} jours"
 }

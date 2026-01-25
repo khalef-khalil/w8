@@ -506,4 +506,56 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weightUpdated => 'Weigh-in updated';
+
+  @override
+  String get dataManagement => 'Data Management';
+
+  @override
+  String get exportData => 'Export Data';
+
+  @override
+  String get exportDataDescription =>
+      'Export your weight data to CSV or JSON format';
+
+  @override
+  String get exportAsCSV => 'Export as CSV';
+
+  @override
+  String get exportAsCSVDescription =>
+      'Comma-separated values format, easy to open in Excel';
+
+  @override
+  String get exportAsJSON => 'Export as JSON';
+
+  @override
+  String get exportAsJSONDescription =>
+      'JSON format with all data including goal configuration';
+
+  @override
+  String get exportDataReady => 'Your data is ready to copy:';
+
+  @override
+  String get copyToClipboard => 'Copy to Clipboard';
+
+  @override
+  String get dataCopiedToClipboard => 'Data copied to clipboard';
+
+  @override
+  String get errorExporting => 'Error exporting data';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get currentStreak => 'Current Streak';
+
+  @override
+  String daysInARow(int count) {
+    return '$count days in a row';
+  }
+
+  @override
+  String longestStreak(int count) {
+    return 'Longest: $count days';
+  }
 }

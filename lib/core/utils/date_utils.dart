@@ -85,6 +85,7 @@ class AppDateUtils {
   }
 
   /// Obtenir toutes les médianes hebdomadaires
+  /// Amélioré pour mieux gérer les données éparses
   static List<MapEntry<DateTime, double>> getWeeklyMedians(
     List<WeightEntry> entries, [
     WeekStartDay weekStartsOn = WeekStartDay.monday,
@@ -95,15 +96,25 @@ class AppDateUtils {
     final endDate = entries.last.date;
     final medians = <MapEntry<DateTime, double>>[];
 
+    // Commencer à la semaine de la première entrée
     DateTime currentWeek = getWeekStart(startDate, weekStartsOn);
+    // S'assurer qu'on inclut la semaine de la dernière entrée
+    final lastWeek = getWeekStart(endDate, weekStartsOn);
 
-    while (currentWeek.isBefore(endDate) ||
-        isSameWeek(currentWeek, endDate, weekStartsOn)) {
+    // Parcourir toutes les semaines entre le début et la fin
+    while (currentWeek.isBefore(lastWeek) || 
+           currentWeek.isAtSameMomentAs(lastWeek) ||
+           isSameWeek(currentWeek, lastWeek, weekStartsOn)) {
       final median = getWeeklyMedian(entries, currentWeek);
       if (median != null) {
         medians.add(MapEntry(currentWeek, median));
       }
       currentWeek = currentWeek.add(const Duration(days: 7));
+      
+      // Protection contre les boucles infinies
+      if (currentWeek.isAfter(endDate.add(const Duration(days: 14)))) {
+        break;
+      }
     }
 
     return medians;

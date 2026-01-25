@@ -19,10 +19,19 @@ class HomeScreen extends ConsumerWidget {
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           padding: const EdgeInsets.all(20),
-          child: _buildProgressCard(
-            context,
-            state.progress,
-            goalConfig: state.goalConfig,
+          child: Column(
+            children: [
+              // Streak card (if there are entries)
+              if (state.entries.isNotEmpty) ...[
+                _buildStreakCard(context, state),
+                const SizedBox(height: 20),
+              ],
+              _buildProgressCard(
+                context,
+                state.progress,
+                goalConfig: state.goalConfig,
+              ),
+            ],
           ),
         ),
       ),
@@ -275,6 +284,61 @@ class HomeScreen extends ConsumerWidget {
           textAlign: TextAlign.center,
         ),
       ],
+    );
+  }
+
+  Widget _buildStreakCard(BuildContext context, HomeState state) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                Icons.local_fire_department_rounded,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                size: 32,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    context.l10n.currentStreak,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    context.l10n.daysInARow(state.currentStreak),
+                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                  ),
+                  if (state.longestStreak > state.currentStreak) ...[
+                    const SizedBox(height: 4),
+                    Text(
+                      context.l10n.longestStreak(state.longestStreak),
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -2,17 +2,24 @@ import 'dart:math' as math;
 import '../../models/weight_entry.dart';
 import '../models/goal_configuration.dart';
 import '../models/validation_result.dart';
+import '../models/validation_thresholds.dart';
+import '../utils/weight_converter.dart';
 
 /// Service de validation intelligente des poids
 class WeightValidationService {
-  /// Validation basique du poids
-  static ValidationResult validateBasic(double weight) {
+  /// Validation basique du poids (en kg, unité interne)
+  /// [unit] est utilisé uniquement pour les messages d'erreur
+  static ValidationResult validateBasic(double weight, WeightUnit unit) {
     if (weight <= 0) {
       return ValidationResult.error('Le poids doit être supérieur à 0');
     }
     
-    if (weight > 500) {
-      return ValidationResult.error('Le poids doit être inférieur à 500 kg');
+    final thresholds = ValidationThresholds(unit);
+    if (weight > thresholds.maxWeight) {
+      final maxDisplay = WeightConverter.forDisplay(thresholds.maxWeight, unit);
+      return ValidationResult.error(
+        'Le poids doit être inférieur à ${maxDisplay.toStringAsFixed(0)} ${thresholds.unitName}'
+      );
     }
 
     return ValidationResult.success();
@@ -24,8 +31,11 @@ class WeightValidationService {
     List<WeightEntry> history,
     GoalConfiguration? goal,
   ) {
+    final unit = goal?.unit ?? WeightUnit.kg;
+    final thresholds = ValidationThresholds(unit);
+    
     // Validation basique d'abord
-    final basicValidation = validateBasic(newWeight);
+    final basicValidation = validateBasic(newWeight, unit);
     if (!basicValidation.isValid) {
       return basicValidation;
     }
@@ -35,10 +45,12 @@ class WeightValidationService {
       // Vérifier cohérence avec l'objectif si disponible
       if (goal != null) {
         final diffFromInitial = (newWeight - goal.initialWeight).abs();
-        if (diffFromInitial > 5.0) {
+        if (diffFromInitial > thresholds.significantDifferenceFromInitial) {
+          final newDisplay = WeightConverter.forDisplay(newWeight, unit);
+          final initialDisplay = WeightConverter.forDisplay(goal.initialWeight, unit);
           return ValidationResult.warning(
-            'Le poids saisi (${newWeight.toStringAsFixed(2)}kg) est très différent '
-            'du poids initial configuré (${goal.initialWeight.toStringAsFixed(2)}kg). '
+            'Le poids saisi (${newDisplay.toStringAsFixed(2)} ${thresholds.unitName}) est très différent '
+            'du poids initial configuré (${initialDisplay.toStringAsFixed(2)} ${thresholds.unitName}). '
             'Est-ce correct ?',
             requiresConfirmation: true,
           );
@@ -55,27 +67,30 @@ class WeightValidationService {
     final change = newWeight - lastWeight;
     final changeAbs = change.abs();
 
-    // Cas 1: Changement physiologiquement impossible (>5kg en 1 jour)
-    if (daysSinceLast <= 1 && changeAbs > 5.0) {
+    // Cas 1: Changement physiologiquement impossible
+    if (daysSinceLast <= 1 && changeAbs > thresholds.impossibleChangePerDay) {
+      final changeSignDisplay = WeightConverter.forDisplay(change, unit);
       return ValidationResult.error(
-        'Changement trop important détecté (${change > 0 ? '+' : ''}${change.toStringAsFixed(2)}kg). '
+        'Changement trop important détecté (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName}). '
         'Cela semble impossible. Vérifiez votre saisie.',
       );
     }
 
-    // Cas 2: Changement suspect (>2kg en 1 jour)
-    if (daysSinceLast == 1 && changeAbs > 2.0) {
+    // Cas 2: Changement suspect en 1 jour
+    if (daysSinceLast == 1 && changeAbs > thresholds.suspiciousChangePerDay) {
+      final changeSignDisplay = WeightConverter.forDisplay(change, unit);
       return ValidationResult.warning(
-        'Changement important détecté (${change > 0 ? '+' : ''}${change.toStringAsFixed(2)}kg en 1 jour). '
-        'Est-ce correct ? Les fluctuations normales sont généralement inférieures à 2kg/jour.',
+        'Changement important détecté (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName} en 1 jour). '
+        'Est-ce correct ? Les fluctuations normales sont généralement inférieures à ${WeightConverter.forDisplay(thresholds.suspiciousChangePerDay, unit).toStringAsFixed(1)} ${thresholds.unitName}/jour.',
         requiresConfirmation: true,
       );
     }
 
-    // Cas 3: Changement suspect (>3kg en quelques jours)
-    if (daysSinceLast <= 3 && changeAbs > 3.0) {
+    // Cas 3: Changement suspect sur plusieurs jours
+    if (daysSinceLast <= 3 && changeAbs > thresholds.suspiciousChangeMultiDay) {
+      final changeSignDisplay = WeightConverter.forDisplay(change, unit);
       return ValidationResult.warning(
-        'Changement important détecté (${change > 0 ? '+' : ''}${change.toStringAsFixed(2)}kg en $daysSinceLast jour${daysSinceLast > 1 ? 's' : ''}). '
+        'Changement important détecté (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName} en $daysSinceLast jour${daysSinceLast > 1 ? 's' : ''}). '
         'Est-ce correct ?',
         requiresConfirmation: true,
       );
@@ -84,18 +99,20 @@ class WeightValidationService {
     // Cas 4: Vérifier cohérence avec l'objectif
     if (goal != null) {
       // Si on gagne du poids alors que l'objectif est de perdre
-      if (goal.type == GoalType.loss && change > 1.0) {
+      if (goal.type == GoalType.loss && change > thresholds.significantGoalChange) {
+        final changeDisplay = WeightConverter.forDisplay(change, unit);
         return ValidationResult.warning(
-          'Tu es en train de prendre du poids (${change.toStringAsFixed(2)}kg) alors que ton objectif est de perdre. '
+          'Tu es en train de prendre du poids (${changeDisplay.toStringAsFixed(2)} ${thresholds.unitName}) alors que ton objectif est de perdre. '
           'Veux-tu continuer ?',
           requiresConfirmation: true,
         );
       }
 
       // Si on perd du poids alors que l'objectif est de gagner
-      if (goal.type == GoalType.gain && change < -1.0) {
+      if (goal.type == GoalType.gain && change < -thresholds.significantGoalChange) {
+        final changeDisplay = WeightConverter.forDisplay(change, unit);
         return ValidationResult.warning(
-          'Tu es en train de perdre du poids (${change.toStringAsFixed(2)}kg) alors que ton objectif est de gagner. '
+          'Tu es en train de perdre du poids (${changeDisplay.toStringAsFixed(2)} ${thresholds.unitName}) alors que ton objectif est de gagner. '
           'Veux-tu continuer ?',
           requiresConfirmation: true,
         );
@@ -114,9 +131,10 @@ class WeightValidationService {
     }
 
     // Cas 5: Détecter les valeurs aberrantes par rapport à la tendance
-    if (history.length >= 3) {
+    // Utiliser une fenêtre plus large (7 dernières entrées au lieu de 3)
+    if (history.length >= 7) {
       final recentWeights = history
-          .sublist(history.length - 3)
+          .sublist(history.length - 7)
           .map((e) => e.weight)
           .toList();
       
@@ -124,7 +142,9 @@ class WeightValidationService {
       final stdDev = _calculateStdDev(recentWeights, average);
       
       // Si le nouveau poids est à plus de 2 écarts-types de la moyenne
-      if ((newWeight - average).abs() > 2 * stdDev && stdDev > 0.5) {
+      // Seuil minimum d'écart-type ajusté selon l'unité
+      final minStdDev = unit == WeightUnit.kg ? 0.5 : 1.1; // ~0.5kg ou ~1.1lbs
+      if ((newWeight - average).abs() > 2 * stdDev && stdDev > minStdDev) {
         return ValidationResult.warning(
           'Ce poids semble inhabituel par rapport à tes dernières pesées. '
           'Est-ce correct ?',
@@ -153,8 +173,10 @@ class WeightValidationService {
     List<WeightEntry> history,
     GoalConfiguration? goal,
   ) async {
+    final unit = goal?.unit ?? WeightUnit.kg;
+    
     // Validation basique
-    final basicResult = validateBasic(entry.weight);
+    final basicResult = validateBasic(entry.weight, unit);
     if (!basicResult.isValid) {
       return basicResult;
     }

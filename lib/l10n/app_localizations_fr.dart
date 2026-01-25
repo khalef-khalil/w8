@@ -507,4 +507,56 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get weightUpdated => 'Pesée mise à jour';
+
+  @override
+  String get dataManagement => 'Gestion des données';
+
+  @override
+  String get exportData => 'Exporter les données';
+
+  @override
+  String get exportDataDescription =>
+      'Exporter tes données de poids au format CSV ou JSON';
+
+  @override
+  String get exportAsCSV => 'Exporter en CSV';
+
+  @override
+  String get exportAsCSVDescription =>
+      'Format valeurs séparées par des virgules, facile à ouvrir dans Excel';
+
+  @override
+  String get exportAsJSON => 'Exporter en JSON';
+
+  @override
+  String get exportAsJSONDescription =>
+      'Format JSON avec toutes les données incluant la configuration de l\'objectif';
+
+  @override
+  String get exportDataReady => 'Tes données sont prêtes à être copiées :';
+
+  @override
+  String get copyToClipboard => 'Copier dans le presse-papiers';
+
+  @override
+  String get dataCopiedToClipboard => 'Données copiées dans le presse-papiers';
+
+  @override
+  String get errorExporting => 'Erreur lors de l\'exportation';
+
+  @override
+  String get close => 'Fermer';
+
+  @override
+  String get currentStreak => 'Série actuelle';
+
+  @override
+  String daysInARow(int count) {
+    return '$count jours d\'affilée';
+  }
+
+  @override
+  String longestStreak(int count) {
+    return 'Record : $count jours';
+  }
 }

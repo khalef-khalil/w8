@@ -1009,6 +1009,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weigh-in updated'**
   String get weightUpdated;
+
+  /// No description provided for @dataManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Data Management'**
+  String get dataManagement;
+
+  /// No description provided for @exportData.
+  ///
+  /// In en, this message translates to:
+  /// **'Export Data'**
+  String get exportData;
+
+  /// No description provided for @exportDataDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Export your weight data to CSV or JSON format'**
+  String get exportDataDescription;
+
+  /// No description provided for @exportAsCSV.
+  ///
+  /// In en, this message translates to:
+  /// **'Export as CSV'**
+  String get exportAsCSV;
+
+  /// No description provided for @exportAsCSVDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Comma-separated values format, easy to open in Excel'**
+  String get exportAsCSVDescription;
+
+  /// No description provided for @exportAsJSON.
+  ///
+  /// In en, this message translates to:
+  /// **'Export as JSON'**
+  String get exportAsJSON;
+
+  /// No description provided for @exportAsJSONDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'JSON format with all data including goal configuration'**
+  String get exportAsJSONDescription;
+
+  /// No description provided for @exportDataReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data is ready to copy:'**
+  String get exportDataReady;
+
+  /// No description provided for @copyToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy to Clipboard'**
+  String get copyToClipboard;
+
+  /// No description provided for @dataCopiedToClipboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Data copied to clipboard'**
+  String get dataCopiedToClipboard;
+
+  /// No description provided for @errorExporting.
+  ///
+  /// In en, this message translates to:
+  /// **'Error exporting data'**
+  String get errorExporting;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @currentStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Streak'**
+  String get currentStreak;
+
+  /// No description provided for @daysInARow.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} days in a row'**
+  String daysInARow(int count);
+
+  /// No description provided for @longestStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Longest: {count} days'**
+  String longestStreak(int count);
 }
 
 class _AppLocalizationsDelegate

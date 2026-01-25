@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/services/goal_storage_service.dart';
+import '../../../core/services/data_export_service.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/utils/week_start_day_labels.dart';
@@ -152,6 +154,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   }
                 },
               ),
+              const SizedBox(height: 32),
+              // Data Management Section
+              Text(
+                context.l10n.dataManagement,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              _DataManagementCard(
+                icon: Icons.download_rounded,
+                title: context.l10n.exportData,
+                subtitle: context.l10n.exportDataDescription,
+                onTap: () => _exportData(context),
+              ),
             ] else
               Center(
                 child: Padding(
@@ -164,6 +181,172 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               ),
           ],
         ),
+    );
+  }
+
+  Future<void> _exportData(BuildContext context) async {
+    try {
+      // Show dialog with export options
+      final format = await showDialog<String>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(ctx.l10n.exportData),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.table_chart_rounded),
+                title: Text(ctx.l10n.exportAsCSV),
+                subtitle: Text(ctx.l10n.exportAsCSVDescription),
+                onTap: () => Navigator.of(ctx).pop('csv'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.code_rounded),
+                title: Text(ctx.l10n.exportAsJSON),
+                subtitle: Text(ctx.l10n.exportAsJSONDescription),
+                onTap: () => Navigator.of(ctx).pop('json'),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(ctx.l10n.cancel),
+            ),
+          ],
+        ),
+      );
+
+      if (format == null) return;
+
+      String data;
+      String filename;
+      
+      if (format == 'csv') {
+        data = await DataExportService.exportToCSV();
+        filename = 'weight_tracker_export_${DateTime.now().toIso8601String().split('T')[0]}.csv';
+      } else {
+        data = await DataExportService.exportToJSONString();
+        filename = 'weight_tracker_export_${DateTime.now().toIso8601String().split('T')[0]}.json';
+      }
+
+      // Show data in dialog for user to copy
+      if (!context.mounted) return;
+      await showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: Text(context.l10n.exportData),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                context.l10n.exportDataReady,
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 16),
+              Container(
+                constraints: const BoxConstraints(maxHeight: 300),
+                child: SingleChildScrollView(
+                  child: SelectableText(
+                    data,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontFamily: 'monospace',
+                        ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(ctx).pop(),
+              child: Text(context.l10n.close),
+            ),
+            FilledButton(
+              onPressed: () {
+                Clipboard.setData(ClipboardData(text: data));
+                Navigator.of(ctx).pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(context.l10n.dataCopiedToClipboard),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              },
+              child: Text(context.l10n.copyToClipboard),
+            ),
+          ],
+        ),
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('${context.l10n.errorExporting}: $e'),
+          backgroundColor: Theme.of(context).colorScheme.error,
+        ),
+      );
+    }
+  }
+}
+
+class _DataManagementCard extends StatelessWidget {
+  const _DataManagementCard({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(12),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Icon(
+                icon,
+                color: Theme.of(context).colorScheme.primary,
+                size: 24,
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      subtitle,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.chevron_right_rounded,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import '../../models/weight_entry.dart';
 import '../models/goal_configuration.dart';
 import '../services/smoothing_calculator.dart';
+import '../services/statistical_calculator.dart';
 import '../utils/date_utils.dart' as date_utils;
 
 /// Métriques de progression avancées
@@ -40,17 +41,19 @@ class ProgressMetrics {
   double get totalWeightChange => goal.targetWeight - goal.initialWeight;
 
   /// Vitesse actuelle (kg/semaine)
+  /// Utilise la tendance récente au lieu de tout l'historique pour une meilleure précision
   double get currentRatePerWeek {
     if (entries.isEmpty) return 0.0;
 
-    // Utiliser le poids initial de l'objectif comme référence, pas la première entrée
-    // car la première entrée peut être après le début réel de l'objectif
-    final daysElapsed = calculationDate.difference(goal.goalStartDate).inDays;
-    
-    if (daysElapsed == 0) return 0.0;
-    
-    final weightChange = currentWeight - goal.initialWeight;
-    return (weightChange / daysElapsed) * 7;
+    // Utiliser StatisticalCalculator pour calculer la vitesse basée sur la tendance récente
+    // Cela donne une meilleure estimation que la méthode simple start-to-now
+    final recentRate = StatisticalCalculator.calculateRecentRatePerWeek(
+      entries,
+      goal,
+      weeksToConsider: 4, // Utiliser les 4 dernières semaines
+    );
+
+    return recentRate;
   }
 
   /// Vitesse requise (kg/semaine)

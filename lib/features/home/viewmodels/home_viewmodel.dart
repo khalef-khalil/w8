@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/weight_entry.dart';
 import '../../../core/services/hive_storage_service.dart';
 import '../../../core/services/goal_storage_service.dart';
+import '../../../core/services/streak_service.dart';
 import '../../../core/utils/date_utils.dart' as date_utils;
 import '../../../core/models/progress_data.dart';
 import '../../../core/models/progress_metrics.dart';
@@ -28,11 +29,23 @@ class HomeViewModel extends StateNotifier<AsyncValue<HomeState>> {
         metrics = ProgressMetrics.fromEntries(goal, entries);
       }
 
+      // Calculer les streaks
+      final currentStreak = StreakService.calculateCurrentStreak(entries);
+      final longestStreak = StreakService.calculateLongestStreak(entries);
+      final daysSinceLast = StreakService.daysSinceLastEntry(entries);
+      final hasEntryToday = StreakService.hasEntryToday(entries);
+      final totalDaysTracked = StreakService.totalDaysTracked(entries);
+
       state = AsyncValue.data(HomeState(
         entries: entries,
         progress: progress,
         metrics: metrics,
         goalConfig: goal,
+        currentStreak: currentStreak,
+        longestStreak: longestStreak,
+        daysSinceLastEntry: daysSinceLast,
+        hasEntryToday: hasEntryToday,
+        totalDaysTracked: totalDaysTracked,
       ));
     } catch (e, stackTrace) {
       state = AsyncValue.error(e, stackTrace);
@@ -123,12 +136,22 @@ class HomeState {
   final ProgressData progress;
   final ProgressMetrics? metrics;
   final GoalConfiguration? goalConfig;
+  final int currentStreak;
+  final int longestStreak;
+  final int daysSinceLastEntry;
+  final bool hasEntryToday;
+  final int totalDaysTracked;
 
   HomeState({
     required this.entries,
     required this.progress,
     this.metrics,
     this.goalConfig,
+    this.currentStreak = 0,
+    this.longestStreak = 0,
+    this.daysSinceLastEntry = 0,
+    this.hasEntryToday = false,
+    this.totalDaysTracked = 0,
   });
 }
 

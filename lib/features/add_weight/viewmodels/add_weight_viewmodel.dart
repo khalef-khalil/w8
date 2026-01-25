@@ -27,19 +27,15 @@ class AddWeightViewModel extends StateNotifier<AsyncValue<void>> {
   ) async {
     try {
       final history = HiveStorageService.getWeightEntries();
-      final excludeKey = _dateKey(exclude.date);
+      // Exclure l'entrée originale en comparant les timestamps exacts
       final filtered = history
-          .where((e) => _dateKey(e.date) != excludeKey)
+          .where((e) => e.date.toIso8601String() != exclude.date.toIso8601String())
           .toList();
       final goal = GoalStorageService.getGoalConfiguration();
       return WeightValidationService.validateEntry(entry, filtered, goal);
     } catch (e) {
       return ValidationResult.error('Erreur lors de la validation: $e');
     }
-  }
-
-  static String _dateKey(DateTime d) {
-    return '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
   }
 
   /// Sauvegarder une entrée de poids
