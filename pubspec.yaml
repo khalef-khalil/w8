@@ -36,17 +36,19 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/
 
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "app.png"
+  image_path: "assets/app.png"
   min_sdk_android: 21
   remove_alpha_ios: true
   # Using same image for both regular and adaptive icons
   # Note: For adaptive icons, the image should have ~20% padding built in
   adaptive_icon_background: "#6366F1"
-  adaptive_icon_foreground: "app.png"
+  adaptive_icon_foreground: "assets/app.png"
 
 flutter_native_splash:
   color: "#6366F1"
