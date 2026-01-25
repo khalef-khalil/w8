@@ -9,6 +9,7 @@ import '../../../core/widgets/animated_progress_bar.dart';
 import '../../../core/widgets/empty_state.dart';
 import '../../../core/services/pattern_recognition_service.dart';
 import '../../../core/models/pattern_insight.dart';
+import '../../../models/weight_entry.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/models/progress_metrics.dart';

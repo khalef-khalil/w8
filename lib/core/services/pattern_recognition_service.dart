@@ -1,7 +1,5 @@
-import 'dart:math' as math;
 import '../../models/weight_entry.dart';
 import '../models/pattern_insight.dart';
-import '../models/weight_entry_tags.dart';
 
 /// Service for analyzing patterns and correlations in weight data
 class PatternRecognitionService {
