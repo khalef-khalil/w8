@@ -113,6 +113,7 @@ class HiveStorageService {
   /// Pour supprimer par date seulement, utiliser [deleteWeightEntryByDate]
   static Future<void> deleteWeightEntry(DateTime dateTime) async {
     if (_weightEntriesBox == null) throw Exception('Hive non initialisé');
+    MetricsCache.clearCache(); // Clear cache when entries change
     final key = _getTimestampKey(dateTime);
     await _weightEntriesBox!.delete(key);
   }
@@ -140,6 +141,7 @@ class HiveStorageService {
     WeightEntry updated,
   ) async {
     if (_weightEntriesBox == null) throw Exception('Hive non initialisé');
+    MetricsCache.clearCache(); // Clear cache when entries change
     final originalKey = _getTimestampKey(original.date);
     final updatedKey = _getTimestampKey(updated.date);
     

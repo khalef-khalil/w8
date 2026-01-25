@@ -1,4 +1,3 @@
-import '../models/progress_metrics.dart';
 import '../models/goal_configuration.dart';
 import '../utils/date_utils.dart' as date_utils;
 import '../../models/weight_entry.dart';

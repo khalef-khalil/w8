@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../../../core/extensions/l10n_context.dart';
-import '../../../core/utils/date_utils.dart' as date_utils;
 import '../../../core/utils/weight_converter.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/models/chart_time_range.dart';
