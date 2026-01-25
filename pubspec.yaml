@@ -45,10 +45,8 @@ flutter_launcher_icons:
   image_path: "assets/app.png"
   min_sdk_android: 21
   remove_alpha_ios: true
-  # Disable adaptive icons - use regular icons instead
-  # This avoids the cropping/zooming issues with adaptive icons
-  # adaptive_icon_background: "#6366F1"
-  # adaptive_icon_foreground: "assets/app.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/app.png"
 
 flutter_native_splash:
   color: "#6366F1"
