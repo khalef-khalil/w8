@@ -241,7 +241,12 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(context.l10n.goalUpdated),
+          content: DefaultTextStyle(
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onPrimaryContainer,
+            ),
+            child: Text(context.l10n.goalUpdated),
+          ),
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           behavior: SnackBarBehavior.floating,
         ),

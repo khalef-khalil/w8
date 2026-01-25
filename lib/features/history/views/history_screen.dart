@@ -142,7 +142,12 @@ Future<void> _confirmDelete(
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(l10n.entryDeleted),
+        content: DefaultTextStyle(
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+          child: Text(l10n.entryDeleted),
+        ),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),

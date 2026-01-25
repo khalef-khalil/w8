@@ -430,7 +430,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 Navigator.of(ctx).pop();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(context.l10n.dataCopiedToClipboard),
+                    content: DefaultTextStyle(
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                      child: Text(context.l10n.dataCopiedToClipboard),
+                    ),
                     behavior: SnackBarBehavior.floating,
                   ),
                 );

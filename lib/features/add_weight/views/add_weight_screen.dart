@@ -247,22 +247,30 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
         // Show success snackbar with animation
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Row(
-              children: [
-                SizedBox(
-                  width: 24,
-                  height: 24,
-                  child: SuccessAnimation(size: 24),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    original != null
-                        ? context.l10n.weightUpdatedSuccess
-                        : context.l10n.weightSavedSuccess,
+            content: DefaultTextStyle(
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: SuccessAnimation(
+                      size: 24,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      original != null
+                          ? context.l10n.weightUpdatedSuccess
+                          : context.l10n.weightSavedSuccess,
+                    ),
+                  ),
+                ],
+              ),
             ),
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             behavior: SnackBarBehavior.floating,
