@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../widgets/weekly_chart_card.dart';
 import '../widgets/insights_card.dart';
