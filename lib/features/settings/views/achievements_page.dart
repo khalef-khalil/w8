@@ -158,14 +158,7 @@ class _AchievementCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          title,
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                      ),
+                      child: Text(title),
                     ),
                   ],
                 ),
@@ -208,20 +201,17 @@ class _AchievementCard extends StatelessWidget {
                   size: 40,
                 ),
                 const SizedBox(height: 8),
-                FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          fontWeight: isUnlocked ? FontWeight.w600 : FontWeight.normal,
-                          color: isUnlocked
-                              ? Theme.of(context).colorScheme.onPrimaryContainer
-                              : Theme.of(context).colorScheme.onSurfaceVariant,
-                        ),
-                  ),
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        fontWeight: isUnlocked ? FontWeight.w600 : FontWeight.normal,
+                        color: isUnlocked
+                            ? Theme.of(context).colorScheme.onPrimaryContainer
+                            : Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
                 ),
               ],
             ),
