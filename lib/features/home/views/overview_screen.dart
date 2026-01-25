@@ -4,6 +4,7 @@ import '../viewmodels/home_viewmodel.dart';
 import '../widgets/weekly_chart_card.dart';
 import '../widgets/insights_card.dart';
 import '../widgets/progress_comparison_card.dart';
+import '../../../core/widgets/animated_progress_bar.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/models/progress_metrics.dart';
@@ -269,16 +270,10 @@ class OverviewScreen extends ConsumerWidget {
                   ),
             ),
             const SizedBox(height: 8),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: LinearProgressIndicator(
-                value: progress.progress,
-                minHeight: 12,
-                backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).colorScheme.primary,
-                ),
-              ),
+            AnimatedProgressBar(
+              progress: progress.progress,
+              height: 12,
+              showMilestones: true,
             ),
             const SizedBox(height: 8),
             Row(
@@ -448,17 +443,10 @@ class OverviewScreen extends ConsumerWidget {
                   ),
             ),
             const SizedBox(height: 6),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: LinearProgressIndicator(
-                value: p.progress.clamp(0.0, 1.0),
-                minHeight: 8,
-                backgroundColor:
-                    Theme.of(context).colorScheme.surfaceContainerHighest,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  Theme.of(context).colorScheme.primary,
-                ),
-              ),
+            AnimatedProgressBar(
+              progress: p.progress.clamp(0.0, 1.0),
+              height: 8,
+              showMilestones: false,
             ),
             const SizedBox(height: 4),
             Text(

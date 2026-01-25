@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:go_router/go_router.dart';
@@ -89,6 +90,8 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
   }
 
   Future<void> _saveWeight({bool skipValidation = false}) async {
+    // Haptic feedback on save
+    HapticFeedback.mediumImpact();
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -189,6 +192,8 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
       
       // If there's a celebration, show it instead of snackbar
       if (celebrations.isNotEmpty) {
+        // Strong haptic feedback for celebrations
+        HapticFeedback.heavyImpact();
         setState(() {
           _pendingCelebration = celebrations.first; // Show first celebration
         });
