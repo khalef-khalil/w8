@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import '../../l10n/app_localizations.dart';
 
 part 'achievement.g.dart';
 
@@ -56,58 +57,58 @@ class Achievement extends HiveObject {
   });
 
   /// Get achievement title
-  static String getTitle(AchievementType type) {
+  static String getTitle(AchievementType type, AppLocalizations l10n) {
     switch (type) {
       case AchievementType.firstEntry:
-        return 'Journey Started';
+        return l10n.achievementJourneyStarted;
       case AchievementType.streak7Days:
-        return 'Week Warrior';
+        return l10n.achievementWeekWarrior;
       case AchievementType.streak30Days:
-        return 'Monthly Master';
+        return l10n.achievementMonthlyMaster;
       case AchievementType.streak100Days:
-        return 'Century Champion';
+        return l10n.achievementCenturyChampion;
       case AchievementType.progress25Percent:
-        return 'Quarter Complete';
+        return l10n.achievementQuarterComplete;
       case AchievementType.progress50Percent:
-        return 'Halfway Hero';
+        return l10n.achievementHalfwayHero;
       case AchievementType.progress75Percent:
-        return 'Almost There';
+        return l10n.achievementAlmostThere;
       case AchievementType.goalReached:
-        return 'Goal Achieved';
+        return l10n.achievementGoalAchieved;
       case AchievementType.consistency10Days:
-        return '10 Day Tracker';
+        return l10n.achievement10DayTracker;
       case AchievementType.consistency30Days:
-        return '30 Day Tracker';
+        return l10n.achievement30DayTracker;
       case AchievementType.consistency100Days:
-        return '100 Day Tracker';
+        return l10n.achievement100DayTracker;
     }
   }
 
   /// Get achievement description
-  static String getDescription(AchievementType type) {
+  static String getDescription(AchievementType type, AppLocalizations l10n) {
     switch (type) {
       case AchievementType.firstEntry:
-        return 'You\'ve started your weight tracking journey!';
+        return l10n.achievementJourneyStartedDesc;
       case AchievementType.streak7Days:
-        return 'Tracked your weight for 7 days in a row!';
+        return l10n.achievementWeekWarriorDesc;
       case AchievementType.streak30Days:
-        return 'Tracked your weight for 30 days in a row!';
+        return l10n.achievementMonthlyMasterDesc;
       case AchievementType.streak100Days:
-        return 'Tracked your weight for 100 days in a row!';
+        return l10n.achievementCenturyChampionDesc;
       case AchievementType.progress25Percent:
-        return 'You\'re 25% of the way to your goal!';
+        return l10n.achievementQuarterCompleteDesc;
       case AchievementType.progress50Percent:
-        return 'You\'re halfway to your goal!';
+        return l10n.achievementHalfwayHeroDesc;
       case AchievementType.progress75Percent:
-        return 'You\'re 75% of the way to your goal!';
+        return l10n.achievementAlmostThereDesc;
       case AchievementType.goalReached:
-        return 'Congratulations! You\'ve reached your goal!';
+        return l10n.achievementGoalAchievedDesc;
       case AchievementType.consistency10Days:
-        return 'Tracked your weight for 10 days total!';
+        return l10n.achievement10DayTrackerDesc;
       case AchievementType.consistency30Days:
-        return 'Tracked your weight for 30 days total!';
+        return l10n.achievement30DayTrackerDesc;
       case AchievementType.consistency100Days:
-        return 'Tracked your weight for 100 days total!';
+        return l10n.achievement100DayTrackerDesc;
     }
   }
 

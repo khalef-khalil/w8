@@ -216,6 +216,7 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
         entries: entries,
         metrics: metrics,
         goalConfig: goalConfig,
+        l10n: context.l10n,
       );
 
       // Show success feedback

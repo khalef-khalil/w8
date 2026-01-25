@@ -644,6 +644,86 @@ class AppLocalizationsFr extends AppLocalizations {
   String get viewAllAchievements => 'Voir tout';
 
   @override
+  String achievementUnlocked(String date) {
+    return 'Débloqué : $date';
+  }
+
+  @override
+  String get achievementJourneyStarted => 'Voyage commencé';
+
+  @override
+  String get achievementJourneyStartedDesc =>
+      'Tu as commencé ton voyage de suivi de poids !';
+
+  @override
+  String get achievementWeekWarrior => 'Guerrier de la semaine';
+
+  @override
+  String get achievementWeekWarriorDesc =>
+      'Tu as suivi ton poids pendant 7 jours d\'affilée !';
+
+  @override
+  String get achievementMonthlyMaster => 'Maître mensuel';
+
+  @override
+  String get achievementMonthlyMasterDesc =>
+      'Tu as suivi ton poids pendant 30 jours d\'affilée !';
+
+  @override
+  String get achievementCenturyChampion => 'Champion du siècle';
+
+  @override
+  String get achievementCenturyChampionDesc =>
+      'Tu as suivi ton poids pendant 100 jours d\'affilée !';
+
+  @override
+  String get achievementQuarterComplete => 'Quart terminé';
+
+  @override
+  String get achievementQuarterCompleteDesc => 'Tu es à 25% de ton objectif !';
+
+  @override
+  String get achievementHalfwayHero => 'Héros à mi-chemin';
+
+  @override
+  String get achievementHalfwayHeroDesc =>
+      'Tu es à mi-chemin de ton objectif !';
+
+  @override
+  String get achievementAlmostThere => 'Presque là';
+
+  @override
+  String get achievementAlmostThereDesc => 'Tu es à 75% de ton objectif !';
+
+  @override
+  String get achievementGoalAchieved => 'Objectif atteint';
+
+  @override
+  String get achievementGoalAchievedDesc =>
+      'Félicitations ! Tu as atteint ton objectif !';
+
+  @override
+  String get achievement10DayTracker => 'Suiveur de 10 jours';
+
+  @override
+  String get achievement10DayTrackerDesc =>
+      'Tu as suivi ton poids pendant 10 jours au total !';
+
+  @override
+  String get achievement30DayTracker => 'Suiveur de 30 jours';
+
+  @override
+  String get achievement30DayTrackerDesc =>
+      'Tu as suivi ton poids pendant 30 jours au total !';
+
+  @override
+  String get achievement100DayTracker => 'Suiveur de 100 jours';
+
+  @override
+  String get achievement100DayTrackerDesc =>
+      'Tu as suivi ton poids pendant 100 jours au total !';
+
+  @override
   String get addContext => 'Ajouter du contexte (optionnel)';
 
   @override

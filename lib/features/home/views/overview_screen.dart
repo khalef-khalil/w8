@@ -232,15 +232,18 @@ class OverviewScreen extends ConsumerWidget {
                             ),
                       ),
                       const SizedBox(height: 4),
-                      Text(
-                        '${currentDisplay.toStringAsFixed(2)} $unitStr',
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          '${currentDisplay.toStringAsFixed(2)} $unitStr',
+                          style:
+                              Theme.of(context).textTheme.displayMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).colorScheme.primary,
+                                  ),
+                          maxLines: 1,
+                        ),
                       ),
                     ],
                   ),
@@ -399,13 +402,18 @@ class OverviewScreen extends ConsumerWidget {
                           ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      '${currentDisplay.toStringAsFixed(2)} $unitStr',
-                      style:
-                          Theme.of(context).textTheme.titleLarge?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        '${currentDisplay.toStringAsFixed(2)} $unitStr',
+                        style:
+                            Theme.of(context).textTheme.titleLarge?.copyWith(
+                                  fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                        maxLines: 1,
+                      ),
                     ),
                   ],
                 ),

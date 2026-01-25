@@ -3,6 +3,7 @@ import '../../models/weight_entry.dart';
 import '../models/achievement.dart';
 import '../models/progress_metrics.dart';
 import '../models/goal_configuration.dart';
+import '../../l10n/app_localizations.dart';
 import 'streak_service.dart';
 
 /// Service for managing user achievements
@@ -42,7 +43,7 @@ class AchievementService {
   }
 
   /// Unlock an achievement
-  static Future<Achievement?> unlockAchievement(AchievementType type) async {
+  static Future<Achievement?> unlockAchievement(AchievementType type, AppLocalizations l10n) async {
     // Check if already unlocked
     if (isUnlocked(type)) {
       return null;
@@ -53,8 +54,8 @@ class AchievementService {
       final achievement = Achievement(
         type: type,
         unlockedAt: DateTime.now(),
-        title: Achievement.getTitle(type),
-        description: Achievement.getDescription(type),
+        title: Achievement.getTitle(type, l10n),
+        description: Achievement.getDescription(type, l10n),
         icon: Achievement.getIcon(type),
       );
 
@@ -70,6 +71,7 @@ class AchievementService {
     required List<WeightEntry> entries,
     required ProgressMetrics? metrics,
     required GoalConfiguration? goalConfig,
+    required AppLocalizations l10n,
   }) async {
     final newAchievements = <Achievement>[];
 
@@ -80,36 +82,36 @@ class AchievementService {
     // Check streak achievements
     final currentStreak = StreakService.calculateCurrentStreak(entries);
     if (currentStreak >= 7 && !isUnlocked(AchievementType.streak7Days)) {
-      final achievement = await unlockAchievement(AchievementType.streak7Days);
+      final achievement = await unlockAchievement(AchievementType.streak7Days, l10n);
       if (achievement != null) newAchievements.add(achievement);
     }
     if (currentStreak >= 30 && !isUnlocked(AchievementType.streak30Days)) {
-      final achievement = await unlockAchievement(AchievementType.streak30Days);
+      final achievement = await unlockAchievement(AchievementType.streak30Days, l10n);
       if (achievement != null) newAchievements.add(achievement);
     }
     if (currentStreak >= 100 && !isUnlocked(AchievementType.streak100Days)) {
-      final achievement = await unlockAchievement(AchievementType.streak100Days);
+      final achievement = await unlockAchievement(AchievementType.streak100Days, l10n);
       if (achievement != null) newAchievements.add(achievement);
     }
 
     // Check consistency achievements (total days tracked)
     final totalDays = StreakService.totalDaysTracked(entries);
     if (totalDays >= 10 && !isUnlocked(AchievementType.consistency10Days)) {
-      final achievement = await unlockAchievement(AchievementType.consistency10Days);
+      final achievement = await unlockAchievement(AchievementType.consistency10Days, l10n);
       if (achievement != null) newAchievements.add(achievement);
     }
     if (totalDays >= 30 && !isUnlocked(AchievementType.consistency30Days)) {
-      final achievement = await unlockAchievement(AchievementType.consistency30Days);
+      final achievement = await unlockAchievement(AchievementType.consistency30Days, l10n);
       if (achievement != null) newAchievements.add(achievement);
     }
     if (totalDays >= 100 && !isUnlocked(AchievementType.consistency100Days)) {
-      final achievement = await unlockAchievement(AchievementType.consistency100Days);
+      final achievement = await unlockAchievement(AchievementType.consistency100Days, l10n);
       if (achievement != null) newAchievements.add(achievement);
     }
 
     // Check first entry achievement
     if (entries.length == 1 && !isUnlocked(AchievementType.firstEntry)) {
-      final achievement = await unlockAchievement(AchievementType.firstEntry);
+      final achievement = await unlockAchievement(AchievementType.firstEntry, l10n);
       if (achievement != null) newAchievements.add(achievement);
     }
 
@@ -124,19 +126,19 @@ class AchievementService {
             : 0.0;
 
         if (progress >= 0.25 && !isUnlocked(AchievementType.progress25Percent)) {
-          final achievement = await unlockAchievement(AchievementType.progress25Percent);
+          final achievement = await unlockAchievement(AchievementType.progress25Percent, l10n);
           if (achievement != null) newAchievements.add(achievement);
         }
         if (progress >= 0.50 && !isUnlocked(AchievementType.progress50Percent)) {
-          final achievement = await unlockAchievement(AchievementType.progress50Percent);
+          final achievement = await unlockAchievement(AchievementType.progress50Percent, l10n);
           if (achievement != null) newAchievements.add(achievement);
         }
         if (progress >= 0.75 && !isUnlocked(AchievementType.progress75Percent)) {
-          final achievement = await unlockAchievement(AchievementType.progress75Percent);
+          final achievement = await unlockAchievement(AchievementType.progress75Percent, l10n);
           if (achievement != null) newAchievements.add(achievement);
         }
         if (progress >= 1.0 && !isUnlocked(AchievementType.goalReached)) {
-          final achievement = await unlockAchievement(AchievementType.goalReached);
+          final achievement = await unlockAchievement(AchievementType.goalReached, l10n);
           if (achievement != null) newAchievements.add(achievement);
         }
       }

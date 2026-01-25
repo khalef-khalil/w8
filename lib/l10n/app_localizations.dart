@@ -1252,6 +1252,144 @@ abstract class AppLocalizations {
   /// **'View All'**
   String get viewAllAchievements;
 
+  /// No description provided for @achievementUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked: {date}'**
+  String achievementUnlocked(String date);
+
+  /// No description provided for @achievementJourneyStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Journey Started'**
+  String get achievementJourneyStarted;
+
+  /// No description provided for @achievementJourneyStartedDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve started your weight tracking journey!'**
+  String get achievementJourneyStartedDesc;
+
+  /// No description provided for @achievementWeekWarrior.
+  ///
+  /// In en, this message translates to:
+  /// **'Week Warrior'**
+  String get achievementWeekWarrior;
+
+  /// No description provided for @achievementWeekWarriorDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracked your weight for 7 days in a row!'**
+  String get achievementWeekWarriorDesc;
+
+  /// No description provided for @achievementMonthlyMaster.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly Master'**
+  String get achievementMonthlyMaster;
+
+  /// No description provided for @achievementMonthlyMasterDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracked your weight for 30 days in a row!'**
+  String get achievementMonthlyMasterDesc;
+
+  /// No description provided for @achievementCenturyChampion.
+  ///
+  /// In en, this message translates to:
+  /// **'Century Champion'**
+  String get achievementCenturyChampion;
+
+  /// No description provided for @achievementCenturyChampionDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracked your weight for 100 days in a row!'**
+  String get achievementCenturyChampionDesc;
+
+  /// No description provided for @achievementQuarterComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Quarter Complete'**
+  String get achievementQuarterComplete;
+
+  /// No description provided for @achievementQuarterCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re 25% of the way to your goal!'**
+  String get achievementQuarterCompleteDesc;
+
+  /// No description provided for @achievementHalfwayHero.
+  ///
+  /// In en, this message translates to:
+  /// **'Halfway Hero'**
+  String get achievementHalfwayHero;
+
+  /// No description provided for @achievementHalfwayHeroDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re halfway to your goal!'**
+  String get achievementHalfwayHeroDesc;
+
+  /// No description provided for @achievementAlmostThere.
+  ///
+  /// In en, this message translates to:
+  /// **'Almost There'**
+  String get achievementAlmostThere;
+
+  /// No description provided for @achievementAlmostThereDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re 75% of the way to your goal!'**
+  String get achievementAlmostThereDesc;
+
+  /// No description provided for @achievementGoalAchieved.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal Achieved'**
+  String get achievementGoalAchieved;
+
+  /// No description provided for @achievementGoalAchievedDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations! You\'ve reached your goal!'**
+  String get achievementGoalAchievedDesc;
+
+  /// No description provided for @achievement10DayTracker.
+  ///
+  /// In en, this message translates to:
+  /// **'10 Day Tracker'**
+  String get achievement10DayTracker;
+
+  /// No description provided for @achievement10DayTrackerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracked your weight for 10 days total!'**
+  String get achievement10DayTrackerDesc;
+
+  /// No description provided for @achievement30DayTracker.
+  ///
+  /// In en, this message translates to:
+  /// **'30 Day Tracker'**
+  String get achievement30DayTracker;
+
+  /// No description provided for @achievement30DayTrackerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracked your weight for 30 days total!'**
+  String get achievement30DayTrackerDesc;
+
+  /// No description provided for @achievement100DayTracker.
+  ///
+  /// In en, this message translates to:
+  /// **'100 Day Tracker'**
+  String get achievement100DayTracker;
+
+  /// No description provided for @achievement100DayTrackerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracked your weight for 100 days total!'**
+  String get achievement100DayTrackerDesc;
+
   /// No description provided for @addContext.
   ///
   /// In en, this message translates to:

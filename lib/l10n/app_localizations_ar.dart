@@ -634,6 +634,83 @@ class AppLocalizationsAr extends AppLocalizations {
   String get viewAllAchievements => 'عرض الكل';
 
   @override
+  String achievementUnlocked(String date) {
+    return 'مفتوح: $date';
+  }
+
+  @override
+  String get achievementJourneyStarted => 'بدأت الرحلة';
+
+  @override
+  String get achievementJourneyStartedDesc => 'لقد بدأت رحلة تتبع وزنك!';
+
+  @override
+  String get achievementWeekWarrior => 'محارب الأسبوع';
+
+  @override
+  String get achievementWeekWarriorDesc =>
+      'لقد تتبعت وزنك لمدة 7 أيام متتالية!';
+
+  @override
+  String get achievementMonthlyMaster => 'سيد الشهر';
+
+  @override
+  String get achievementMonthlyMasterDesc =>
+      'لقد تتبعت وزنك لمدة 30 يوماً متتالية!';
+
+  @override
+  String get achievementCenturyChampion => 'بطل المئة';
+
+  @override
+  String get achievementCenturyChampionDesc =>
+      'لقد تتبعت وزنك لمدة 100 يوم متتالية!';
+
+  @override
+  String get achievementQuarterComplete => 'ربع مكتمل';
+
+  @override
+  String get achievementQuarterCompleteDesc => 'أنت عند 25% من هدفك!';
+
+  @override
+  String get achievementHalfwayHero => 'بطل منتصف الطريق';
+
+  @override
+  String get achievementHalfwayHeroDesc => 'أنت في منتصف الطريق إلى هدفك!';
+
+  @override
+  String get achievementAlmostThere => 'تقريباً هناك';
+
+  @override
+  String get achievementAlmostThereDesc => 'أنت عند 75% من هدفك!';
+
+  @override
+  String get achievementGoalAchieved => 'تم تحقيق الهدف';
+
+  @override
+  String get achievementGoalAchievedDesc => 'تهانينا! لقد حققت هدفك!';
+
+  @override
+  String get achievement10DayTracker => 'متتبع 10 أيام';
+
+  @override
+  String get achievement10DayTrackerDesc =>
+      'لقد تتبعت وزنك لمدة 10 أيام إجمالاً!';
+
+  @override
+  String get achievement30DayTracker => 'متتبع 30 يوماً';
+
+  @override
+  String get achievement30DayTrackerDesc =>
+      'لقد تتبعت وزنك لمدة 30 يوماً إجمالاً!';
+
+  @override
+  String get achievement100DayTracker => 'متتبع 100 يوم';
+
+  @override
+  String get achievement100DayTrackerDesc =>
+      'لقد تتبعت وزنك لمدة 100 يوم إجمالاً!';
+
+  @override
   String get addContext => 'إضافة سياق (اختياري)';
 
   @override

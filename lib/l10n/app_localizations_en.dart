@@ -638,6 +638,87 @@ class AppLocalizationsEn extends AppLocalizations {
   String get viewAllAchievements => 'View All';
 
   @override
+  String achievementUnlocked(String date) {
+    return 'Unlocked: $date';
+  }
+
+  @override
+  String get achievementJourneyStarted => 'Journey Started';
+
+  @override
+  String get achievementJourneyStartedDesc =>
+      'You\'ve started your weight tracking journey!';
+
+  @override
+  String get achievementWeekWarrior => 'Week Warrior';
+
+  @override
+  String get achievementWeekWarriorDesc =>
+      'Tracked your weight for 7 days in a row!';
+
+  @override
+  String get achievementMonthlyMaster => 'Monthly Master';
+
+  @override
+  String get achievementMonthlyMasterDesc =>
+      'Tracked your weight for 30 days in a row!';
+
+  @override
+  String get achievementCenturyChampion => 'Century Champion';
+
+  @override
+  String get achievementCenturyChampionDesc =>
+      'Tracked your weight for 100 days in a row!';
+
+  @override
+  String get achievementQuarterComplete => 'Quarter Complete';
+
+  @override
+  String get achievementQuarterCompleteDesc =>
+      'You\'re 25% of the way to your goal!';
+
+  @override
+  String get achievementHalfwayHero => 'Halfway Hero';
+
+  @override
+  String get achievementHalfwayHeroDesc => 'You\'re halfway to your goal!';
+
+  @override
+  String get achievementAlmostThere => 'Almost There';
+
+  @override
+  String get achievementAlmostThereDesc =>
+      'You\'re 75% of the way to your goal!';
+
+  @override
+  String get achievementGoalAchieved => 'Goal Achieved';
+
+  @override
+  String get achievementGoalAchievedDesc =>
+      'Congratulations! You\'ve reached your goal!';
+
+  @override
+  String get achievement10DayTracker => '10 Day Tracker';
+
+  @override
+  String get achievement10DayTrackerDesc =>
+      'Tracked your weight for 10 days total!';
+
+  @override
+  String get achievement30DayTracker => '30 Day Tracker';
+
+  @override
+  String get achievement30DayTrackerDesc =>
+      'Tracked your weight for 30 days total!';
+
+  @override
+  String get achievement100DayTracker => '100 Day Tracker';
+
+  @override
+  String get achievement100DayTrackerDesc =>
+      'Tracked your weight for 100 days total!';
+
+  @override
   String get addContext => 'Add Context (Optional)';
 
   @override

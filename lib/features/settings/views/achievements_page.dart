@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../core/services/achievement_service.dart';
 import '../../../core/models/achievement.dart';
 import '../../../core/extensions/l10n_context.dart';
+import '../../../l10n/app_localizations.dart';
 
 /// Page displaying all achievements with progress
 class AchievementsPage extends StatelessWidget {
@@ -19,7 +20,12 @@ class AchievementsPage extends StatelessWidget {
         title: Text(context.l10n.achievements),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(
+          16,
+          16,
+          16,
+          MediaQuery.of(context).padding.bottom + 32,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -83,8 +89,8 @@ class AchievementsPage extends StatelessWidget {
                   orElse: () => Achievement(
                     type: type,
                     unlockedAt: DateTime.now(),
-                    title: Achievement.getTitle(type),
-                    description: Achievement.getDescription(type),
+                    title: Achievement.getTitle(type, context.l10n),
+                    description: Achievement.getDescription(type, context.l10n),
                     icon: Achievement.getIcon(type),
                   ),
                 );
@@ -94,6 +100,7 @@ class AchievementsPage extends StatelessWidget {
                   achievement: isUnlocked ? achievement : null,
                   type: type,
                   isUnlocked: isUnlocked,
+                  l10n: context.l10n,
                 );
               },
             ),
@@ -108,21 +115,23 @@ class _AchievementCard extends StatelessWidget {
   final Achievement? achievement;
   final AchievementType type;
   final bool isUnlocked;
+  final AppLocalizations l10n;
 
   const _AchievementCard({
     this.achievement,
     required this.type,
     required this.isUnlocked,
+    required this.l10n,
   });
 
   @override
   Widget build(BuildContext context) {
     final title = achievement != null
         ? achievement!.title
-        : Achievement.getTitle(type);
+        : Achievement.getTitle(type, l10n);
     final description = achievement != null
         ? achievement!.description
-        : Achievement.getDescription(type);
+        : Achievement.getDescription(type, l10n);
     final icon = achievement != null
         ? achievement!.icon
         : Achievement.getIcon(type);
@@ -149,7 +158,14 @@ class _AchievementCard extends StatelessWidget {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: Text(title),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          title,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -161,7 +177,7 @@ class _AchievementCard extends StatelessWidget {
                     if (achievement != null) ...[
                       const SizedBox(height: 16),
                       Text(
-                        'Unlocked: ${_formatDate(achievement!.unlockedAt)}',
+                        context.l10n.achievementUnlocked(_formatDate(achievement!.unlockedAt)),
                         style: Theme.of(context).textTheme.bodySmall?.copyWith(
                               color: Theme.of(context).colorScheme.onSurfaceVariant,
                             ),
@@ -192,17 +208,20 @@ class _AchievementCard extends StatelessWidget {
                   size: 40,
                 ),
                 const SizedBox(height: 8),
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontWeight: isUnlocked ? FontWeight.w600 : FontWeight.normal,
-                        color: isUnlocked
-                            ? Theme.of(context).colorScheme.onPrimaryContainer
-                            : Theme.of(context).colorScheme.onSurfaceVariant,
-                      ),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          fontWeight: isUnlocked ? FontWeight.w600 : FontWeight.normal,
+                          color: isUnlocked
+                              ? Theme.of(context).colorScheme.onPrimaryContainer
+                              : Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                  ),
                 ),
               ],
             ),
