@@ -54,7 +54,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get addWeighInsForChart => 'Ajoutez des pesées pour voir le graphique';
 
   @override
-  String get weeklyEvolution => 'Évolution Hebdomadaire (Médiane)';
+  String get weeklyEvolution => 'Évolution Hebdomadaire';
 
   @override
   String get recentWeighIns => 'Dernières Pesées';

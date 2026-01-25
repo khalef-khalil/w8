@@ -16,7 +16,12 @@ class EducationPage extends StatelessWidget {
         title: Text(context.l10n.tipsAndEducation),
       ),
       body: ListView(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.fromLTRB(
+          16,
+          16,
+          16,
+          MediaQuery.of(context).padding.bottom + 32,
+        ),
         children: allContent.map((content) {
           return Card(
             margin: const EdgeInsets.only(bottom: 12),
