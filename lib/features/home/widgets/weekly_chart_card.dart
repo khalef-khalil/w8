@@ -229,9 +229,10 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                       onSelected: (range) {
                         setState(() {
                           _selectedTimeRange = range;
-                          _zoomState = null; // Reset zoom when changing range
-                        });
-                      },
+                          _zoomState = null;                     // Reset zoom when changing range
+                        _zoomState = null;
+                      });
+                    },
                       itemBuilder: (context) => ChartTimeRange.values
                           .map((range) => PopupMenuItem(
                                 value: range,
@@ -254,11 +255,125 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
+            // Zoom hint
+            if (_zoomState?.isZoomed == true)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.zoom_out_rounded,
+                      size: 16,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    const SizedBox(width: 4),
+                    Text(
+                      context.l10n.zoomedIn,
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                    ),
+                    const SizedBox(width: 8),
+                    TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _zoomState = null;
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        minimumSize: Size.zero,
+                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      child: Text(
+                        context.l10n.resetZoom,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            const SizedBox(height: 8),
             SizedBox(
               height: chartHeight,
-              child: LineChart(
-                LineChartData(
+              child: GestureDetector(
+                onScaleStart: (details) {
+                  // Store initial zoom state when starting pinch
+                  if (_zoomState == null || !_zoomState!.isZoomed) {
+                    setState(() {
+                      _zoomState = _ChartZoomState()
+                        ..minX = 0
+                        ..maxX = (displayed.length - 1).toDouble()
+                        ..minY = minY
+                        ..maxY = maxY
+                        ..isZoomed = false;
+                    });
+                  }
+                },
+                onScaleUpdate: (details) {
+                  if (details.scale != 1.0) {
+                    // Pinch to zoom
+                    setState(() {
+                      if (_zoomState != null) {
+                        final centerX = (_zoomState!.minX + _zoomState!.maxX) / 2;
+                        final centerY = (_zoomState!.minY + _zoomState!.maxY) / 2;
+                        final rangeX = _zoomState!.maxX - _zoomState!.minX;
+                        final rangeY = _zoomState!.maxY - _zoomState!.minY;
+                        
+                        final newRangeX = rangeX / details.scale;
+                        final newRangeY = rangeY / details.scale;
+                        
+                        _zoomState!.minX = (centerX - newRangeX / 2).clamp(0.0, (displayed.length - 1).toDouble());
+                        _zoomState!.maxX = (centerX + newRangeX / 2).clamp(0.0, (displayed.length - 1).toDouble());
+                        _zoomState!.minY = (centerY - newRangeY / 2).clamp(minY, maxY);
+                        _zoomState!.maxY = (centerY + newRangeY / 2).clamp(minY, maxY);
+                        _zoomState!.isZoomed = true;
+                      }
+                    });
+                  } else if (details.focalPointDelta.dx != 0 || details.focalPointDelta.dy != 0) {
+                    // Pan when zoomed
+                    if (_zoomState?.isZoomed == true) {
+                      setState(() {
+                        final rangeX = _zoomState!.maxX - _zoomState!.minX;
+                        final rangeY = _zoomState!.maxY - _zoomState!.minY;
+                        final panFactorX = details.focalPointDelta.dx / size.width;
+                        final panFactorY = -details.focalPointDelta.dy / chartHeight; // Invert Y
+                        
+                        final deltaX = panFactorX * rangeX;
+                        final deltaY = panFactorY * rangeY;
+                        
+                        final newMinX = (_zoomState!.minX - deltaX).clamp(0.0, (displayed.length - 1).toDouble() - rangeX);
+                        final newMaxX = newMinX + rangeX;
+                        final newMinY = (_zoomState!.minY - deltaY).clamp(minY, maxY - rangeY);
+                        final newMaxY = newMinY + rangeY;
+                        
+                        _zoomState!.minX = newMinX;
+                        _zoomState!.maxX = newMaxX;
+                        _zoomState!.minY = newMinY;
+                        _zoomState!.maxY = newMaxY;
+                      });
+                    }
+                  }
+                },
+                onScaleEnd: (details) {
+                  // Optional: Reset zoom if scale is too small
+                  if (_zoomState?.isZoomed == true) {
+                    final rangeX = _zoomState!.maxX - _zoomState!.minX;
+                    final totalRange = (displayed.length - 1).toDouble();
+                    if (rangeX >= totalRange * 0.95) {
+                      // Reset zoom if zoomed out too much
+                      setState(() {
+                        _zoomState = null;
+                      });
+                    }
+                }
+                },
+                child: LineChart(
+                  LineChartData(
                   gridData: FlGridData(
                     show: true,
                     drawVerticalLine: false,
@@ -327,6 +442,15 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                     handleBuiltInTouches: true,
                     longPressDuration: const Duration(milliseconds: 150),
                     touchSpotThreshold: 12,
+                    touchCallback: (FlTouchEvent event, LineTouchResponse? touchResponse) {
+                      // Handle tap to focus on specific points
+                      if (event is FlTapUpEvent && touchResponse != null) {
+                        final spot = touchResponse.lineBarSpots?.firstOrNull;
+                        if (spot != null) {
+                          // Could show detailed info dialog here
+                        }
+                      }
+                    },
                     touchTooltipData: LineTouchTooltipData(
                       fitInsideHorizontally: true,
                       fitInsideVertically: true,
@@ -362,12 +486,14 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                       },
                     ),
                   ),
-                  minX: _zoomState?.isZoomed == true ? _zoomState!.minX : 0,
+                  minX: _zoomState?.isZoomed == true 
+                      ? _zoomState!.minX.clamp(0.0, (displayed.length - 1).toDouble())
+                      : 0,
                   maxX: _zoomState?.isZoomed == true 
-                      ? _zoomState!.maxX 
+                      ? _zoomState!.maxX.clamp(0.0, (displayed.length - 1).toDouble())
                       : (displayed.length - 1).toDouble(),
-                  minY: minY,
-                  maxY: maxY,
+                  minY: _zoomState?.isZoomed == true ? _zoomState!.minY : minY,
+                  maxY: _zoomState?.isZoomed == true ? _zoomState!.maxY : maxY,
                   lineBarsData: [
                     LineChartBarData(
                       spots: displayed
@@ -388,8 +514,9 @@ class _WeeklyChartCardState extends State<WeeklyChartCard> {
                     ),
                   ],
                 ),
-                duration: const Duration(milliseconds: 150),
-                curve: Curves.linear,
+                  duration: const Duration(milliseconds: 150),
+                  curve: Curves.linear,
+                ),
               ),
             ),
           ],

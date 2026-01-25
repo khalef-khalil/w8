@@ -251,5 +251,8 @@
   "last4Weeks": "4 dernières semaines",
   "last3Months": "3 derniers mois",
   "last6Months": "6 derniers mois",
-  "allTime": "Tout"
+  "allTime": "Tout",
+
+  "zoomedIn": "Zoom activé",
+  "resetZoom": "Réinitialiser"
 }

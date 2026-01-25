@@ -733,4 +733,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get allTime => 'All time';
+
+  @override
+  String get zoomedIn => 'Zoomed in';
+
+  @override
+  String get resetZoom => 'Reset';
 }

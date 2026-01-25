@@ -738,4 +738,10 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get allTime => 'Tout';
+
+  @override
+  String get zoomedIn => 'Zoom activé';
+
+  @override
+  String get resetZoom => 'Réinitialiser';
 }

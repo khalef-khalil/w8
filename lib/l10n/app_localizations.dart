@@ -1441,6 +1441,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All time'**
   String get allTime;
+
+  /// No description provided for @zoomedIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Zoomed in'**
+  String get zoomedIn;
+
+  /// No description provided for @resetZoom.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetZoom;
 }
 
 class _AppLocalizationsDelegate
