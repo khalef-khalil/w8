@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// Time range options for chart display
 enum ChartTimeRange {
   weeks4, // Last 4 weeks
