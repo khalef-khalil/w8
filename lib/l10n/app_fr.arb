@@ -273,31 +273,185 @@
   "back": "Retour",
   "awesome": "Génial !",
   
-  "celebrationJourneyStarted": "Voyage commencé !",
-  "celebrationJourneyStartedMessage": "Super ! Tu as commencé ton voyage !",
-  "celebration7DayStreak": "Série de 7 jours !",
-  "celebration7DayStreakMessage": "🎉 7 jours d'affilée ! Tu construis une habitude incroyable !",
-  "celebration30DayStreak": "Série de 30 jours !",
-  "celebration30DayStreakMessage": "🎉 30 jours ! Tu es une superstar du suivi !",
-  "celebration100DayStreak": "Série de 100 jours !",
-  "celebration100DayStreakMessage": "🎉 100 jours ! C'est un dévouement incroyable !",
-  "celebration25Percent": "25% terminé !",
-  "celebration25PercentMessage": "🎉 Tu es à 25% ! Continue !",
-  "celebration50Percent": "À mi-chemin !",
-  "celebration50PercentMessage": "🎉 À mi-chemin ! Tu fais du super travail !",
-  "celebration75Percent": "75% terminé !",
-  "celebration75PercentMessage": "🎉 75% terminé ! Tu y es presque !",
-  "celebrationGoalReached": "Objectif atteint !",
-  "celebrationGoalReachedMessage": "🎉 Félicitations ! Tu as atteint ton objectif !",
+  "recommendationBehindLoss": "Tu es {deficit} {unit}/semaine en retard sur l'objectif. Considère revoir ta nutrition et tes niveaux d'activité.",
+  "@recommendationBehindLoss": {
+    "placeholders": {
+      "deficit": {"type": "String"},
+      "unit": {"type": "String"}
+    }
+  },
+  "recommendationSmallChanges": "Les petits changements s'accumulent : essaie d'ajouter 10-15 minutes d'activité quotidienne ou de réduire légèrement les portions.",
+  "recommendationBehindGain": "Tu es {deficit} {unit}/semaine en retard sur l'objectif. Assure-toi de manger assez de calories et de protéines.",
+  "@recommendationBehindGain": {
+    "placeholders": {
+      "deficit": {"type": "String"},
+      "unit": {"type": "String"}
+    }
+  },
+  "recommendationTrackMeals": "Considère suivre tes repas pour t'assurer de rencontrer tes objectifs caloriques.",
+  "recommendationAhead": "Super progrès ! Tu es en avance. Continue le suivi cohérent et maintiens ton approche actuelle.",
+  "recommendationOnTrack": "Tu es sur la bonne voie ! Maintiens ta routine actuelle - ça fonctionne bien.",
+  "recommendationFinalStretch": "Tu es dans la dernière ligne droite ! Reste cohérent - tu y es presque !",
+  "recommendationHalfway": "Tu es plus qu'à mi-chemin ! Garde l'élan.",
+  "recommendationGettingStarted": "Tu commences juste. Concentre-toi sur la construction d'habitudes cohérentes - les résultats suivront !",
+  "recommendationVolatility": "Ton poids fluctue beaucoup. C'est normal ! Essaie de te peser à la même heure chaque jour pour des lectures plus cohérentes.",
+  "recommendationGeneral": "Continue à suivre régulièrement ! Chaque entrée t'aide à mieux comprendre ta progression.",
   
-  "emptyStateStartJourney": "Commence ton voyage",
-  "emptyStateStartJourneyMessage": "Suis ton poids pour voir ta progression dans le temps. Chaque entrée te rapproche de ton objectif !",
-  "emptyStateAddFirstWeight": "Ajoute ton premier poids",
-  "emptyStateSetGoal": "Définis ton objectif",
-  "emptyStateSetGoalMessage": "Définis ton objectif de poids pour suivre ta progression et rester motivé dans ton voyage !",
-  "emptyStateNoHistory": "Pas encore d'historique",
-  "emptyStateNoHistoryMessage": "Commence à suivre ton poids pour construire ton historique. La cohérence est la clé du succès !",
-  "emptyStateAddWeightEntry": "Ajouter une entrée de poids",
-  "emptyStateBuildingInsights": "Construction des insights",
-  "emptyStateBuildingInsightsMessage": "Continue à suivre ton poids ! Une fois que tu auras assez de données, nous te montrerons des insights et tendances personnalisés."
+  "encouragementGoalReached": "🎉 Félicitations ! Tu as atteint ton objectif !",
+  "encouragementAhead": "Tu fais du super travail ! Continue comme ça !",
+  "encouragementOnTrack": "Tu es sur la bonne voie ! La cohérence est la clé.",
+  "encouragementClose": "Tu es si proche ! Continue d'avancer !",
+  "encouragementGreatProgress": "Tu fais de super progrès ! Continue !",
+  "encouragementEveryStep": "Chaque pas compte ! Tu construis de grandes habitudes !",
+  
+  "patternSleepQualityImpact": "Impact de la qualité du sommeil",
+  "patternSleepQualityDescription": "Tu tends à {action} plus de poids quand tu dors {quality} ({rating}/5). Quand la qualité du sommeil est {worstRating}/5, ton poids change de {change} kg/jour en moyenne.",
+  "@patternSleepQualityDescription": {
+    "placeholders": {
+      "action": {"type": "String"},
+      "quality": {"type": "String"},
+      "rating": {"type": "int"},
+      "worstRating": {"type": "int"},
+      "change": {"type": "String"}
+    }
+  },
+  "patternSleepQualitySimilar": "Tes changements de poids sont similaires quelle que soit la qualité du sommeil.",
+  "patternSleepQualitySuggestionGood": "Essaie de maintenir de bonnes habitudes de sommeil ({rating}/5) pour une meilleure gestion du poids.",
+  "@patternSleepQualitySuggestionGood": {
+    "placeholders": {
+      "rating": {"type": "int"}
+    }
+  },
+  "patternSleepQualitySuggestionImprove": "Considère améliorer ta qualité de sommeil - cela peut aider avec tes objectifs de poids.",
+  "patternStressLevelImpact": "Impact du niveau de stress",
+  "patternStressLevelDescription": "Quand le stress est {level} ({rating}/5), ton poids change de {change} kg/jour en moyenne. Un stress plus élevé ({highRating}/5) montre {highChange} kg/jour.",
+  "@patternStressLevelDescription": {
+    "placeholders": {
+      "level": {"type": "String"},
+      "rating": {"type": "int"},
+      "change": {"type": "String"},
+      "highRating": {"type": "int"},
+      "highChange": {"type": "String"}
+    }
+  },
+  "patternStressLevelSuggestion": "Gérer les niveaux de stress peut aider avec tes objectifs de poids.",
+  "patternStressLevelSuggestionFavorable": "Tes changements de poids sont plus favorables quand le stress est plus bas.",
+  "patternExerciseImpact": "Impact de l'exercice",
+  "patternExerciseDescription": "Les jours où tu fais de l'exercice, ton poids change de {withExercise} kg/jour en moyenne, comparé à {withoutExercise} kg/jour quand tu ne fais pas d'exercice.",
+  "@patternExerciseDescription": {
+    "placeholders": {
+      "withExercise": {"type": "String"},
+      "withoutExercise": {"type": "String"}
+    }
+  },
+  "patternExerciseDescriptionAlt": "Les jours d'exercice montrent {withExercise} kg/jour de changement vs {withoutExercise} kg/jour les jours de repos.",
+  "@patternExerciseDescriptionAlt": {
+    "placeholders": {
+      "withExercise": {"type": "String"},
+      "withoutExercise": {"type": "String"}
+    }
+  },
+  "patternExerciseSuggestion": "Continue l'exercice ! Il semble aider avec tes objectifs de poids.",
+  "patternExerciseSuggestionConsistent": "Considère maintenir une routine d'exercice cohérente.",
+  "patternMealTimingPattern": "Modèle de timing des repas",
+  "patternMealTimingDescription": "Tes changements de poids sont les plus favorables quand tu te pèses {timing}. Changement moyen : {change} kg/jour.",
+  "@patternMealTimingDescription": {
+    "placeholders": {
+      "timing": {"type": "String"},
+      "change": {"type": "String"}
+    }
+  },
+  "patternMealTimingSuggestion": "Essaie de te peser à des heures cohérentes ({timing}) pour un suivi plus précis.",
+  "@patternMealTimingSuggestion": {
+    "placeholders": {
+      "timing": {"type": "String"}
+    }
+  },
+  "patternSleepWell": "bien",
+  "patternSleepPoorly": "mal",
+  "patternStressLow": "bas",
+  "patternStressHigh": "élevé",
+  "patternLose": "perdre",
+  "patternGain": "gagner",
+  
+  "educationWhyFluctuatesTitle": "Pourquoi le poids fluctue quotidiennement",
+  "educationWhyFluctuatesContent": "Ton poids fluctue naturellement tout au long de la journée et de la semaine. C'est complètement normal ! Les facteurs incluent :\n\n• Rétention d'eau (peut varier de 1-2 kg)\n• Nourriture et digestion\n• Qualité et durée du sommeil\n• Changements hormonaux\n• Exercice et récupération musculaire\n\nC'est pourquoi nous utilisons les médianes hebdomadaires - elles lissent le bruit quotidien et montrent ton vrai progrès.",
+  "educationWeeklyMediansTitle": "Comment fonctionnent les médianes hebdomadaires",
+  "educationWeeklyMediansContent": "Les médianes hebdomadaires t'aident à voir ton vrai progrès en réduisant le bruit quotidien.\n\nAu lieu de se concentrer sur les changements jour par jour, nous calculons le poids médian pour chaque semaine. Cela te donne une image plus claire de ta tendance globale.\n\nPar exemple : Si tu pèses 70kg, 71kg, 70.5kg, 70.2kg et 70.8kg en une semaine, la médiane est 70.5kg - un nombre plus stable que n'importe quel jour unique.",
+  "educationBestPracticesTitle": "Meilleures pratiques pour le suivi",
+  "educationBestPracticesContent": "Pour le suivi le plus précis :\n\n• Pèse-toi à la même heure chaque jour (le matin est le meilleur)\n• Utilise la même balance\n• Pèse-toi avant de manger ou de boire\n• Pèse-toi après être allé aux toilettes\n• Porte des vêtements similaires (ou aucun)\n\nLa cohérence est plus importante que la perfection !",
+  "educationPlateausTitle": "Comprendre les plateaux",
+  "educationPlateausContent": "Les plateaux de poids sont complètement normaux et ne sont pas un signe d'échec !\n\nTon corps peut :\n• Retenir de l'eau pendant la récupération musculaire\n• Ajuster le métabolisme\n• Redistribuer le poids (perte de graisse, gain musculaire)\n\nSi tu suis ton plan, fais confiance au processus. Les plateaux se brisent souvent après quelques semaines. Concentre-toi sur la cohérence plutôt que la vitesse.",
+  "educationContextTrackingTitle": "Pourquoi suivre le contexte ?",
+  "educationContextTrackingContent": "Suivre le contexte (sommeil, stress, exercice, timing des repas) t'aide à comprendre les modèles.\n\nTu pourrais découvrir :\n• Meilleur sommeil = meilleure gestion du poids\n• Le stress élevé affecte ta progression\n• Le timing de l'exercice compte\n• Le timing des repas impacte le poids quotidien\n\nCes insights t'aident à prendre des décisions éclairées sur ton voyage.",
+  "educationStayingMotivatedTitle": "Rester motivé",
+  "educationStayingMotivatedContent": "Le suivi du poids est un marathon, pas un sprint.\n\nRappelle-toi :\n• Le progrès n'est pas toujours linéaire\n• Les petites actions quotidiennes s'accumulent avec le temps\n• Les revers font partie du voyage\n• Célèbre aussi les victoires non-échelle\n\nConcentre-toi sur la construction d'habitudes durables. Chaque jour que tu suis est une victoire !",
+  
+  "validationWeightGreaterThanZero": "Veuillez entrer un poids supérieur à 0",
+  "validationWeightLessThanMax": "Veuillez entrer un poids inférieur à {max}",
+  "@validationWeightLessThanMax": {
+    "placeholders": {
+      "max": {"type": "String"}
+    }
+  },
+  "validationUnusuallyLargeChange": "Ce changement de poids semble inhabituellement important. Veuillez vérifier votre saisie.",
+  "validationSignificantChange": "C'est un changement significatif par rapport à votre dernière entrée. Tout va bien ? Vous pouvez toujours l'enregistrer.",
+  "validationDifferentFromInitial": "Ce poids est très différent de votre poids initial. Est-ce correct ?",
+  "validationGainingWhileLosing": "Tu prends du poids alors que ton objectif est de perdre. Ce n'est pas grave - les revers arrivent. Veux-tu continuer ?",
+  "validationLosingWhileGaining": "Tu perds du poids alors que ton objectif est de gagner. Ce n'est pas grave - les revers arrivent. Veux-tu continuer ?",
+  "validationMovingAwayFromGoal": "Tu t'éloignes de ton objectif. Cela peut être normal (fluctuations, événements de la vie). Est-ce correct ?",
+  "validationUnusualWeight": "Ce poids semble inhabituel par rapport à tes entrées récentes. Tout va bien ?",
+  
+  "statusOnTrack": "Tu es sur la bonne voie ! Continue comme ça !",
+  "statusAheadWithDays": "Tu es en avance ! {days} jours d'avance",
+  "@statusAheadWithDays": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "statusAhead": "Tu es en avance ! Super travail !",
+  "statusBehind": "Tu fais des progrès ! Un peu plus lentement que prévu, mais tu continues vers ton objectif.",
+  "statusBehindSimple": "Tu fais des progrès ! Continue !",
+  "statusKeepTracking": "Continue à suivre pour voir ta progression !",
+  
+  "predictionOnTrack": "Tu es sur la bonne voie pour atteindre ton objectif autour de la date prévue !",
+  "predictionAfterTarget": "À ton rythme actuel, tu atteindras ton objectif environ {days} jours après ta date cible. Ce n'est pas grave - le progrès est le progrès !",
+  "@predictionAfterTarget": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "predictionBeforeTarget": "À ton rythme actuel, tu atteindras ton objectif environ {days} jours avant ta date cible. Super travail !",
+  "@predictionBeforeTarget": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  
+  "streakStartTracking": "Commence à suivre pour construire ta série !",
+  "streakGreatStart": "Super début ! Continue !",
+  "streakDaysBuilding": "{days} jours d'affilée ! Tu construis une grande habitude !",
+  "@streakDaysBuilding": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "streakDaysAmazing": "{days} jours d'affilée ! Tu fais du super travail !",
+  "@streakDaysAmazing": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "streakDaysIncredible": "{days} jours d'affilée ! C'est incroyable !",
+  "@streakDaysIncredible": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "streakDaysChampion": "{days} jours d'affilée ! Tu es un champion du suivi !",
+  "@streakDaysChampion": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  }
 }

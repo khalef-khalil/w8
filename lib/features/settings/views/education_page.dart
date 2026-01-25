@@ -9,7 +9,7 @@ class EducationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final allContent = EducationContentLibrary.getAllContent();
+    final allContent = EducationContentLibrary.getAllContent(context.l10n);
 
     return Scaffold(
       appBar: AppBar(
@@ -27,7 +27,7 @@ class EducationPage extends StatelessWidget {
                 size: 28,
               ),
               title: Text(
-                content.title,
+                content.title(context.l10n),
                 style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -35,7 +35,7 @@ class EducationPage extends StatelessWidget {
               subtitle: Padding(
                 padding: const EdgeInsets.only(top: 8),
                 child: Text(
-                  content.content.split('\n').first,
+                  content.content(context.l10n).split('\n').first,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(

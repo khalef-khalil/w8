@@ -566,7 +566,7 @@ class OverviewScreen extends ConsumerWidget {
   }
 
   Widget _buildPatternInsights(BuildContext context, List<WeightEntry> entries) {
-    final analysis = PatternRecognitionService.analyzePatterns(entries);
+    final analysis = PatternRecognitionService.analyzePatterns(entries, context.l10n);
 
     if (!analysis.hasEnoughData || analysis.insights.isEmpty) {
       return const SizedBox.shrink();

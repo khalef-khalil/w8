@@ -1128,4 +1128,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String streakDaysChampion(int days) {
     return '$days days in a row! You\'re a tracking champion!';
   }
+
+  @override
+  String get educationWhyFluctuatesTitle => 'Why Weight Fluctuates Daily';
+
+  @override
+  String get educationWhyFluctuatesContent =>
+      'Your weight naturally fluctuates throughout the day and week. This is completely normal! Factors include:\n\n• Water retention (can vary by 1-2 kg)\n• Food and digestion\n• Sleep quality and duration\n• Hormonal changes\n• Exercise and muscle recovery\n\nThat\'s why we use weekly medians - they smooth out daily noise and show your true progress.';
+
+  @override
+  String get educationWeeklyMediansTitle => 'How Weekly Medians Work';
+
+  @override
+  String get educationWeeklyMediansContent =>
+      'Weekly medians help you see your real progress by reducing daily noise.\n\nInstead of focusing on day-to-day changes, we calculate the median weight for each week. This gives you a clearer picture of your overall trend.\n\nFor example: If you weigh 70kg, 71kg, 70.5kg, 70.2kg, and 70.8kg in a week, the median is 70.5kg - a more stable number than any single day.';
+
+  @override
+  String get educationBestPracticesTitle => 'Best Practices for Tracking';
+
+  @override
+  String get educationBestPracticesContent =>
+      'For the most accurate tracking:\n\n• Weigh at the same time each day (morning is best)\n• Use the same scale\n• Weigh before eating or drinking\n• Weigh after using the bathroom\n• Wear similar clothing (or none)\n\nConsistency is more important than perfection!';
+
+  @override
+  String get educationPlateausTitle => 'Understanding Plateaus';
+
+  @override
+  String get educationPlateausContent =>
+      'Weight plateaus are completely normal and not a sign of failure!\n\nYour body may:\n• Retain water during muscle recovery\n• Adjust metabolism\n• Redistribute weight (fat loss, muscle gain)\n\nIf you\'re following your plan, trust the process. Plateaus often break after a few weeks. Focus on consistency over speed.';
+
+  @override
+  String get educationContextTrackingTitle => 'Why Track Context?';
+
+  @override
+  String get educationContextTrackingContent =>
+      'Tracking context (sleep, stress, exercise, meal timing) helps you understand patterns.\n\nYou might discover:\n• Better sleep = better weight management\n• High stress affects your progress\n• Exercise timing matters\n• Meal timing impacts daily weight\n\nThese insights help you make informed decisions about your journey.';
+
+  @override
+  String get educationStayingMotivatedTitle => 'Staying Motivated';
+
+  @override
+  String get educationStayingMotivatedContent =>
+      'Weight tracking is a marathon, not a sprint.\n\nRemember:\n• Progress isn\'t always linear\n• Small daily actions compound over time\n• Setbacks are part of the journey\n• Celebrate non-scale victories too\n\nFocus on building sustainable habits. Every day you track is a win!';
 }

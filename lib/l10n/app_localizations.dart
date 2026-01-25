@@ -2077,6 +2077,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{days} days in a row! You\'re a tracking champion!'**
   String streakDaysChampion(int days);
+
+  /// No description provided for @educationWhyFluctuatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Why Weight Fluctuates Daily'**
+  String get educationWhyFluctuatesTitle;
+
+  /// No description provided for @educationWhyFluctuatesContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weight naturally fluctuates throughout the day and week. This is completely normal! Factors include:\n\n• Water retention (can vary by 1-2 kg)\n• Food and digestion\n• Sleep quality and duration\n• Hormonal changes\n• Exercise and muscle recovery\n\nThat\'s why we use weekly medians - they smooth out daily noise and show your true progress.'**
+  String get educationWhyFluctuatesContent;
+
+  /// No description provided for @educationWeeklyMediansTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How Weekly Medians Work'**
+  String get educationWeeklyMediansTitle;
+
+  /// No description provided for @educationWeeklyMediansContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly medians help you see your real progress by reducing daily noise.\n\nInstead of focusing on day-to-day changes, we calculate the median weight for each week. This gives you a clearer picture of your overall trend.\n\nFor example: If you weigh 70kg, 71kg, 70.5kg, 70.2kg, and 70.8kg in a week, the median is 70.5kg - a more stable number than any single day.'**
+  String get educationWeeklyMediansContent;
+
+  /// No description provided for @educationBestPracticesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Best Practices for Tracking'**
+  String get educationBestPracticesTitle;
+
+  /// No description provided for @educationBestPracticesContent.
+  ///
+  /// In en, this message translates to:
+  /// **'For the most accurate tracking:\n\n• Weigh at the same time each day (morning is best)\n• Use the same scale\n• Weigh before eating or drinking\n• Weigh after using the bathroom\n• Wear similar clothing (or none)\n\nConsistency is more important than perfection!'**
+  String get educationBestPracticesContent;
+
+  /// No description provided for @educationPlateausTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Understanding Plateaus'**
+  String get educationPlateausTitle;
+
+  /// No description provided for @educationPlateausContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight plateaus are completely normal and not a sign of failure!\n\nYour body may:\n• Retain water during muscle recovery\n• Adjust metabolism\n• Redistribute weight (fat loss, muscle gain)\n\nIf you\'re following your plan, trust the process. Plateaus often break after a few weeks. Focus on consistency over speed.'**
+  String get educationPlateausContent;
+
+  /// No description provided for @educationContextTrackingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Why Track Context?'**
+  String get educationContextTrackingTitle;
+
+  /// No description provided for @educationContextTrackingContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Tracking context (sleep, stress, exercise, meal timing) helps you understand patterns.\n\nYou might discover:\n• Better sleep = better weight management\n• High stress affects your progress\n• Exercise timing matters\n• Meal timing impacts daily weight\n\nThese insights help you make informed decisions about your journey.'**
+  String get educationContextTrackingContent;
+
+  /// No description provided for @educationStayingMotivatedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Staying Motivated'**
+  String get educationStayingMotivatedTitle;
+
+  /// No description provided for @educationStayingMotivatedContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight tracking is a marathon, not a sprint.\n\nRemember:\n• Progress isn\'t always linear\n• Small daily actions compound over time\n• Setbacks are part of the journey\n• Celebrate non-scale victories too\n\nFocus on building sustainable habits. Every day you track is a win!'**
+  String get educationStayingMotivatedContent;
 }
 
 class _AppLocalizationsDelegate

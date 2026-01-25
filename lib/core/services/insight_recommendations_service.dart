@@ -1,10 +1,11 @@
 import '../models/progress_metrics.dart';
 import '../models/goal_configuration.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Service for generating actionable recommendations based on progress
 class InsightRecommendationsService {
   /// Get actionable recommendations based on current progress
-  static List<String> getRecommendations(ProgressMetrics metrics) {
+  static List<String> getRecommendations(ProgressMetrics metrics, AppLocalizations l10n) {
     final recommendations = <String>[];
     final comparison = metrics.compareRates();
     final goal = metrics.goal;
@@ -19,30 +20,26 @@ class InsightRecommendationsService {
 
       if (goal.type == GoalType.loss) {
         recommendations.add(
-          'You\'re ${deficitDisplay} $unit/week behind target. '
-          'Consider reviewing your nutrition and activity levels.',
+          l10n.recommendationBehindLoss(deficitDisplay, unit),
         );
         recommendations.add(
-          'Small changes add up: try adding 10-15 minutes of daily activity '
-          'or reducing portion sizes slightly.',
+          l10n.recommendationSmallChanges,
         );
       } else if (goal.type == GoalType.gain) {
         recommendations.add(
-          'You\'re ${deficitDisplay} $unit/week behind target. '
-          'Make sure you\'re eating enough calories and protein.',
+          l10n.recommendationBehindGain(deficitDisplay, unit),
         );
         recommendations.add(
-          'Consider tracking your meals to ensure you\'re meeting your caloric goals.',
+          l10n.recommendationTrackMeals,
         );
       }
     } else if (comparison.isAhead) {
       recommendations.add(
-        'Great progress! You\'re ahead of schedule. '
-        'Keep up the consistent tracking and maintain your current approach.',
+        l10n.recommendationAhead,
       );
     } else if (comparison.isOnTrack) {
       recommendations.add(
-        'You\'re right on track! Maintain your current routine - it\'s working well.',
+        l10n.recommendationOnTrack,
       );
     }
 
@@ -50,16 +47,15 @@ class InsightRecommendationsService {
     final progress = metrics.progressByWeight;
     if (progress >= 0.75 && progress < 1.0) {
       recommendations.add(
-        'You\'re in the final stretch! Stay consistent - you\'re almost there!',
+        l10n.recommendationFinalStretch,
       );
     } else if (progress >= 0.5 && progress < 0.75) {
       recommendations.add(
-        'You\'re more than halfway there! Keep the momentum going.',
+        l10n.recommendationHalfway,
       );
     } else if (progress < 0.25) {
       recommendations.add(
-        'You\'re just getting started. Focus on building consistent habits - '
-        'the results will follow!',
+        l10n.recommendationGettingStarted,
       );
     }
 
@@ -74,8 +70,7 @@ class InsightRecommendationsService {
       
       if (volatility > 0.5) {
         recommendations.add(
-          'Your weight is fluctuating quite a bit. This is normal! '
-          'Try weighing at the same time each day for more consistent readings.',
+          l10n.recommendationVolatility,
         );
       }
     }
@@ -83,7 +78,7 @@ class InsightRecommendationsService {
     // General motivational recommendations
     if (recommendations.isEmpty) {
       recommendations.add(
-        'Keep tracking consistently! Every entry helps you understand your progress better.',
+        l10n.recommendationGeneral,
       );
     }
 
@@ -103,22 +98,22 @@ class InsightRecommendationsService {
   }
 
   /// Get encouragement message based on progress
-  static String getEncouragementMessage(ProgressMetrics metrics) {
+  static String getEncouragementMessage(ProgressMetrics metrics, AppLocalizations l10n) {
     final comparison = metrics.compareRates();
     final progress = metrics.progressByWeight;
 
     if (progress >= 1.0) {
-      return '🎉 Congratulations! You\'ve reached your goal!';
+      return l10n.encouragementGoalReached;
     } else if (comparison.isAhead) {
-      return 'You\'re doing amazing! Keep up the great work!';
+      return l10n.encouragementAhead;
     } else if (comparison.isOnTrack) {
-      return 'You\'re right on track! Consistency is key.';
+      return l10n.encouragementOnTrack;
     } else if (progress >= 0.75) {
-      return 'You\'re so close! Keep pushing forward!';
+      return l10n.encouragementClose;
     } else if (progress >= 0.5) {
-      return 'You\'re making great progress! Keep going!';
+      return l10n.encouragementGreatProgress;
     } else {
-      return 'Every step counts! You\'re building great habits!';
+      return l10n.encouragementEveryStep;
     }
   }
 }

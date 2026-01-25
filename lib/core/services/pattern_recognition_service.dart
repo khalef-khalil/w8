@@ -1,5 +1,6 @@
 import '../../models/weight_entry.dart';
 import '../models/pattern_insight.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Service for analyzing patterns and correlations in weight data
 class PatternRecognitionService {
@@ -7,7 +8,7 @@ class PatternRecognitionService {
   static const int minEntriesForAnalysis = 7;
 
   /// Analyze patterns in weight entries with context
-  static PatternAnalysisResult analyzePatterns(List<WeightEntry> entries) {
+  static PatternAnalysisResult analyzePatterns(List<WeightEntry> entries, AppLocalizations l10n) {
     if (entries.length < minEntriesForAnalysis) {
       return PatternAnalysisResult.empty();
     }
@@ -24,25 +25,25 @@ class PatternRecognitionService {
     final insights = <PatternInsight>[];
 
     // Analyze sleep quality correlation
-    final sleepInsight = _analyzeSleepCorrelation(entriesWithContext);
+    final sleepInsight = _analyzeSleepCorrelation(entriesWithContext, l10n);
     if (sleepInsight != null) {
       insights.add(sleepInsight);
     }
 
     // Analyze stress correlation
-    final stressInsight = _analyzeStressCorrelation(entriesWithContext);
+    final stressInsight = _analyzeStressCorrelation(entriesWithContext, l10n);
     if (stressInsight != null) {
       insights.add(stressInsight);
     }
 
     // Analyze exercise correlation
-    final exerciseInsight = _analyzeExerciseCorrelation(entriesWithContext);
+    final exerciseInsight = _analyzeExerciseCorrelation(entriesWithContext, l10n);
     if (exerciseInsight != null) {
       insights.add(exerciseInsight);
     }
 
     // Analyze meal timing correlation
-    final mealInsight = _analyzeMealTimingCorrelation(entriesWithContext);
+    final mealInsight = _analyzeMealTimingCorrelation(entriesWithContext, l10n);
     if (mealInsight != null) {
       insights.add(mealInsight);
     }
@@ -54,7 +55,7 @@ class PatternRecognitionService {
   }
 
   /// Analyze correlation between sleep quality and weight change
-  static PatternInsight? _analyzeSleepCorrelation(List<WeightEntry> entries) {
+  static PatternInsight? _analyzeSleepCorrelation(List<WeightEntry> entries, AppLocalizations l10n) {
     // Group entries by sleep quality
     final sleepGroups = <int, List<_WeightChange>>{};
     
@@ -100,22 +101,25 @@ class PatternRecognitionService {
 
     final isPositive = bestSleep.value < worstSleep.value; // Negative change is good for weight loss
 
+    final action = bestSleep.value < 0 ? l10n.patternLose : l10n.patternGain;
+    final quality = bestSleep.key >= 4 ? l10n.patternSleepWell : l10n.patternSleepPoorly;
+    final changeStr = worstSleep.value.toStringAsFixed(2);
+
     return PatternInsight(
-      title: 'Sleep Quality Impact',
+      title: l10n.patternSleepQualityImpact,
       description: isPositive
-          ? 'You tend to ${bestSleep.value < 0 ? "lose" : "gain"} more weight when you sleep ${bestSleep.key >= 4 ? "well" : "poorly"} (${bestSleep.key}/5). '
-              'When sleep quality is ${worstSleep.key}/5, your weight changes by ${worstSleep.value.toStringAsFixed(2)} kg/day on average.'
-          : 'Your weight changes are similar regardless of sleep quality.',
+          ? l10n.patternSleepQualityDescription(action, quality, bestSleep.key, worstSleep.key, changeStr)
+          : l10n.patternSleepQualitySimilar,
       suggestion: bestSleep.key >= 4
-          ? 'Try to maintain good sleep habits (${bestSleep.key}/5) for better weight management.'
-          : 'Consider improving your sleep quality - it may help with your weight goals.',
+          ? l10n.patternSleepQualitySuggestionGood(bestSleep.key)
+          : l10n.patternSleepQualitySuggestionImprove,
       confidence: (difference / 0.5).clamp(0.0, 1.0), // Normalize to 0-1
       type: PatternType.sleepCorrelation,
     );
   }
 
   /// Analyze correlation between stress level and weight change
-  static PatternInsight? _analyzeStressCorrelation(List<WeightEntry> entries) {
+  static PatternInsight? _analyzeStressCorrelation(List<WeightEntry> entries, AppLocalizations l10n) {
     final stressGroups = <int, List<_WeightChange>>{};
     
     for (var i = 1; i < entries.length; i++) {
@@ -155,21 +159,23 @@ class PatternRecognitionService {
 
     if (difference < 0.1) return null;
 
+    final level = lowStress.key <= 2 ? l10n.patternStressLow : l10n.patternStressHigh;
+    final changeStr = lowStress.value.toStringAsFixed(2);
+    final highChangeStr = highStress.value.toStringAsFixed(2);
+
     return PatternInsight(
-      title: 'Stress Level Impact',
-      description: 'When stress is ${lowStress.key <= 2 ? "low" : "high"} (${lowStress.key}/5), '
-          'your weight changes by ${lowStress.value.toStringAsFixed(2)} kg/day on average. '
-          'Higher stress (${highStress.key}/5) shows ${highStress.value.toStringAsFixed(2)} kg/day.',
+      title: l10n.patternStressLevelImpact,
+      description: l10n.patternStressLevelDescription(level, lowStress.key, changeStr, highStress.key, highChangeStr),
       suggestion: lowStress.key <= 2
-          ? 'Managing stress levels may help with your weight goals.'
-          : 'Your weight changes are more favorable when stress is lower.',
+          ? l10n.patternStressLevelSuggestion
+          : l10n.patternStressLevelSuggestionFavorable,
       confidence: (difference / 0.5).clamp(0.0, 1.0),
       type: PatternType.stressCorrelation,
     );
   }
 
   /// Analyze correlation between exercise and weight change
-  static PatternInsight? _analyzeExerciseCorrelation(List<WeightEntry> entries) {
+  static PatternInsight? _analyzeExerciseCorrelation(List<WeightEntry> entries, AppLocalizations l10n) {
     final exerciseGroups = <bool, List<_WeightChange>>{};
     
     for (var i = 1; i < entries.length; i++) {
@@ -206,22 +212,24 @@ class PatternRecognitionService {
 
     if (difference < 0.1) return null;
 
+    final withExerciseStr = avgWith.toStringAsFixed(2);
+    final withoutExerciseStr = avgWithout.toStringAsFixed(2);
+
     return PatternInsight(
-      title: 'Exercise Impact',
+      title: l10n.patternExerciseImpact,
       description: avgWith < avgWithout
-          ? 'On days you exercise, your weight changes by ${avgWith.toStringAsFixed(2)} kg/day on average, '
-              'compared to ${avgWithout.toStringAsFixed(2)} kg/day when you don\'t exercise.'
-          : 'Exercise days show ${avgWith.toStringAsFixed(2)} kg/day change vs ${avgWithout.toStringAsFixed(2)} kg/day on rest days.',
+          ? l10n.patternExerciseDescription(withExerciseStr, withoutExerciseStr)
+          : l10n.patternExerciseDescriptionAlt(withExerciseStr, withoutExerciseStr),
       suggestion: avgWith < avgWithout
-          ? 'Keep up the exercise! It appears to be helping with your weight goals.'
-          : 'Consider maintaining a consistent exercise routine.',
+          ? l10n.patternExerciseSuggestion
+          : l10n.patternExerciseSuggestionConsistent,
       confidence: (difference / 0.3).clamp(0.0, 1.0),
       type: PatternType.exerciseCorrelation,
     );
   }
 
   /// Analyze correlation between meal timing and weight change
-  static PatternInsight? _analyzeMealTimingCorrelation(List<WeightEntry> entries) {
+  static PatternInsight? _analyzeMealTimingCorrelation(List<WeightEntry> entries, AppLocalizations l10n) {
     final mealGroups = <String, List<_WeightChange>>{};
     
     for (var i = 1; i < entries.length; i++) {
@@ -261,32 +269,32 @@ class PatternRecognitionService {
 
     if (difference < 0.1) return null;
 
-    final timingLabel = _getMealTimingLabel(bestTiming.key);
+    final timingLabel = _getMealTimingLabel(bestTiming.key, l10n);
+    final changeStr = bestTiming.value.toStringAsFixed(2);
 
     return PatternInsight(
-      title: 'Meal Timing Pattern',
-      description: 'Your weight changes are most favorable when weighing ${timingLabel}. '
-          'Average change: ${bestTiming.value.toStringAsFixed(2)} kg/day.',
-      suggestion: 'Try to weigh yourself at consistent times (${timingLabel}) for more accurate tracking.',
+      title: l10n.patternMealTimingPattern,
+      description: l10n.patternMealTimingDescription(timingLabel, changeStr),
+      suggestion: l10n.patternMealTimingSuggestion(timingLabel),
       confidence: (difference / 0.3).clamp(0.0, 1.0),
       type: PatternType.mealTimingCorrelation,
     );
   }
 
-  static String _getMealTimingLabel(String timing) {
+  static String _getMealTimingLabel(String timing, AppLocalizations l10n) {
     switch (timing) {
       case 'before_breakfast':
-        return 'before breakfast';
+        return l10n.beforeBreakfast;
       case 'after_breakfast':
-        return 'after breakfast';
+        return l10n.afterBreakfast;
       case 'before_lunch':
-        return 'before lunch';
+        return l10n.beforeLunch;
       case 'after_lunch':
-        return 'after lunch';
+        return l10n.afterLunch;
       case 'before_dinner':
-        return 'before dinner';
+        return l10n.beforeDinner;
       case 'after_dinner':
-        return 'after dinner';
+        return l10n.afterDinner;
       default:
         return timing;
     }

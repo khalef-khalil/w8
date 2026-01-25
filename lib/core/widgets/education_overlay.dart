@@ -46,7 +46,7 @@ class EducationOverlay extends StatelessWidget {
                         if (content.icon != null) const SizedBox(width: 16),
                         Expanded(
                           child: Text(
-                            content.title,
+                            content.title(context.l10n),
                             style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -61,7 +61,7 @@ class EducationOverlay extends StatelessWidget {
                     const SizedBox(height: 24),
                     // Content
                     Text(
-                      content.content,
+                      content.content(context.l10n),
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                     const SizedBox(height: 24),
@@ -129,7 +129,7 @@ class EducationButton extends StatelessWidget {
   }
 
   void _showEducation(BuildContext context) {
-    final content = EducationContentLibrary.getById(contentId);
+    final content = EducationContentLibrary.getById(contentId, context.l10n);
     if (content == null) return;
     
     showDialog(

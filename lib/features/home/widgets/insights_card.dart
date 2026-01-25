@@ -364,8 +364,8 @@ class InsightsCard extends StatelessWidget {
   }
 
   Widget _buildRecommendationsSection(BuildContext context) {
-    final recommendations = InsightRecommendationsService.getRecommendations(metrics);
-    final encouragement = InsightRecommendationsService.getEncouragementMessage(metrics);
+    final recommendations = InsightRecommendationsService.getRecommendations(metrics, context.l10n);
+    final encouragement = InsightRecommendationsService.getEncouragementMessage(metrics, context.l10n);
 
     if (recommendations.isEmpty) {
       return const SizedBox.shrink();

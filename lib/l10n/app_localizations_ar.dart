@@ -861,261 +861,298 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String recommendationBehindLoss(String deficit, String unit) {
-    return 'You\'re $deficit $unit/week behind target. Consider reviewing your nutrition and activity levels.';
+    return 'أنت متأخر $deficit $unit/أسبوع عن الهدف. فكر في مراجعة تغذيتك ومستويات نشاطك.';
   }
 
   @override
   String get recommendationSmallChanges =>
-      'Small changes add up: try adding 10-15 minutes of daily activity or reducing portion sizes slightly.';
+      'التغييرات الصغيرة تتراكم: جرب إضافة 10-15 دقيقة من النشاط اليومي أو تقليل أحجام الوجبات قليلاً.';
 
   @override
   String recommendationBehindGain(String deficit, String unit) {
-    return 'You\'re $deficit $unit/week behind target. Make sure you\'re eating enough calories and protein.';
+    return 'أنت متأخر $deficit $unit/أسبوع عن الهدف. تأكد من أنك تأكل سعرات حرارية وبروتين كافيين.';
   }
 
   @override
   String get recommendationTrackMeals =>
-      'Consider tracking your meals to ensure you\'re meeting your caloric goals.';
+      'فكر في تتبع وجباتك لضمان تحقيق أهدافك من السعرات الحرارية.';
 
   @override
   String get recommendationAhead =>
-      'Great progress! You\'re ahead of schedule. Keep up the consistent tracking and maintain your current approach.';
+      'تقدم رائع! أنت متقدم على الجدول. استمر في التتبع المتسق وحافظ على نهجك الحالي.';
 
   @override
   String get recommendationOnTrack =>
-      'You\'re right on track! Maintain your current routine - it\'s working well.';
+      'أنت على المسار الصحيح! حافظ على روتينك الحالي - إنه يعمل بشكل جيد.';
 
   @override
   String get recommendationFinalStretch =>
-      'You\'re in the final stretch! Stay consistent - you\'re almost there!';
+      'أنت في المرحلة الأخيرة! ابق متسقاً - أنت على وشك الوصول!';
 
   @override
   String get recommendationHalfway =>
-      'You\'re more than halfway there! Keep the momentum going.';
+      'أنت تجاوزت منتصف الطريق! حافظ على الزخم.';
 
   @override
   String get recommendationGettingStarted =>
-      'You\'re just getting started. Focus on building consistent habits - the results will follow!';
+      'أنت للتو بدأت. ركز على بناء عادات متسقة - النتائج ستتبع!';
 
   @override
   String get recommendationVolatility =>
-      'Your weight is fluctuating quite a bit. This is normal! Try weighing at the same time each day for more consistent readings.';
+      'وزنك يتقلب كثيراً. هذا طبيعي! جرب الوزن في نفس الوقت كل يوم للحصول على قراءات أكثر اتساقاً.';
 
   @override
   String get recommendationGeneral =>
-      'Keep tracking consistently! Every entry helps you understand your progress better.';
+      'استمر في التتبع بانتظام! كل إدخال يساعدك على فهم تقدمك بشكل أفضل.';
 
   @override
-  String get encouragementGoalReached =>
-      '🎉 Congratulations! You\'ve reached your goal!';
+  String get encouragementGoalReached => '🎉 تهانينا! لقد حققت هدفك!';
 
   @override
-  String get encouragementAhead =>
-      'You\'re doing amazing! Keep up the great work!';
+  String get encouragementAhead => 'أنت تقوم بعمل رائع! استمر في العمل الجيد!';
 
   @override
   String get encouragementOnTrack =>
-      'You\'re right on track! Consistency is key.';
+      'أنت على المسار الصحيح! الاتساق هو المفتاح.';
 
   @override
-  String get encouragementClose => 'You\'re so close! Keep pushing forward!';
+  String get encouragementClose => 'أنت قريب جداً! استمر في المضي قدماً!';
 
   @override
-  String get encouragementGreatProgress =>
-      'You\'re making great progress! Keep going!';
+  String get encouragementGreatProgress => 'أنت تحرز تقدماً رائعاً! استمر!';
 
   @override
-  String get encouragementEveryStep =>
-      'Every step counts! You\'re building great habits!';
+  String get encouragementEveryStep => 'كل خطوة مهمة! أنت تبني عادات رائعة!';
 
   @override
-  String get patternSleepQualityImpact => 'Sleep Quality Impact';
+  String get patternSleepQualityImpact => 'تأثير جودة النوم';
 
   @override
   String patternSleepQualityDescription(String action, String quality,
       int rating, int worstRating, String change) {
-    return 'You tend to $action more weight when you sleep $quality ($rating/5). When sleep quality is $worstRating/5, your weight changes by $change kg/day on average.';
+    return 'تميل إلى $action المزيد من الوزن عندما تنام $quality ($rating/5). عندما تكون جودة النوم $worstRating/5، يتغير وزنك بمقدار $change كجم/يوم في المتوسط.';
   }
 
   @override
   String get patternSleepQualitySimilar =>
-      'Your weight changes are similar regardless of sleep quality.';
+      'تغييرات وزنك متشابهة بغض النظر عن جودة النوم.';
 
   @override
   String patternSleepQualitySuggestionGood(int rating) {
-    return 'Try to maintain good sleep habits ($rating/5) for better weight management.';
+    return 'حاول الحفاظ على عادات نوم جيدة ($rating/5) لإدارة أفضل للوزن.';
   }
 
   @override
   String get patternSleepQualitySuggestionImprove =>
-      'Consider improving your sleep quality - it may help with your weight goals.';
+      'فكر في تحسين جودة نومك - قد يساعد في أهداف وزنك.';
 
   @override
-  String get patternStressLevelImpact => 'Stress Level Impact';
+  String get patternStressLevelImpact => 'تأثير مستوى التوتر';
 
   @override
   String patternStressLevelDescription(String level, int rating, String change,
       int highRating, String highChange) {
-    return 'When stress is $level ($rating/5), your weight changes by $change kg/day on average. Higher stress ($highRating/5) shows $highChange kg/day.';
+    return 'عندما يكون التوتر $level ($rating/5)، يتغير وزنك بمقدار $change كجم/يوم في المتوسط. التوتر الأعلى ($highRating/5) يظهر $highChange كجم/يوم.';
   }
 
   @override
   String get patternStressLevelSuggestion =>
-      'Managing stress levels may help with your weight goals.';
+      'إدارة مستويات التوتر قد تساعد في أهداف وزنك.';
 
   @override
   String get patternStressLevelSuggestionFavorable =>
-      'Your weight changes are more favorable when stress is lower.';
+      'تغييرات وزنك أكثر ملاءمة عندما يكون التوتر أقل.';
 
   @override
-  String get patternExerciseImpact => 'Exercise Impact';
+  String get patternExerciseImpact => 'تأثير التمرين';
 
   @override
   String patternExerciseDescription(
       String withExercise, String withoutExercise) {
-    return 'On days you exercise, your weight changes by $withExercise kg/day on average, compared to $withoutExercise kg/day when you don\'t exercise.';
+    return 'في الأيام التي تمارس فيها التمرين، يتغير وزنك بمقدار $withExercise كجم/يوم في المتوسط، مقارنة بـ $withoutExercise كجم/يوم عندما لا تمارس التمرين.';
   }
 
   @override
   String patternExerciseDescriptionAlt(
       String withExercise, String withoutExercise) {
-    return 'Exercise days show $withExercise kg/day change vs $withoutExercise kg/day on rest days.';
+    return 'أيام التمرين تظهر $withExercise كجم/يوم تغيير مقابل $withoutExercise كجم/يوم في أيام الراحة.';
   }
 
   @override
   String get patternExerciseSuggestion =>
-      'Keep up the exercise! It appears to be helping with your weight goals.';
+      'استمر في التمرين! يبدو أنه يساعد في أهداف وزنك.';
 
   @override
   String get patternExerciseSuggestionConsistent =>
-      'Consider maintaining a consistent exercise routine.';
+      'فكر في الحفاظ على روتين تمرين متسق.';
 
   @override
-  String get patternMealTimingPattern => 'Meal Timing Pattern';
+  String get patternMealTimingPattern => 'نمط توقيت الوجبة';
 
   @override
   String patternMealTimingDescription(String timing, String change) {
-    return 'Your weight changes are most favorable when weighing $timing. Average change: $change kg/day.';
+    return 'تغييرات وزنك الأكثر ملاءمة عند الوزن $timing. متوسط التغيير: $change كجم/يوم.';
   }
 
   @override
   String patternMealTimingSuggestion(String timing) {
-    return 'Try to weigh yourself at consistent times ($timing) for more accurate tracking.';
+    return 'حاول وزن نفسك في أوقات متسقة ($timing) لتتبع أكثر دقة.';
   }
 
   @override
-  String get patternSleepWell => 'well';
+  String get patternSleepWell => 'جيداً';
 
   @override
-  String get patternSleepPoorly => 'poorly';
+  String get patternSleepPoorly => 'سيئاً';
 
   @override
-  String get patternStressLow => 'low';
+  String get patternStressLow => 'منخفض';
 
   @override
-  String get patternStressHigh => 'high';
+  String get patternStressHigh => 'مرتفع';
 
   @override
-  String get patternLose => 'lose';
+  String get patternLose => 'فقدان';
 
   @override
-  String get patternGain => 'gain';
+  String get patternGain => 'زيادة';
 
   @override
-  String get validationWeightGreaterThanZero =>
-      'Please enter a weight greater than 0';
+  String get validationWeightGreaterThanZero => 'يرجى إدخال وزن أكبر من 0';
 
   @override
   String validationWeightLessThanMax(String max) {
-    return 'Please enter a weight less than $max';
+    return 'يرجى إدخال وزن أقل من $max';
   }
 
   @override
   String get validationUnusuallyLargeChange =>
-      'This weight change seems unusually large. Please double-check your entry.';
+      'يبدو أن هذا التغيير في الوزن كبير بشكل غير عادي. يرجى التحقق مرة أخرى من إدخالك.';
 
   @override
   String get validationSignificantChange =>
-      'This is a significant change from your last entry. Is everything okay? You can still save it.';
+      'هذا تغيير كبير من إدخالك الأخير. هل كل شيء على ما يرام؟ لا يزال بإمكانك حفظه.';
 
   @override
   String get validationDifferentFromInitial =>
-      'This weight is quite different from your initial weight. Is this correct?';
+      'هذا الوزن مختلف جداً عن وزنك الأولي. هل هذا صحيح؟';
 
   @override
   String get validationGainingWhileLosing =>
-      'You\'re gaining weight while your goal is to lose. That\'s okay—setbacks happen. Do you want to continue?';
+      'أنت تكتسب وزناً بينما هدفك هو الفقدان. لا بأس - النكسات تحدث. هل تريد المتابعة؟';
 
   @override
   String get validationLosingWhileGaining =>
-      'You\'re losing weight while your goal is to gain. That\'s okay—setbacks happen. Do you want to continue?';
+      'أنت تفقد وزناً بينما هدفك هو الزيادة. لا بأس - النكسات تحدث. هل تريد المتابعة؟';
 
   @override
   String get validationMovingAwayFromGoal =>
-      'You\'re moving away from your goal. This might be normal (fluctuations, life events). Is this correct?';
+      'أنت تبتعد عن هدفك. قد يكون هذا طبيعياً (تقلبات، أحداث الحياة). هل هذا صحيح؟';
 
   @override
   String get validationUnusualWeight =>
-      'This weight seems unusual compared to your recent entries. Is everything okay?';
+      'يبدو أن هذا الوزن غير عادي مقارنة بإدخالاتك الأخيرة. هل كل شيء على ما يرام؟';
 
   @override
-  String get statusOnTrack => 'You\'re right on track! Keep up the great work!';
+  String get statusOnTrack => 'أنت على المسار الصحيح! استمر في العمل الجيد!';
 
   @override
   String statusAheadWithDays(int days) {
-    return 'You\'re ahead of schedule! $days days ahead';
+    return 'أنت متقدم! متقدم $days أيام';
   }
 
   @override
-  String get statusAhead => 'You\'re ahead of schedule! Great job!';
+  String get statusAhead => 'أنت متقدم! عمل رائع!';
 
   @override
   String get statusBehind =>
-      'You\'re making progress! A bit slower than planned, but you\'re still moving toward your goal.';
+      'أنت تحرز تقدماً! أبطأ قليلاً من المخطط، لكنك لا تزال تتحرك نحو هدفك.';
 
   @override
-  String get statusBehindSimple => 'You\'re making progress! Keep going!';
+  String get statusBehindSimple => 'أنت تحرز تقدماً! استمر!';
 
   @override
-  String get statusKeepTracking => 'Keep tracking to see your progress!';
+  String get statusKeepTracking => 'استمر في التتبع لرؤية تقدمك!';
 
   @override
   String get predictionOnTrack =>
-      'You\'re on track to reach your goal around the planned date!';
+      'أنت على المسار الصحيح للوصول إلى هدفك حول التاريخ المخطط!';
 
   @override
   String predictionAfterTarget(int days) {
-    return 'At your current rate, you\'ll reach your goal about $days days after your target date. That\'s okay—progress is progress!';
+    return 'بمعدلك الحالي، ستصل إلى هدفك بعد حوالي $days يوماً من تاريخك المستهدف. لا بأس - التقدم هو التقدم!';
   }
 
   @override
   String predictionBeforeTarget(int days) {
-    return 'At your current rate, you\'ll reach your goal about $days days before your target date. Great job!';
+    return 'بمعدلك الحالي، ستصل إلى هدفك قبل حوالي $days يوماً من تاريخك المستهدف. عمل رائع!';
   }
 
   @override
-  String get streakStartTracking => 'Start tracking to build your streak!';
+  String get streakStartTracking => 'ابدأ التتبع لبناء سلسلتك!';
 
   @override
-  String get streakGreatStart => 'Great start! Keep it going!';
+  String get streakGreatStart => 'بداية رائعة! استمر!';
 
   @override
   String streakDaysBuilding(int days) {
-    return '$days days in a row! You\'re building a great habit!';
+    return '$days أيام متتالية! أنت تبني عادة رائعة!';
   }
 
   @override
   String streakDaysAmazing(int days) {
-    return '$days days in a row! You\'re doing amazing!';
+    return '$days أيام متتالية! أنت تقوم بعمل رائع!';
   }
 
   @override
   String streakDaysIncredible(int days) {
-    return '$days days in a row! This is incredible!';
+    return '$days أيام متتالية! هذا لا يصدق!';
   }
 
   @override
   String streakDaysChampion(int days) {
-    return '$days days in a row! You\'re a tracking champion!';
+    return '$days أيام متتالية! أنت بطل في التتبع!';
   }
+
+  @override
+  String get educationWhyFluctuatesTitle => 'لماذا يتقلب الوزن يومياً';
+
+  @override
+  String get educationWhyFluctuatesContent =>
+      'وزنك يتقلب بشكل طبيعي طوال اليوم والأسبوع. هذا طبيعي تماماً! العوامل تشمل:\n\n• احتباس الماء (يمكن أن يختلف من 1-2 كجم)\n• الطعام والهضم\n• جودة ومدة النوم\n• التغيرات الهرمونية\n• التمرين واستعادة العضلات\n\nلهذا السبب نستخدم المتوسطات الأسبوعية - فهي تنعم الضوضاء اليومية وتظهر تقدمك الحقيقي.';
+
+  @override
+  String get educationWeeklyMediansTitle => 'كيف تعمل المتوسطات الأسبوعية';
+
+  @override
+  String get educationWeeklyMediansContent =>
+      'المتوسطات الأسبوعية تساعدك على رؤية تقدمك الحقيقي عن طريق تقليل الضوضاء اليومية.\n\nبدلاً من التركيز على التغييرات يوم بيوم، نحسب متوسط الوزن لكل أسبوع. هذا يعطيك صورة أوضح لاتجاهك العام.\n\nعلى سبيل المثال: إذا كنت تزن 70 كجم، 71 كجم، 70.5 كجم، 70.2 كجم، و 70.8 كجم في أسبوع، المتوسط هو 70.5 كجم - رقم أكثر استقراراً من أي يوم واحد.';
+
+  @override
+  String get educationBestPracticesTitle => 'أفضل الممارسات للتتبع';
+
+  @override
+  String get educationBestPracticesContent =>
+      'للتتبع الأكثر دقة:\n\n• وزن نفسك في نفس الوقت كل يوم (الصباح هو الأفضل)\n• استخدم نفس الميزان\n• وزن نفسك قبل الأكل أو الشرب\n• وزن نفسك بعد استخدام الحمام\n• ارتدِ ملابس متشابهة (أو لا شيء)\n\nالاتساق أهم من الكمال!';
+
+  @override
+  String get educationPlateausTitle => 'فهم الهضاب';
+
+  @override
+  String get educationPlateausContent =>
+      'هضاب الوزن طبيعية تماماً وليست علامة على الفشل!\n\nجسمك قد:\n• يحتفظ بالماء أثناء استعادة العضلات\n• يعدل الأيض\n• يعيد توزيع الوزن (فقدان الدهون، اكتساب العضلات)\n\nإذا كنت تتبع خطتك، ثق بالعملية. الهضاب غالباً ما تنكسر بعد بضعة أسابيع. ركز على الاتساق على السرعة.';
+
+  @override
+  String get educationContextTrackingTitle => 'لماذا تتبع السياق؟';
+
+  @override
+  String get educationContextTrackingContent =>
+      'تتبع السياق (النوم، التوتر، التمرين، توقيت الوجبة) يساعدك على فهم الأنماط.\n\nقد تكتشف:\n• نوم أفضل = إدارة أفضل للوزن\n• التوتر العالي يؤثر على تقدمك\n• توقيت التمرين مهم\n• توقيت الوجبة يؤثر على الوزن اليومي\n\nهذه الرؤى تساعدك على اتخاذ قرارات مستنيرة حول رحلتك.';
+
+  @override
+  String get educationStayingMotivatedTitle => 'البقاء متحفزاً';
+
+  @override
+  String get educationStayingMotivatedContent =>
+      'تتبع الوزن هو ماراثون، وليس سباقاً.\n\nتذكر:\n• التقدم ليس دائماً خطياً\n• الإجراءات اليومية الصغيرة تتراكم مع مرور الوقت\n• النكسات جزء من الرحلة\n• احتفل أيضاً بانتصارات غير الميزان\n\nركز على بناء عادات مستدامة. كل يوم تتتبع فيه هو انتصار!';
 }
