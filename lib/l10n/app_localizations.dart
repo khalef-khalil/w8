@@ -884,6 +884,18 @@ abstract class AppLocalizations {
   /// **'Settings'**
   String get navSettings;
 
+  /// No description provided for @navOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get navOverview;
+
+  /// No description provided for @overviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Overview'**
+  String get overviewTitle;
+
   /// No description provided for @monthsUnit.
   ///
   /// In en, this message translates to:
@@ -1099,6 +1111,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Longest: {count} days'**
   String longestStreak(int count);
+
+  /// No description provided for @makingProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Making progress'**
+  String get makingProgress;
+
+  /// No description provided for @justChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Just checking'**
+  String get justChecking;
+
+  /// No description provided for @yesContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, continue'**
+  String get yesContinue;
+
+  /// No description provided for @weightSavedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Great! Weight saved successfully'**
+  String get weightSavedSuccess;
+
+  /// No description provided for @weightUpdatedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Updated! Your entry has been saved'**
+  String get weightUpdatedSuccess;
+
+  /// No description provided for @editGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Goal'**
+  String get editGoal;
+
+  /// No description provided for @editYourGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Your Goal'**
+  String get editYourGoal;
+
+  /// No description provided for @editGoalDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Update your goal settings'**
+  String get editGoalDescription;
+
+  /// No description provided for @goalManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal Management'**
+  String get goalManagement;
+
+  /// No description provided for @goalUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal updated successfully'**
+  String get goalUpdated;
+
+  /// No description provided for @initialWeightLbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Initial weight (lbs)'**
+  String get initialWeightLbs;
+
+  /// No description provided for @targetWeightLbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Target weight (lbs)'**
+  String get targetWeightLbs;
 }
 
 class _AppLocalizationsDelegate

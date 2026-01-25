@@ -11,14 +11,14 @@ class WeightValidationService {
   /// [unit] est utilisé uniquement pour les messages d'erreur
   static ValidationResult validateBasic(double weight, WeightUnit unit) {
     if (weight <= 0) {
-      return ValidationResult.error('Le poids doit être supérieur à 0');
+      return ValidationResult.error('Please enter a weight greater than 0');
     }
     
     final thresholds = ValidationThresholds(unit);
     if (weight > thresholds.maxWeight) {
       final maxDisplay = WeightConverter.forDisplay(thresholds.maxWeight, unit);
       return ValidationResult.error(
-        'Le poids doit être inférieur à ${maxDisplay.toStringAsFixed(0)} ${thresholds.unitName}'
+        'Please enter a weight less than ${maxDisplay.toStringAsFixed(0)} ${thresholds.unitName}'
       );
     }
 
@@ -49,9 +49,9 @@ class WeightValidationService {
           final newDisplay = WeightConverter.forDisplay(newWeight, unit);
           final initialDisplay = WeightConverter.forDisplay(goal.initialWeight, unit);
           return ValidationResult.warning(
-            'Le poids saisi (${newDisplay.toStringAsFixed(2)} ${thresholds.unitName}) est très différent '
-            'du poids initial configuré (${initialDisplay.toStringAsFixed(2)} ${thresholds.unitName}). '
-            'Est-ce correct ?',
+            'This weight (${newDisplay.toStringAsFixed(2)} ${thresholds.unitName}) is quite different '
+            'from your initial weight (${initialDisplay.toStringAsFixed(2)} ${thresholds.unitName}). '
+            'Is this correct?',
             requiresConfirmation: true,
           );
         }
@@ -71,8 +71,8 @@ class WeightValidationService {
     if (daysSinceLast <= 1 && changeAbs > thresholds.impossibleChangePerDay) {
       final changeSignDisplay = WeightConverter.forDisplay(change, unit);
       return ValidationResult.error(
-        'Changement trop important détecté (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName}). '
-        'Cela semble impossible. Vérifiez votre saisie.',
+        'This weight change (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName}) seems unusually large. '
+        'Please double-check your entry.',
       );
     }
 
@@ -80,8 +80,8 @@ class WeightValidationService {
     if (daysSinceLast == 1 && changeAbs > thresholds.suspiciousChangePerDay) {
       final changeSignDisplay = WeightConverter.forDisplay(change, unit);
       return ValidationResult.warning(
-        'Changement important détecté (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName} en 1 jour). '
-        'Est-ce correct ? Les fluctuations normales sont généralement inférieures à ${WeightConverter.forDisplay(thresholds.suspiciousChangePerDay, unit).toStringAsFixed(1)} ${thresholds.unitName}/jour.',
+        'This is a significant change (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName} in 1 day). '
+        'Is everything okay? Normal daily fluctuations are usually less than ${WeightConverter.forDisplay(thresholds.suspiciousChangePerDay, unit).toStringAsFixed(1)} ${thresholds.unitName}/day. You can still save it.',
         requiresConfirmation: true,
       );
     }
@@ -90,8 +90,8 @@ class WeightValidationService {
     if (daysSinceLast <= 3 && changeAbs > thresholds.suspiciousChangeMultiDay) {
       final changeSignDisplay = WeightConverter.forDisplay(change, unit);
       return ValidationResult.warning(
-        'Changement important détecté (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName} en $daysSinceLast jour${daysSinceLast > 1 ? 's' : ''}). '
-        'Est-ce correct ?',
+        'This is a significant change (${change > 0 ? '+' : ''}${changeSignDisplay.toStringAsFixed(2)} ${thresholds.unitName} in $daysSinceLast day${daysSinceLast > 1 ? 's' : ''}). '
+        'Is everything okay? You can still save it.',
         requiresConfirmation: true,
       );
     }
@@ -102,8 +102,8 @@ class WeightValidationService {
       if (goal.type == GoalType.loss && change > thresholds.significantGoalChange) {
         final changeDisplay = WeightConverter.forDisplay(change, unit);
         return ValidationResult.warning(
-          'Tu es en train de prendre du poids (${changeDisplay.toStringAsFixed(2)} ${thresholds.unitName}) alors que ton objectif est de perdre. '
-          'Veux-tu continuer ?',
+          'You\'re gaining weight (${changeDisplay.toStringAsFixed(2)} ${thresholds.unitName}) while your goal is to lose. '
+          'That\'s okay—setbacks happen. Do you want to continue?',
           requiresConfirmation: true,
         );
       }
@@ -112,8 +112,8 @@ class WeightValidationService {
       if (goal.type == GoalType.gain && change < -thresholds.significantGoalChange) {
         final changeDisplay = WeightConverter.forDisplay(change, unit);
         return ValidationResult.warning(
-          'Tu es en train de perdre du poids (${changeDisplay.toStringAsFixed(2)} ${thresholds.unitName}) alors que ton objectif est de gagner. '
-          'Veux-tu continuer ?',
+          'You\'re losing weight (${changeDisplay.toStringAsFixed(2)} ${thresholds.unitName}) while your goal is to gain. '
+          'That\'s okay—setbacks happen. Do you want to continue?',
           requiresConfirmation: true,
         );
       }
@@ -124,7 +124,7 @@ class WeightValidationService {
       if (currentProgress < -0.2) {
         // On est à plus de 20% en dessous du point de départ
         return ValidationResult.warning(
-          'Tu t\'éloignes significativement de ton objectif. Vérifie que c\'est correct.',
+          'You\'re moving away from your goal. This might be normal (fluctuations, life events). Is this correct?',
           requiresConfirmation: true,
         );
       }
@@ -146,8 +146,8 @@ class WeightValidationService {
       final minStdDev = unit == WeightUnit.kg ? 0.5 : 1.1; // ~0.5kg ou ~1.1lbs
       if ((newWeight - average).abs() > 2 * stdDev && stdDev > minStdDev) {
         return ValidationResult.warning(
-          'Ce poids semble inhabituel par rapport à tes dernières pesées. '
-          'Est-ce correct ?',
+          'This weight seems unusual compared to your recent entries. '
+          'Is everything okay? You can still save it.',
           requiresConfirmation: true,
         );
       }

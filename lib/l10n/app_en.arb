@@ -213,6 +213,8 @@
   "navHistory": "History",
   "navInsights": "Insights",
   "navSettings": "Settings",
+  "navOverview": "Overview",
+  "overviewTitle": "Overview",
   "monthsUnit": "months",
   "kgUnit": "kg",
   "lbsUnit": "lbs",
@@ -277,5 +279,19 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+  "makingProgress": "Making progress",
+  "validationError": "Validation error",
+  "justChecking": "Just checking",
+  "yesContinue": "Yes, continue",
+  "weightSavedSuccess": "Great! Weight saved successfully",
+  "weightUpdatedSuccess": "Updated! Your entry has been saved",
+
+  "editGoal": "Edit Goal",
+  "editYourGoal": "Edit Your Goal",
+  "editGoalDescription": "Update your goal settings",
+  "goalManagement": "Goal Management",
+  "goalUpdated": "Goal updated successfully",
+  "initialWeightLbs": "Initial weight (lbs)",
+  "targetWeightLbs": "Target weight (lbs)"
 }

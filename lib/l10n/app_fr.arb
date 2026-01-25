@@ -139,6 +139,8 @@
   "navHistory": "Historique",
   "navInsights": "Insights",
   "navSettings": "Paramètres",
+  "navOverview": "Vue d'ensemble",
+  "overviewTitle": "Vue d'ensemble",
   "monthsUnit": "mois",
   "kgUnit": "kg",
   "lbsUnit": "lbs",
@@ -178,5 +180,19 @@
 
   "currentStreak": "Série actuelle",
   "daysInARow": "{count} jours d'affilée",
-  "longestStreak": "Record : {count} jours"
+  "longestStreak": "Record : {count} jours",
+  "makingProgress": "En progression",
+  "validationError": "Erreur de validation",
+  "justChecking": "Vérification",
+  "yesContinue": "Oui, continuer",
+  "weightSavedSuccess": "Parfait ! Poids enregistré avec succès",
+  "weightUpdatedSuccess": "Mis à jour ! Ton entrée a été sauvegardée",
+
+  "editGoal": "Modifier l'objectif",
+  "editYourGoal": "Modifier ton objectif",
+  "editGoalDescription": "Mettre à jour les paramètres de ton objectif",
+  "goalManagement": "Gestion de l'objectif",
+  "goalUpdated": "Objectif mis à jour avec succès",
+  "initialWeightLbs": "Poids initial (lbs)",
+  "targetWeightLbs": "Poids cible (lbs)"
 }

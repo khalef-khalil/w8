@@ -8,6 +8,7 @@ import '../../features/onboarding/views/goal_configuration_screen.dart';
 import '../../features/onboarding/views/preferences_screen.dart';
 import '../../features/onboarding/views/first_entry_screen.dart';
 import '../../features/onboarding/views/language_selection_screen.dart';
+import '../../features/settings/views/edit_goal_screen.dart';
 import '../../core/services/goal_storage_service.dart';
 
 /// Configuration du routeur de l'application
@@ -74,6 +75,11 @@ final appRouter = GoRouter(
       path: '/history',
       name: 'history',
       builder: (context, state) => const HistoryPage(),
+    ),
+    GoRoute(
+      path: '/settings/edit-goal',
+      name: 'edit-goal',
+      builder: (context, state) => const EditGoalScreen(),
     ),
   ],
 );

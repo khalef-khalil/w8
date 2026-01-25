@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'home_screen.dart';
-import '../../progress/views/progress_screen.dart';
-import '../../insights/views/insights_screen.dart';
+import 'overview_screen.dart';
+import '../../history/views/history_page.dart';
 import '../../settings/views/settings_screen.dart';
 import '../../../core/extensions/l10n_context.dart';
 
@@ -17,9 +16,8 @@ class _MainScaffoldState extends State<MainScaffold> {
   int _currentIndex = 0;
 
   static const _tabs = [
-    _TabData(icon: Icons.home_rounded, labelKey: 'navHome'),
-    _TabData(icon: Icons.show_chart_rounded, labelKey: 'navProgress'),
-    _TabData(icon: Icons.insights_rounded, labelKey: 'navInsights'),
+    _TabData(icon: Icons.dashboard_rounded, labelKey: 'navOverview'),
+    _TabData(icon: Icons.history_rounded, labelKey: 'navHistory'),
     _TabData(icon: Icons.settings_rounded, labelKey: 'navSettings'),
   ];
 
@@ -27,9 +25,8 @@ class _MainScaffoldState extends State<MainScaffold> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final labels = [
-      l10n.navHome,
-      l10n.navProgress,
-      l10n.navInsights,
+      l10n.navOverview,
+      l10n.navHistory,
       l10n.settingsTitle,
     ];
 
@@ -37,9 +34,8 @@ class _MainScaffoldState extends State<MainScaffold> {
       body: IndexedStack(
         index: _currentIndex,
         children: const [
-          HomeScreen(),
-          ProgressScreen(),
-          InsightsScreen(),
+          OverviewScreen(),
+          HistoryPage(),
           SettingsScreen(),
         ],
       ),
@@ -59,18 +55,14 @@ class _MainScaffoldState extends State<MainScaffold> {
         actions: [
           if (_currentIndex == 0) ...[
             IconButton(
-              icon: const Icon(Icons.history_rounded),
-              onPressed: () => context.go('/history'),
-              tooltip: l10n.historyTitle,
-            ),
-            IconButton(
               icon: const Icon(Icons.add),
               onPressed: () => context.go('/add-weight'),
+              tooltip: l10n.addWeight,
             ),
           ],
         ],
       ),
-      floatingActionButton: _currentIndex != 0 && _currentIndex != 3
+      floatingActionButton: _currentIndex == 1
           ? FloatingActionButton(
               onPressed: () => context.go('/add-weight'),
               child: const Icon(Icons.add),
@@ -83,12 +75,10 @@ class _MainScaffoldState extends State<MainScaffold> {
     final l10n = context.l10n;
     switch (_currentIndex) {
       case 0:
-        return l10n.weightTracking;
+        return l10n.overviewTitle;
       case 1:
-        return l10n.progressTitle;
+        return l10n.historyTitle;
       case 2:
-        return l10n.insightsTitle;
-      case 3:
         return l10n.settingsTitle;
       default:
         return l10n.appTitle;

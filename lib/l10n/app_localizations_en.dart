@@ -439,6 +439,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navSettings => 'Settings';
 
   @override
+  String get navOverview => 'Overview';
+
+  @override
+  String get overviewTitle => 'Overview';
+
+  @override
   String get monthsUnit => 'months';
 
   @override
@@ -558,4 +564,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String longestStreak(int count) {
     return 'Longest: $count days';
   }
+
+  @override
+  String get makingProgress => 'Making progress';
+
+  @override
+  String get justChecking => 'Just checking';
+
+  @override
+  String get yesContinue => 'Yes, continue';
+
+  @override
+  String get weightSavedSuccess => 'Great! Weight saved successfully';
+
+  @override
+  String get weightUpdatedSuccess => 'Updated! Your entry has been saved';
+
+  @override
+  String get editGoal => 'Edit Goal';
+
+  @override
+  String get editYourGoal => 'Edit Your Goal';
+
+  @override
+  String get editGoalDescription => 'Update your goal settings';
+
+  @override
+  String get goalManagement => 'Goal Management';
+
+  @override
+  String get goalUpdated => 'Goal updated successfully';
+
+  @override
+  String get initialWeightLbs => 'Initial weight (lbs)';
+
+  @override
+  String get targetWeightLbs => 'Target weight (lbs)';
 }

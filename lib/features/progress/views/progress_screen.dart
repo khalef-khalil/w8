@@ -179,9 +179,10 @@ class ProgressScreen extends ConsumerWidget {
       icon = Icons.trending_up_rounded;
       color = Colors.green;
     } else {
-      label = l10n.behind;
-      icon = Icons.trending_down_rounded;
-      color = Colors.orange;
+      // Use softer language for "behind"
+      label = l10n.makingProgress; // More supportive than "behind"
+      icon = Icons.trending_up_rounded; // Still positive icon
+      color = Colors.amber; // Softer than orange
     }
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

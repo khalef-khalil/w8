@@ -133,9 +133,12 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
           builder: (ctx) => AlertDialog(
             title: Row(
               children: [
-                const Icon(Icons.warning_amber_rounded, color: Colors.orange),
+                Icon(
+                  Icons.info_outline_rounded, 
+                  color: Theme.of(ctx).colorScheme.primary,
+                ),
                 const SizedBox(width: 8),
-                Text(ctx.l10n.warning),
+                Text(ctx.l10n.justChecking),
               ],
             ),
             content: Text(validation.message ?? ''),
@@ -146,7 +149,7 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
               ),
               ElevatedButton(
                 onPressed: () => Navigator.of(ctx).pop(true),
-                child: Text(ctx.l10n.confirm),
+                child: Text(ctx.l10n.yesContinue),
               ),
             ],
           ),
@@ -164,10 +167,21 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
     if (success) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            original != null
-                ? context.l10n.weightUpdated
-                : context.l10n.weightSaved,
+          content: Row(
+            children: [
+              Icon(
+                Icons.check_circle_rounded,
+                color: Theme.of(context).colorScheme.onPrimaryContainer,
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: Text(
+                  original != null
+                      ? context.l10n.weightUpdatedSuccess
+                      : context.l10n.weightSavedSuccess,
+                ),
+              ),
+            ],
           ),
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           behavior: SnackBarBehavior.floating,

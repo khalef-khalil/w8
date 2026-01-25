@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/services/goal_storage_service.dart';
 import '../../../core/services/data_export_service.dart';
@@ -8,6 +9,7 @@ import '../../../core/providers/locale_provider.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/utils/week_start_day_labels.dart';
 import '../../home/viewmodels/home_viewmodel.dart';
+import 'edit_goal_screen.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -155,6 +157,21 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 },
               ),
               const SizedBox(height: 32),
+              // Goal Management Section
+              Text(
+                context.l10n.goalManagement,
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+              const SizedBox(height: 12),
+              _DataManagementCard(
+                icon: Icons.edit_rounded,
+                title: context.l10n.editGoal,
+                subtitle: context.l10n.editGoalDescription,
+                onTap: () => context.push('/settings/edit-goal'),
+              ),
+              const SizedBox(height: 12),
               // Data Management Section
               Text(
                 context.l10n.dataManagement,
