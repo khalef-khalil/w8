@@ -129,14 +129,18 @@ class EducationButton extends StatelessWidget {
   }
 
   void _showEducation(BuildContext context) {
-    final content = EducationContentLibrary.getById(contentId);
-    showDialog(
-      context: context,
-      barrierDismissible: true,
-      builder: (ctx) => EducationOverlay(
-        content: content,
-        onDismiss: () => Navigator.of(ctx).pop(),
-      ),
-    );
+    try {
+      final content = EducationContentLibrary.getById(contentId);
+      showDialog(
+        context: context,
+        barrierDismissible: true,
+        builder: (ctx) => EducationOverlay(
+          content: content,
+          onDismiss: () => Navigator.of(ctx).pop(),
+        ),
+      );
+    } catch (e) {
+      // Content not found - silently fail
+    }
   }
 }
