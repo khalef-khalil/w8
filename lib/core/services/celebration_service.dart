@@ -2,6 +2,7 @@ import '../../models/weight_entry.dart';
 import '../models/progress_metrics.dart';
 import '../models/goal_configuration.dart';
 import 'streak_service.dart';
+import '../../l10n/app_localizations.dart';
 
 /// Types of celebrations that can be triggered
 enum CelebrationType {
@@ -71,46 +72,46 @@ class CelebrationService {
   }
 
   /// Get celebration message for a celebration type
-  static String getCelebrationMessage(CelebrationType type) {
+  static String getCelebrationMessage(CelebrationType type, AppLocalizations l10n) {
     switch (type) {
       case CelebrationType.firstEntry:
-        return 'Great! You\'ve started your journey!';
+        return l10n.celebrationJourneyStartedMessage;
       case CelebrationType.streak7Days:
-        return '🎉 7 days in a row! You\'re building an amazing habit!';
+        return l10n.celebration7DayStreakMessage;
       case CelebrationType.streak30Days:
-        return '🎉 30 days! You\'re a tracking superstar!';
+        return l10n.celebration30DayStreakMessage;
       case CelebrationType.streak100Days:
-        return '🎉 100 days! This is incredible dedication!';
+        return l10n.celebration100DayStreakMessage;
       case CelebrationType.progress25Percent:
-        return '🎉 You\'re 25% there! Keep going!';
+        return l10n.celebration25PercentMessage;
       case CelebrationType.progress50Percent:
-        return '🎉 Halfway there! You\'re doing amazing!';
+        return l10n.celebration50PercentMessage;
       case CelebrationType.progress75Percent:
-        return '🎉 75% complete! You\'re almost there!';
+        return l10n.celebration75PercentMessage;
       case CelebrationType.goalReached:
-        return '🎉 Congratulations! You\'ve reached your goal!';
+        return l10n.celebrationGoalReachedMessage;
     }
   }
 
   /// Get celebration title for a celebration type
-  static String getCelebrationTitle(CelebrationType type) {
+  static String getCelebrationTitle(CelebrationType type, AppLocalizations l10n) {
     switch (type) {
       case CelebrationType.firstEntry:
-        return 'Journey Started!';
+        return l10n.celebrationJourneyStarted;
       case CelebrationType.streak7Days:
-        return '7 Day Streak!';
+        return l10n.celebration7DayStreak;
       case CelebrationType.streak30Days:
-        return '30 Day Streak!';
+        return l10n.celebration30DayStreak;
       case CelebrationType.streak100Days:
-        return '100 Day Streak!';
+        return l10n.celebration100DayStreak;
       case CelebrationType.progress25Percent:
-        return '25% Complete!';
+        return l10n.celebration25Percent;
       case CelebrationType.progress50Percent:
-        return 'Halfway There!';
+        return l10n.celebration50Percent;
       case CelebrationType.progress75Percent:
-        return '75% Complete!';
+        return l10n.celebration75Percent;
       case CelebrationType.goalReached:
-        return 'Goal Achieved!';
+        return l10n.celebrationGoalReached;
     }
   }
 }

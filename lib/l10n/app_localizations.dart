@@ -1521,6 +1521,562 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Error deleting entry. Please try again.'**
   String get errorDeleting;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @awesome.
+  ///
+  /// In en, this message translates to:
+  /// **'Awesome!'**
+  String get awesome;
+
+  /// No description provided for @celebrationJourneyStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Journey Started!'**
+  String get celebrationJourneyStarted;
+
+  /// No description provided for @celebrationJourneyStartedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Great! You\'ve started your journey!'**
+  String get celebrationJourneyStartedMessage;
+
+  /// No description provided for @celebration7DayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'7 Day Streak!'**
+  String get celebration7DayStreak;
+
+  /// No description provided for @celebration7DayStreakMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 7 days in a row! You\'re building an amazing habit!'**
+  String get celebration7DayStreakMessage;
+
+  /// No description provided for @celebration30DayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'30 Day Streak!'**
+  String get celebration30DayStreak;
+
+  /// No description provided for @celebration30DayStreakMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 30 days! You\'re a tracking superstar!'**
+  String get celebration30DayStreakMessage;
+
+  /// No description provided for @celebration100DayStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'100 Day Streak!'**
+  String get celebration100DayStreak;
+
+  /// No description provided for @celebration100DayStreakMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 100 days! This is incredible dedication!'**
+  String get celebration100DayStreakMessage;
+
+  /// No description provided for @celebration25Percent.
+  ///
+  /// In en, this message translates to:
+  /// **'25% Complete!'**
+  String get celebration25Percent;
+
+  /// No description provided for @celebration25PercentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 You\'re 25% there! Keep going!'**
+  String get celebration25PercentMessage;
+
+  /// No description provided for @celebration50Percent.
+  ///
+  /// In en, this message translates to:
+  /// **'Halfway There!'**
+  String get celebration50Percent;
+
+  /// No description provided for @celebration50PercentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 Halfway there! You\'re doing amazing!'**
+  String get celebration50PercentMessage;
+
+  /// No description provided for @celebration75Percent.
+  ///
+  /// In en, this message translates to:
+  /// **'75% Complete!'**
+  String get celebration75Percent;
+
+  /// No description provided for @celebration75PercentMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 75% complete! You\'re almost there!'**
+  String get celebration75PercentMessage;
+
+  /// No description provided for @celebrationGoalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal Achieved!'**
+  String get celebrationGoalReached;
+
+  /// No description provided for @celebrationGoalReachedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 Congratulations! You\'ve reached your goal!'**
+  String get celebrationGoalReachedMessage;
+
+  /// No description provided for @emptyStateStartJourney.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Your Journey'**
+  String get emptyStateStartJourney;
+
+  /// No description provided for @emptyStateStartJourneyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your weight to see your progress over time. Every entry brings you closer to your goal!'**
+  String get emptyStateStartJourneyMessage;
+
+  /// No description provided for @emptyStateAddFirstWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Your First Weight'**
+  String get emptyStateAddFirstWeight;
+
+  /// No description provided for @emptyStateSetGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Set Your Goal'**
+  String get emptyStateSetGoal;
+
+  /// No description provided for @emptyStateSetGoalMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Define your weight goal to track your progress and stay motivated on your journey!'**
+  String get emptyStateSetGoalMessage;
+
+  /// No description provided for @emptyStateNoHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No History Yet'**
+  String get emptyStateNoHistory;
+
+  /// No description provided for @emptyStateNoHistoryMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Start tracking your weight to build your history. Consistency is key to success!'**
+  String get emptyStateNoHistoryMessage;
+
+  /// No description provided for @emptyStateAddWeightEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Weight Entry'**
+  String get emptyStateAddWeightEntry;
+
+  /// No description provided for @emptyStateBuildingInsights.
+  ///
+  /// In en, this message translates to:
+  /// **'Building Insights'**
+  String get emptyStateBuildingInsights;
+
+  /// No description provided for @emptyStateBuildingInsightsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep tracking your weight! Once you have enough data, we\'ll show you personalized insights and trends.'**
+  String get emptyStateBuildingInsightsMessage;
+
+  /// No description provided for @recommendationBehindLoss.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re {deficit} {unit}/week behind target. Consider reviewing your nutrition and activity levels.'**
+  String recommendationBehindLoss(String deficit, String unit);
+
+  /// No description provided for @recommendationSmallChanges.
+  ///
+  /// In en, this message translates to:
+  /// **'Small changes add up: try adding 10-15 minutes of daily activity or reducing portion sizes slightly.'**
+  String get recommendationSmallChanges;
+
+  /// No description provided for @recommendationBehindGain.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re {deficit} {unit}/week behind target. Make sure you\'re eating enough calories and protein.'**
+  String recommendationBehindGain(String deficit, String unit);
+
+  /// No description provided for @recommendationTrackMeals.
+  ///
+  /// In en, this message translates to:
+  /// **'Consider tracking your meals to ensure you\'re meeting your caloric goals.'**
+  String get recommendationTrackMeals;
+
+  /// No description provided for @recommendationAhead.
+  ///
+  /// In en, this message translates to:
+  /// **'Great progress! You\'re ahead of schedule. Keep up the consistent tracking and maintain your current approach.'**
+  String get recommendationAhead;
+
+  /// No description provided for @recommendationOnTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re right on track! Maintain your current routine - it\'s working well.'**
+  String get recommendationOnTrack;
+
+  /// No description provided for @recommendationFinalStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re in the final stretch! Stay consistent - you\'re almost there!'**
+  String get recommendationFinalStretch;
+
+  /// No description provided for @recommendationHalfway.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re more than halfway there! Keep the momentum going.'**
+  String get recommendationHalfway;
+
+  /// No description provided for @recommendationGettingStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re just getting started. Focus on building consistent habits - the results will follow!'**
+  String get recommendationGettingStarted;
+
+  /// No description provided for @recommendationVolatility.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weight is fluctuating quite a bit. This is normal! Try weighing at the same time each day for more consistent readings.'**
+  String get recommendationVolatility;
+
+  /// No description provided for @recommendationGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep tracking consistently! Every entry helps you understand your progress better.'**
+  String get recommendationGeneral;
+
+  /// No description provided for @encouragementGoalReached.
+  ///
+  /// In en, this message translates to:
+  /// **'🎉 Congratulations! You\'ve reached your goal!'**
+  String get encouragementGoalReached;
+
+  /// No description provided for @encouragementAhead.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re doing amazing! Keep up the great work!'**
+  String get encouragementAhead;
+
+  /// No description provided for @encouragementOnTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re right on track! Consistency is key.'**
+  String get encouragementOnTrack;
+
+  /// No description provided for @encouragementClose.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re so close! Keep pushing forward!'**
+  String get encouragementClose;
+
+  /// No description provided for @encouragementGreatProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re making great progress! Keep going!'**
+  String get encouragementGreatProgress;
+
+  /// No description provided for @encouragementEveryStep.
+  ///
+  /// In en, this message translates to:
+  /// **'Every step counts! You\'re building great habits!'**
+  String get encouragementEveryStep;
+
+  /// No description provided for @patternSleepQualityImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep Quality Impact'**
+  String get patternSleepQualityImpact;
+
+  /// No description provided for @patternSleepQualityDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'You tend to {action} more weight when you sleep {quality} ({rating}/5). When sleep quality is {worstRating}/5, your weight changes by {change} kg/day on average.'**
+  String patternSleepQualityDescription(String action, String quality,
+      int rating, int worstRating, String change);
+
+  /// No description provided for @patternSleepQualitySimilar.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weight changes are similar regardless of sleep quality.'**
+  String get patternSleepQualitySimilar;
+
+  /// No description provided for @patternSleepQualitySuggestionGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Try to maintain good sleep habits ({rating}/5) for better weight management.'**
+  String patternSleepQualitySuggestionGood(int rating);
+
+  /// No description provided for @patternSleepQualitySuggestionImprove.
+  ///
+  /// In en, this message translates to:
+  /// **'Consider improving your sleep quality - it may help with your weight goals.'**
+  String get patternSleepQualitySuggestionImprove;
+
+  /// No description provided for @patternStressLevelImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'Stress Level Impact'**
+  String get patternStressLevelImpact;
+
+  /// No description provided for @patternStressLevelDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'When stress is {level} ({rating}/5), your weight changes by {change} kg/day on average. Higher stress ({highRating}/5) shows {highChange} kg/day.'**
+  String patternStressLevelDescription(String level, int rating, String change,
+      int highRating, String highChange);
+
+  /// No description provided for @patternStressLevelSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Managing stress levels may help with your weight goals.'**
+  String get patternStressLevelSuggestion;
+
+  /// No description provided for @patternStressLevelSuggestionFavorable.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weight changes are more favorable when stress is lower.'**
+  String get patternStressLevelSuggestionFavorable;
+
+  /// No description provided for @patternExerciseImpact.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise Impact'**
+  String get patternExerciseImpact;
+
+  /// No description provided for @patternExerciseDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'On days you exercise, your weight changes by {withExercise} kg/day on average, compared to {withoutExercise} kg/day when you don\'t exercise.'**
+  String patternExerciseDescription(
+      String withExercise, String withoutExercise);
+
+  /// No description provided for @patternExerciseDescriptionAlt.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise days show {withExercise} kg/day change vs {withoutExercise} kg/day on rest days.'**
+  String patternExerciseDescriptionAlt(
+      String withExercise, String withoutExercise);
+
+  /// No description provided for @patternExerciseSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep up the exercise! It appears to be helping with your weight goals.'**
+  String get patternExerciseSuggestion;
+
+  /// No description provided for @patternExerciseSuggestionConsistent.
+  ///
+  /// In en, this message translates to:
+  /// **'Consider maintaining a consistent exercise routine.'**
+  String get patternExerciseSuggestionConsistent;
+
+  /// No description provided for @patternMealTimingPattern.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal Timing Pattern'**
+  String get patternMealTimingPattern;
+
+  /// No description provided for @patternMealTimingDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weight changes are most favorable when weighing {timing}. Average change: {change} kg/day.'**
+  String patternMealTimingDescription(String timing, String change);
+
+  /// No description provided for @patternMealTimingSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Try to weigh yourself at consistent times ({timing}) for more accurate tracking.'**
+  String patternMealTimingSuggestion(String timing);
+
+  /// No description provided for @patternSleepWell.
+  ///
+  /// In en, this message translates to:
+  /// **'well'**
+  String get patternSleepWell;
+
+  /// No description provided for @patternSleepPoorly.
+  ///
+  /// In en, this message translates to:
+  /// **'poorly'**
+  String get patternSleepPoorly;
+
+  /// No description provided for @patternStressLow.
+  ///
+  /// In en, this message translates to:
+  /// **'low'**
+  String get patternStressLow;
+
+  /// No description provided for @patternStressHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'high'**
+  String get patternStressHigh;
+
+  /// No description provided for @patternLose.
+  ///
+  /// In en, this message translates to:
+  /// **'lose'**
+  String get patternLose;
+
+  /// No description provided for @patternGain.
+  ///
+  /// In en, this message translates to:
+  /// **'gain'**
+  String get patternGain;
+
+  /// No description provided for @validationWeightGreaterThanZero.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a weight greater than 0'**
+  String get validationWeightGreaterThanZero;
+
+  /// No description provided for @validationWeightLessThanMax.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a weight less than {max}'**
+  String validationWeightLessThanMax(String max);
+
+  /// No description provided for @validationUnusuallyLargeChange.
+  ///
+  /// In en, this message translates to:
+  /// **'This weight change seems unusually large. Please double-check your entry.'**
+  String get validationUnusuallyLargeChange;
+
+  /// No description provided for @validationSignificantChange.
+  ///
+  /// In en, this message translates to:
+  /// **'This is a significant change from your last entry. Is everything okay? You can still save it.'**
+  String get validationSignificantChange;
+
+  /// No description provided for @validationDifferentFromInitial.
+  ///
+  /// In en, this message translates to:
+  /// **'This weight is quite different from your initial weight. Is this correct?'**
+  String get validationDifferentFromInitial;
+
+  /// No description provided for @validationGainingWhileLosing.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re gaining weight while your goal is to lose. That\'s okay—setbacks happen. Do you want to continue?'**
+  String get validationGainingWhileLosing;
+
+  /// No description provided for @validationLosingWhileGaining.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re losing weight while your goal is to gain. That\'s okay—setbacks happen. Do you want to continue?'**
+  String get validationLosingWhileGaining;
+
+  /// No description provided for @validationMovingAwayFromGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re moving away from your goal. This might be normal (fluctuations, life events). Is this correct?'**
+  String get validationMovingAwayFromGoal;
+
+  /// No description provided for @validationUnusualWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'This weight seems unusual compared to your recent entries. Is everything okay?'**
+  String get validationUnusualWeight;
+
+  /// No description provided for @statusOnTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re right on track! Keep up the great work!'**
+  String get statusOnTrack;
+
+  /// No description provided for @statusAheadWithDays.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re ahead of schedule! {days} days ahead'**
+  String statusAheadWithDays(int days);
+
+  /// No description provided for @statusAhead.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re ahead of schedule! Great job!'**
+  String get statusAhead;
+
+  /// No description provided for @statusBehind.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re making progress! A bit slower than planned, but you\'re still moving toward your goal.'**
+  String get statusBehind;
+
+  /// No description provided for @statusBehindSimple.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re making progress! Keep going!'**
+  String get statusBehindSimple;
+
+  /// No description provided for @statusKeepTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep tracking to see your progress!'**
+  String get statusKeepTracking;
+
+  /// No description provided for @predictionOnTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re on track to reach your goal around the planned date!'**
+  String get predictionOnTrack;
+
+  /// No description provided for @predictionAfterTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'At your current rate, you\'ll reach your goal about {days} days after your target date. That\'s okay—progress is progress!'**
+  String predictionAfterTarget(int days);
+
+  /// No description provided for @predictionBeforeTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'At your current rate, you\'ll reach your goal about {days} days before your target date. Great job!'**
+  String predictionBeforeTarget(int days);
+
+  /// No description provided for @streakStartTracking.
+  ///
+  /// In en, this message translates to:
+  /// **'Start tracking to build your streak!'**
+  String get streakStartTracking;
+
+  /// No description provided for @streakGreatStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Great start! Keep it going!'**
+  String get streakGreatStart;
+
+  /// No description provided for @streakDaysBuilding.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days in a row! You\'re building a great habit!'**
+  String streakDaysBuilding(int days);
+
+  /// No description provided for @streakDaysAmazing.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days in a row! You\'re doing amazing!'**
+  String streakDaysAmazing(int days);
+
+  /// No description provided for @streakDaysIncredible.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days in a row! This is incredible!'**
+  String streakDaysIncredible(int days);
+
+  /// No description provided for @streakDaysChampion.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} days in a row! You\'re a tracking champion!'**
+  String streakDaysChampion(int days);
 }
 
 class _AppLocalizationsDelegate

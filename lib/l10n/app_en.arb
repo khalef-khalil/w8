@@ -370,5 +370,204 @@
   "errorOccurred": "An error occurred. Please try again.",
   "goBack": "Go back",
   "errorSaving": "Error saving entry. Please try again.",
-  "errorDeleting": "Error deleting entry. Please try again."
+  "errorDeleting": "Error deleting entry. Please try again.",
+  "back": "Back",
+  "awesome": "Awesome!",
+  
+  "celebrationJourneyStarted": "Journey Started!",
+  "celebrationJourneyStartedMessage": "Great! You've started your journey!",
+  "celebration7DayStreak": "7 Day Streak!",
+  "celebration7DayStreakMessage": "🎉 7 days in a row! You're building an amazing habit!",
+  "celebration30DayStreak": "30 Day Streak!",
+  "celebration30DayStreakMessage": "🎉 30 days! You're a tracking superstar!",
+  "celebration100DayStreak": "100 Day Streak!",
+  "celebration100DayStreakMessage": "🎉 100 days! This is incredible dedication!",
+  "celebration25Percent": "25% Complete!",
+  "celebration25PercentMessage": "🎉 You're 25% there! Keep going!",
+  "celebration50Percent": "Halfway There!",
+  "celebration50PercentMessage": "🎉 Halfway there! You're doing amazing!",
+  "celebration75Percent": "75% Complete!",
+  "celebration75PercentMessage": "🎉 75% complete! You're almost there!",
+  "celebrationGoalReached": "Goal Achieved!",
+  "celebrationGoalReachedMessage": "🎉 Congratulations! You've reached your goal!",
+  
+  "emptyStateStartJourney": "Start Your Journey",
+  "emptyStateStartJourneyMessage": "Track your weight to see your progress over time. Every entry brings you closer to your goal!",
+  "emptyStateAddFirstWeight": "Add Your First Weight",
+  "emptyStateSetGoal": "Set Your Goal",
+  "emptyStateSetGoalMessage": "Define your weight goal to track your progress and stay motivated on your journey!",
+  "emptyStateNoHistory": "No History Yet",
+  "emptyStateNoHistoryMessage": "Start tracking your weight to build your history. Consistency is key to success!",
+  "emptyStateAddWeightEntry": "Add Weight Entry",
+  "emptyStateBuildingInsights": "Building Insights",
+  "emptyStateBuildingInsightsMessage": "Keep tracking your weight! Once you have enough data, we'll show you personalized insights and trends.",
+  
+  "recommendationBehindLoss": "You're {deficit} {unit}/week behind target. Consider reviewing your nutrition and activity levels.",
+  "@recommendationBehindLoss": {
+    "placeholders": {
+      "deficit": {"type": "String"},
+      "unit": {"type": "String"}
+    }
+  },
+  "recommendationSmallChanges": "Small changes add up: try adding 10-15 minutes of daily activity or reducing portion sizes slightly.",
+  "recommendationBehindGain": "You're {deficit} {unit}/week behind target. Make sure you're eating enough calories and protein.",
+  "@recommendationBehindGain": {
+    "placeholders": {
+      "deficit": {"type": "String"},
+      "unit": {"type": "String"}
+    }
+  },
+  "recommendationTrackMeals": "Consider tracking your meals to ensure you're meeting your caloric goals.",
+  "recommendationAhead": "Great progress! You're ahead of schedule. Keep up the consistent tracking and maintain your current approach.",
+  "recommendationOnTrack": "You're right on track! Maintain your current routine - it's working well.",
+  "recommendationFinalStretch": "You're in the final stretch! Stay consistent - you're almost there!",
+  "recommendationHalfway": "You're more than halfway there! Keep the momentum going.",
+  "recommendationGettingStarted": "You're just getting started. Focus on building consistent habits - the results will follow!",
+  "recommendationVolatility": "Your weight is fluctuating quite a bit. This is normal! Try weighing at the same time each day for more consistent readings.",
+  "recommendationGeneral": "Keep tracking consistently! Every entry helps you understand your progress better.",
+  
+  "encouragementGoalReached": "🎉 Congratulations! You've reached your goal!",
+  "encouragementAhead": "You're doing amazing! Keep up the great work!",
+  "encouragementOnTrack": "You're right on track! Consistency is key.",
+  "encouragementClose": "You're so close! Keep pushing forward!",
+  "encouragementGreatProgress": "You're making great progress! Keep going!",
+  "encouragementEveryStep": "Every step counts! You're building great habits!",
+  
+  "patternSleepQualityImpact": "Sleep Quality Impact",
+  "patternSleepQualityDescription": "You tend to {action} more weight when you sleep {quality} ({rating}/5). When sleep quality is {worstRating}/5, your weight changes by {change} kg/day on average.",
+  "@patternSleepQualityDescription": {
+    "placeholders": {
+      "action": {"type": "String"},
+      "quality": {"type": "String"},
+      "rating": {"type": "int"},
+      "worstRating": {"type": "int"},
+      "change": {"type": "String"}
+    }
+  },
+  "patternSleepQualitySimilar": "Your weight changes are similar regardless of sleep quality.",
+  "patternSleepQualitySuggestionGood": "Try to maintain good sleep habits ({rating}/5) for better weight management.",
+  "@patternSleepQualitySuggestionGood": {
+    "placeholders": {
+      "rating": {"type": "int"}
+    }
+  },
+  "patternSleepQualitySuggestionImprove": "Consider improving your sleep quality - it may help with your weight goals.",
+  "patternStressLevelImpact": "Stress Level Impact",
+  "patternStressLevelDescription": "When stress is {level} ({rating}/5), your weight changes by {change} kg/day on average. Higher stress ({highRating}/5) shows {highChange} kg/day.",
+  "@patternStressLevelDescription": {
+    "placeholders": {
+      "level": {"type": "String"},
+      "rating": {"type": "int"},
+      "change": {"type": "String"},
+      "highRating": {"type": "int"},
+      "highChange": {"type": "String"}
+    }
+  },
+  "patternStressLevelSuggestion": "Managing stress levels may help with your weight goals.",
+  "patternStressLevelSuggestionFavorable": "Your weight changes are more favorable when stress is lower.",
+  "patternExerciseImpact": "Exercise Impact",
+  "patternExerciseDescription": "On days you exercise, your weight changes by {withExercise} kg/day on average, compared to {withoutExercise} kg/day when you don't exercise.",
+  "@patternExerciseDescription": {
+    "placeholders": {
+      "withExercise": {"type": "String"},
+      "withoutExercise": {"type": "String"}
+    }
+  },
+  "patternExerciseDescriptionAlt": "Exercise days show {withExercise} kg/day change vs {withoutExercise} kg/day on rest days.",
+  "@patternExerciseDescriptionAlt": {
+    "placeholders": {
+      "withExercise": {"type": "String"},
+      "withoutExercise": {"type": "String"}
+    }
+  },
+  "patternExerciseSuggestion": "Keep up the exercise! It appears to be helping with your weight goals.",
+  "patternExerciseSuggestionConsistent": "Consider maintaining a consistent exercise routine.",
+  "patternMealTimingPattern": "Meal Timing Pattern",
+  "patternMealTimingDescription": "Your weight changes are most favorable when weighing {timing}. Average change: {change} kg/day.",
+  "@patternMealTimingDescription": {
+    "placeholders": {
+      "timing": {"type": "String"},
+      "change": {"type": "String"}
+    }
+  },
+  "patternMealTimingSuggestion": "Try to weigh yourself at consistent times ({timing}) for more accurate tracking.",
+  "@patternMealTimingSuggestion": {
+    "placeholders": {
+      "timing": {"type": "String"}
+    }
+  },
+  "patternSleepWell": "well",
+  "patternSleepPoorly": "poorly",
+  "patternStressLow": "low",
+  "patternStressHigh": "high",
+  "patternLose": "lose",
+  "patternGain": "gain",
+  
+  "validationWeightGreaterThanZero": "Please enter a weight greater than 0",
+  "validationWeightLessThanMax": "Please enter a weight less than {max}",
+  "@validationWeightLessThanMax": {
+    "placeholders": {
+      "max": {"type": "String"}
+    }
+  },
+  "validationUnusuallyLargeChange": "This weight change seems unusually large. Please double-check your entry.",
+  "validationSignificantChange": "This is a significant change from your last entry. Is everything okay? You can still save it.",
+  "validationDifferentFromInitial": "This weight is quite different from your initial weight. Is this correct?",
+  "validationGainingWhileLosing": "You're gaining weight while your goal is to lose. That's okay—setbacks happen. Do you want to continue?",
+  "validationLosingWhileGaining": "You're losing weight while your goal is to gain. That's okay—setbacks happen. Do you want to continue?",
+  "validationMovingAwayFromGoal": "You're moving away from your goal. This might be normal (fluctuations, life events). Is this correct?",
+  "validationUnusualWeight": "This weight seems unusual compared to your recent entries. Is everything okay?",
+  
+  "statusOnTrack": "You're right on track! Keep up the great work!",
+  "statusAheadWithDays": "You're ahead of schedule! {days} days ahead",
+  "@statusAheadWithDays": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "statusAhead": "You're ahead of schedule! Great job!",
+  "statusBehind": "You're making progress! A bit slower than planned, but you're still moving toward your goal.",
+  "statusBehindSimple": "You're making progress! Keep going!",
+  "statusKeepTracking": "Keep tracking to see your progress!",
+  
+  "predictionOnTrack": "You're on track to reach your goal around the planned date!",
+  "predictionAfterTarget": "At your current rate, you'll reach your goal about {days} days after your target date. That's okay—progress is progress!",
+  "@predictionAfterTarget": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "predictionBeforeTarget": "At your current rate, you'll reach your goal about {days} days before your target date. Great job!",
+  "@predictionBeforeTarget": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  
+  "streakStartTracking": "Start tracking to build your streak!",
+  "streakGreatStart": "Great start! Keep it going!",
+  "streakDaysBuilding": "{days} days in a row! You're building a great habit!",
+  "@streakDaysBuilding": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "streakDaysAmazing": "{days} days in a row! You're doing amazing!",
+  "@streakDaysAmazing": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "streakDaysIncredible": "{days} days in a row! This is incredible!",
+  "@streakDaysIncredible": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
+  "streakDaysChampion": "{days} days in a row! You're a tracking champion!",
+  "@streakDaysChampion": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  }
 }

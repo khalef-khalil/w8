@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../extensions/l10n_context.dart';
 
 /// Reusable empty state widget with motivational design
 class EmptyState extends StatelessWidget {
@@ -96,10 +97,10 @@ class NoEntriesEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EmptyState(
-      title: 'Start Your Journey',
-      message: 'Track your weight to see your progress over time. Every entry brings you closer to your goal!',
+      title: context.l10n.emptyStateStartJourney,
+      message: context.l10n.emptyStateStartJourneyMessage,
       icon: Icons.scale_rounded,
-      actionLabel: 'Add Your First Weight',
+      actionLabel: context.l10n.emptyStateAddFirstWeight,
       onAction: onAddWeight,
       illustration: _buildIllustration(context),
     );
@@ -166,10 +167,10 @@ class NoGoalEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EmptyState(
-      title: 'Set Your Goal',
-      message: 'Define your weight goal to track your progress and stay motivated on your journey!',
+      title: context.l10n.emptyStateSetGoal,
+      message: context.l10n.emptyStateSetGoalMessage,
       icon: Icons.flag_rounded,
-      actionLabel: 'Set Goal',
+      actionLabel: context.l10n.emptyStateSetGoal,
       onAction: onSetGoal,
     );
   }
@@ -187,10 +188,10 @@ class NoHistoryEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EmptyState(
-      title: 'No History Yet',
-      message: 'Start tracking your weight to build your history. Consistency is key to success!',
+      title: context.l10n.emptyStateNoHistory,
+      message: context.l10n.emptyStateNoHistoryMessage,
       icon: Icons.history_rounded,
-      actionLabel: 'Add Weight Entry',
+      actionLabel: context.l10n.emptyStateAddWeightEntry,
       onAction: onAddWeight,
     );
   }
@@ -203,8 +204,8 @@ class NoInsightsEmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EmptyState(
-      title: 'Building Insights',
-      message: 'Keep tracking your weight! Once you have enough data, we\'ll show you personalized insights and trends.',
+      title: context.l10n.emptyStateBuildingInsights,
+      message: context.l10n.emptyStateBuildingInsightsMessage,
       icon: Icons.insights_rounded,
     );
   }

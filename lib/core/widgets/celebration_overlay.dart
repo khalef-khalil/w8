@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import '../services/celebration_service.dart';
+import '../extensions/l10n_context.dart';
 
 /// Overlay widget that shows celebration animations
 class CelebrationOverlay extends StatefulWidget {
@@ -132,7 +133,7 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
                       ),
                       const SizedBox(height: 16),
                       Text(
-                        CelebrationService.getCelebrationTitle(widget.celebrationType),
+                        CelebrationService.getCelebrationTitle(widget.celebrationType, context.l10n),
                         style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                               color: Theme.of(context).colorScheme.onPrimary,
                               fontWeight: FontWeight.bold,
@@ -141,7 +142,7 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        CelebrationService.getCelebrationMessage(widget.celebrationType),
+                        CelebrationService.getCelebrationMessage(widget.celebrationType, context.l10n),
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: Theme.of(context).colorScheme.onPrimary,
                             ),
@@ -158,7 +159,7 @@ class _CelebrationOverlayState extends State<CelebrationOverlay>
                             vertical: 12,
                           ),
                         ),
-                        child: const Text('Awesome!'),
+                        child: Text(context.l10n.awesome),
                       ),
                     ],
                   ),

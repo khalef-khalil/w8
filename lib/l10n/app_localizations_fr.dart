@@ -780,4 +780,359 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get errorDeleting =>
       'Erreur lors de la suppression. Veuillez réessayer.';
+
+  @override
+  String get back => 'Retour';
+
+  @override
+  String get awesome => 'Génial !';
+
+  @override
+  String get celebrationJourneyStarted => 'Voyage commencé !';
+
+  @override
+  String get celebrationJourneyStartedMessage =>
+      'Super ! Tu as commencé ton voyage !';
+
+  @override
+  String get celebration7DayStreak => 'Série de 7 jours !';
+
+  @override
+  String get celebration7DayStreakMessage =>
+      '🎉 7 jours d\'affilée ! Tu construis une habitude incroyable !';
+
+  @override
+  String get celebration30DayStreak => 'Série de 30 jours !';
+
+  @override
+  String get celebration30DayStreakMessage =>
+      '🎉 30 jours ! Tu es une superstar du suivi !';
+
+  @override
+  String get celebration100DayStreak => 'Série de 100 jours !';
+
+  @override
+  String get celebration100DayStreakMessage =>
+      '🎉 100 jours ! C\'est un dévouement incroyable !';
+
+  @override
+  String get celebration25Percent => '25% terminé !';
+
+  @override
+  String get celebration25PercentMessage => '🎉 Tu es à 25% ! Continue !';
+
+  @override
+  String get celebration50Percent => 'À mi-chemin !';
+
+  @override
+  String get celebration50PercentMessage =>
+      '🎉 À mi-chemin ! Tu fais du super travail !';
+
+  @override
+  String get celebration75Percent => '75% terminé !';
+
+  @override
+  String get celebration75PercentMessage =>
+      '🎉 75% terminé ! Tu y es presque !';
+
+  @override
+  String get celebrationGoalReached => 'Objectif atteint !';
+
+  @override
+  String get celebrationGoalReachedMessage =>
+      '🎉 Félicitations ! Tu as atteint ton objectif !';
+
+  @override
+  String get emptyStateStartJourney => 'Commence ton voyage';
+
+  @override
+  String get emptyStateStartJourneyMessage =>
+      'Suis ton poids pour voir ta progression dans le temps. Chaque entrée te rapproche de ton objectif !';
+
+  @override
+  String get emptyStateAddFirstWeight => 'Ajoute ton premier poids';
+
+  @override
+  String get emptyStateSetGoal => 'Définis ton objectif';
+
+  @override
+  String get emptyStateSetGoalMessage =>
+      'Définis ton objectif de poids pour suivre ta progression et rester motivé dans ton voyage !';
+
+  @override
+  String get emptyStateNoHistory => 'Pas encore d\'historique';
+
+  @override
+  String get emptyStateNoHistoryMessage =>
+      'Commence à suivre ton poids pour construire ton historique. La cohérence est la clé du succès !';
+
+  @override
+  String get emptyStateAddWeightEntry => 'Ajouter une entrée de poids';
+
+  @override
+  String get emptyStateBuildingInsights => 'Construction des insights';
+
+  @override
+  String get emptyStateBuildingInsightsMessage =>
+      'Continue à suivre ton poids ! Une fois que tu auras assez de données, nous te montrerons des insights et tendances personnalisés.';
+
+  @override
+  String recommendationBehindLoss(String deficit, String unit) {
+    return 'You\'re $deficit $unit/week behind target. Consider reviewing your nutrition and activity levels.';
+  }
+
+  @override
+  String get recommendationSmallChanges =>
+      'Small changes add up: try adding 10-15 minutes of daily activity or reducing portion sizes slightly.';
+
+  @override
+  String recommendationBehindGain(String deficit, String unit) {
+    return 'You\'re $deficit $unit/week behind target. Make sure you\'re eating enough calories and protein.';
+  }
+
+  @override
+  String get recommendationTrackMeals =>
+      'Consider tracking your meals to ensure you\'re meeting your caloric goals.';
+
+  @override
+  String get recommendationAhead =>
+      'Great progress! You\'re ahead of schedule. Keep up the consistent tracking and maintain your current approach.';
+
+  @override
+  String get recommendationOnTrack =>
+      'You\'re right on track! Maintain your current routine - it\'s working well.';
+
+  @override
+  String get recommendationFinalStretch =>
+      'You\'re in the final stretch! Stay consistent - you\'re almost there!';
+
+  @override
+  String get recommendationHalfway =>
+      'You\'re more than halfway there! Keep the momentum going.';
+
+  @override
+  String get recommendationGettingStarted =>
+      'You\'re just getting started. Focus on building consistent habits - the results will follow!';
+
+  @override
+  String get recommendationVolatility =>
+      'Your weight is fluctuating quite a bit. This is normal! Try weighing at the same time each day for more consistent readings.';
+
+  @override
+  String get recommendationGeneral =>
+      'Keep tracking consistently! Every entry helps you understand your progress better.';
+
+  @override
+  String get encouragementGoalReached =>
+      '🎉 Congratulations! You\'ve reached your goal!';
+
+  @override
+  String get encouragementAhead =>
+      'You\'re doing amazing! Keep up the great work!';
+
+  @override
+  String get encouragementOnTrack =>
+      'You\'re right on track! Consistency is key.';
+
+  @override
+  String get encouragementClose => 'You\'re so close! Keep pushing forward!';
+
+  @override
+  String get encouragementGreatProgress =>
+      'You\'re making great progress! Keep going!';
+
+  @override
+  String get encouragementEveryStep =>
+      'Every step counts! You\'re building great habits!';
+
+  @override
+  String get patternSleepQualityImpact => 'Sleep Quality Impact';
+
+  @override
+  String patternSleepQualityDescription(String action, String quality,
+      int rating, int worstRating, String change) {
+    return 'You tend to $action more weight when you sleep $quality ($rating/5). When sleep quality is $worstRating/5, your weight changes by $change kg/day on average.';
+  }
+
+  @override
+  String get patternSleepQualitySimilar =>
+      'Your weight changes are similar regardless of sleep quality.';
+
+  @override
+  String patternSleepQualitySuggestionGood(int rating) {
+    return 'Try to maintain good sleep habits ($rating/5) for better weight management.';
+  }
+
+  @override
+  String get patternSleepQualitySuggestionImprove =>
+      'Consider improving your sleep quality - it may help with your weight goals.';
+
+  @override
+  String get patternStressLevelImpact => 'Stress Level Impact';
+
+  @override
+  String patternStressLevelDescription(String level, int rating, String change,
+      int highRating, String highChange) {
+    return 'When stress is $level ($rating/5), your weight changes by $change kg/day on average. Higher stress ($highRating/5) shows $highChange kg/day.';
+  }
+
+  @override
+  String get patternStressLevelSuggestion =>
+      'Managing stress levels may help with your weight goals.';
+
+  @override
+  String get patternStressLevelSuggestionFavorable =>
+      'Your weight changes are more favorable when stress is lower.';
+
+  @override
+  String get patternExerciseImpact => 'Exercise Impact';
+
+  @override
+  String patternExerciseDescription(
+      String withExercise, String withoutExercise) {
+    return 'On days you exercise, your weight changes by $withExercise kg/day on average, compared to $withoutExercise kg/day when you don\'t exercise.';
+  }
+
+  @override
+  String patternExerciseDescriptionAlt(
+      String withExercise, String withoutExercise) {
+    return 'Exercise days show $withExercise kg/day change vs $withoutExercise kg/day on rest days.';
+  }
+
+  @override
+  String get patternExerciseSuggestion =>
+      'Keep up the exercise! It appears to be helping with your weight goals.';
+
+  @override
+  String get patternExerciseSuggestionConsistent =>
+      'Consider maintaining a consistent exercise routine.';
+
+  @override
+  String get patternMealTimingPattern => 'Meal Timing Pattern';
+
+  @override
+  String patternMealTimingDescription(String timing, String change) {
+    return 'Your weight changes are most favorable when weighing $timing. Average change: $change kg/day.';
+  }
+
+  @override
+  String patternMealTimingSuggestion(String timing) {
+    return 'Try to weigh yourself at consistent times ($timing) for more accurate tracking.';
+  }
+
+  @override
+  String get patternSleepWell => 'well';
+
+  @override
+  String get patternSleepPoorly => 'poorly';
+
+  @override
+  String get patternStressLow => 'low';
+
+  @override
+  String get patternStressHigh => 'high';
+
+  @override
+  String get patternLose => 'lose';
+
+  @override
+  String get patternGain => 'gain';
+
+  @override
+  String get validationWeightGreaterThanZero =>
+      'Please enter a weight greater than 0';
+
+  @override
+  String validationWeightLessThanMax(String max) {
+    return 'Please enter a weight less than $max';
+  }
+
+  @override
+  String get validationUnusuallyLargeChange =>
+      'This weight change seems unusually large. Please double-check your entry.';
+
+  @override
+  String get validationSignificantChange =>
+      'This is a significant change from your last entry. Is everything okay? You can still save it.';
+
+  @override
+  String get validationDifferentFromInitial =>
+      'This weight is quite different from your initial weight. Is this correct?';
+
+  @override
+  String get validationGainingWhileLosing =>
+      'You\'re gaining weight while your goal is to lose. That\'s okay—setbacks happen. Do you want to continue?';
+
+  @override
+  String get validationLosingWhileGaining =>
+      'You\'re losing weight while your goal is to gain. That\'s okay—setbacks happen. Do you want to continue?';
+
+  @override
+  String get validationMovingAwayFromGoal =>
+      'You\'re moving away from your goal. This might be normal (fluctuations, life events). Is this correct?';
+
+  @override
+  String get validationUnusualWeight =>
+      'This weight seems unusual compared to your recent entries. Is everything okay?';
+
+  @override
+  String get statusOnTrack => 'You\'re right on track! Keep up the great work!';
+
+  @override
+  String statusAheadWithDays(int days) {
+    return 'You\'re ahead of schedule! $days days ahead';
+  }
+
+  @override
+  String get statusAhead => 'You\'re ahead of schedule! Great job!';
+
+  @override
+  String get statusBehind =>
+      'You\'re making progress! A bit slower than planned, but you\'re still moving toward your goal.';
+
+  @override
+  String get statusBehindSimple => 'You\'re making progress! Keep going!';
+
+  @override
+  String get statusKeepTracking => 'Keep tracking to see your progress!';
+
+  @override
+  String get predictionOnTrack =>
+      'You\'re on track to reach your goal around the planned date!';
+
+  @override
+  String predictionAfterTarget(int days) {
+    return 'At your current rate, you\'ll reach your goal about $days days after your target date. That\'s okay—progress is progress!';
+  }
+
+  @override
+  String predictionBeforeTarget(int days) {
+    return 'At your current rate, you\'ll reach your goal about $days days before your target date. Great job!';
+  }
+
+  @override
+  String get streakStartTracking => 'Start tracking to build your streak!';
+
+  @override
+  String get streakGreatStart => 'Great start! Keep it going!';
+
+  @override
+  String streakDaysBuilding(int days) {
+    return '$days days in a row! You\'re building a great habit!';
+  }
+
+  @override
+  String streakDaysAmazing(int days) {
+    return '$days days in a row! You\'re doing amazing!';
+  }
+
+  @override
+  String streakDaysIncredible(int days) {
+    return '$days days in a row! This is incredible!';
+  }
+
+  @override
+  String streakDaysChampion(int days) {
+    return '$days days in a row! You\'re a tracking champion!';
+  }
 }

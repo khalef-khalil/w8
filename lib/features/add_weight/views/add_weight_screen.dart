@@ -359,7 +359,7 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: Semantics(
-          label: 'Back',
+          label: context.l10n.back,
           button: true,
           child: IconButton(
             icon: const Icon(Icons.arrow_back),
