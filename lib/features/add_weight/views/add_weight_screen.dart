@@ -8,6 +8,11 @@ import '../../../models/weight_entry.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/services/goal_storage_service.dart';
+import '../../../core/services/hive_storage_service.dart';
+import '../../../core/services/celebration_service.dart';
+import '../../../core/models/progress_metrics.dart';
+import '../../../core/widgets/celebration_overlay.dart';
+import '../../../core/widgets/success_animation.dart';
 import '../../../core/utils/weight_converter.dart';
 
 class AddWeightScreen extends ConsumerStatefulWidget {
@@ -25,6 +30,7 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
   late DateTime _selectedDate;
   late TimeOfDay _selectedTime;
   late final WeightUnit _unit;
+  CelebrationType? _pendingCelebration;
 
   bool get _isEdit => widget.entryToEdit != null;
 
@@ -165,31 +171,57 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
     if (!mounted) return;
 
     if (success) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Row(
-            children: [
-              Icon(
-                Icons.check_circle_rounded,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  original != null
-                      ? context.l10n.weightUpdatedSuccess
-                      : context.l10n.weightSavedSuccess,
-                ),
-              ),
-            ],
-          ),
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
+      // Check for celebrations
+      final entries = HiveStorageService.getWeightEntries();
+      final goalConfig = GoalStorageService.getGoalConfiguration();
+      final metrics = goalConfig != null
+          ? ProgressMetrics.fromEntries(goalConfig, entries)
+          : null;
+      
+      final celebrations = CelebrationService.checkCelebrations(
+        entries: entries,
+        metrics: metrics,
+        goalConfig: goalConfig,
       );
+
+      // Show success feedback
+      if (!mounted) return;
+      
+      // If there's a celebration, show it instead of snackbar
+      if (celebrations.isNotEmpty) {
+        setState(() {
+          _pendingCelebration = celebrations.first; // Show first celebration
+        });
+      } else {
+        // Show success snackbar with animation
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Row(
+              children: [
+                SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: SuccessAnimation(size: 24),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    original != null
+                        ? context.l10n.weightUpdatedSuccess
+                        : context.l10n.weightSavedSuccess,
+                  ),
+                ),
+              ],
+            ),
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            duration: const Duration(seconds: 2),
+          ),
+        );
+      }
       if (_isEdit) {
         context.pop();
       } else {
@@ -212,6 +244,31 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        _buildMainContent(context),
+        // Celebration overlay
+        if (_pendingCelebration != null)
+          Material(
+            color: Colors.black54,
+            child: CelebrationOverlay(
+              celebrationType: _pendingCelebration!,
+              onDismiss: () {
+                setState(() {
+                  _pendingCelebration = null;
+                });
+                // Navigate back after celebration (only if not editing)
+                if (mounted && !_isEdit) {
+                  context.pop();
+                }
+              },
+            ),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildMainContent(BuildContext context) {
     final saveState = ref.watch(addWeightViewModelProvider);
     final isLoading = saveState.isLoading;
 

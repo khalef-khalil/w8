@@ -242,10 +242,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       
       if (format == 'csv') {
         data = await DataExportService.exportToCSV();
-        filename = 'weight_tracker_export_${DateTime.now().toIso8601String().split('T')[0]}.csv';
       } else {
         data = await DataExportService.exportToJSONString();
-        filename = 'weight_tracker_export_${DateTime.now().toIso8601String().split('T')[0]}.json';
       }
 
       // Show data in dialog for user to copy
