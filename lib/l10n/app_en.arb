@@ -311,5 +311,22 @@
     }
   },
   "noAchievementsYet": "Keep tracking to unlock achievements!",
-  "viewAllAchievements": "View All"
+  "viewAllAchievements": "View All",
+
+  "addContext": "Add Context (Optional)",
+  "addContextDescription": "Track factors that might affect your weight",
+  "sleepQuality": "Sleep Quality",
+  "stressLevel": "Stress Level",
+  "exercisedToday": "Exercised Today",
+  "mealTiming": "Meal Timing",
+  "selectMealTiming": "Select when you weighed",
+  "beforeBreakfast": "Before Breakfast",
+  "afterBreakfast": "After Breakfast",
+  "beforeLunch": "Before Lunch",
+  "afterLunch": "After Lunch",
+  "beforeDinner": "Before Dinner",
+  "afterDinner": "After Dinner",
+  "other": "Other",
+  "notes": "Notes",
+  "notesHint": "Add any additional notes..."
 }

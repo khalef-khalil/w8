@@ -14,6 +14,7 @@ import '../../../core/services/celebration_service.dart';
 import '../../../core/services/achievement_service.dart';
 import '../../../core/models/progress_metrics.dart';
 import '../../../core/models/achievement.dart';
+import '../../../core/models/weight_entry_tags.dart';
 import '../../../core/widgets/celebration_overlay.dart';
 import '../../../core/widgets/success_animation.dart';
 import '../../../core/utils/weight_converter.dart';
@@ -34,12 +35,21 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
   late TimeOfDay _selectedTime;
   late final WeightUnit _unit;
   CelebrationType? _pendingCelebration;
+  bool _showContextSection = false;
+  WeightEntryTags _tags = WeightEntryTags.empty();
+  final TextEditingController _notesController = TextEditingController();
 
   bool get _isEdit => widget.entryToEdit != null;
 
   @override
   void initState() {
     super.initState();
+    // Initialize tags from existing entry if editing
+    if (_isEdit && widget.entryToEdit?.tags != null) {
+      _tags = widget.entryToEdit!.tags!;
+      _notesController.text = _tags.notes ?? '';
+      _showContextSection = !_tags.isEmpty;
+    }
     final config = GoalStorageService.getGoalConfiguration();
     _unit = config?.unit ?? WeightUnit.kg;
     final e = widget.entryToEdit;
@@ -60,6 +70,7 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
   @override
   void dispose() {
     _weightController.dispose();
+    _notesController.dispose();
     super.dispose();
   }
 
@@ -108,9 +119,18 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
       _selectedTime.minute,
     );
 
+    // Build tags if context section was used
+    WeightEntryTags? entryTags;
+    if (_showContextSection && !_tags.isEmpty) {
+      entryTags = _tags.copyWith(notes: _notesController.text.trim().isEmpty ? null : _notesController.text.trim());
+    } else if (_notesController.text.trim().isNotEmpty) {
+      entryTags = WeightEntryTags(notes: _notesController.text.trim());
+    }
+
     final entry = WeightEntry(
       date: dateTime,
       weight: weight,
+      tags: entryTags?.isEmpty == false ? entryTags : null,
     );
 
     final viewModel = ref.read(addWeightViewModelProvider.notifier);
@@ -398,6 +418,119 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
                 ),
                 const SizedBox(height: 24),
                 
+                // Context tracking section (collapsible)
+                Card(
+                  child: ExpansionTile(
+                    leading: Icon(
+                      Icons.info_outline_rounded,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                    title: Text(context.l10n.addContext),
+                    subtitle: Text(context.l10n.addContextDescription),
+                    initiallyExpanded: _showContextSection,
+                    onExpansionChanged: (expanded) {
+                      setState(() {
+                        _showContextSection = expanded;
+                      });
+                    },
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            // Sleep quality
+                            Text(
+                              context.l10n.sleepQuality,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            const SizedBox(height: 8),
+                            _buildRatingSelector(
+                              context,
+                              value: _tags.sleepQuality,
+                              onChanged: (value) {
+                                setState(() {
+                                  _tags = _tags.copyWith(sleepQuality: value);
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            // Stress level
+                            Text(
+                              context.l10n.stressLevel,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            const SizedBox(height: 8),
+                            _buildRatingSelector(
+                              context,
+                              value: _tags.stressLevel,
+                              onChanged: (value) {
+                                setState(() {
+                                  _tags = _tags.copyWith(stressLevel: value);
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            // Exercise
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: _tags.exercised ?? false,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _tags = _tags.copyWith(exercised: value);
+                                    });
+                                  },
+                                ),
+                                Text(context.l10n.exercisedToday),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            // Meal timing
+                            Text(
+                              context.l10n.mealTiming,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
+                            const SizedBox(height: 8),
+                            DropdownButtonFormField<String>(
+                              value: _tags.mealTiming,
+                              decoration: InputDecoration(
+                                hintText: context.l10n.selectMealTiming,
+                              ),
+                              items: [
+                                DropdownMenuItem(value: 'before_breakfast', child: Text(context.l10n.beforeBreakfast)),
+                                DropdownMenuItem(value: 'after_breakfast', child: Text(context.l10n.afterBreakfast)),
+                                DropdownMenuItem(value: 'before_lunch', child: Text(context.l10n.beforeLunch)),
+                                DropdownMenuItem(value: 'after_lunch', child: Text(context.l10n.afterLunch)),
+                                DropdownMenuItem(value: 'before_dinner', child: Text(context.l10n.beforeDinner)),
+                                DropdownMenuItem(value: 'after_dinner', child: Text(context.l10n.afterDinner)),
+                                DropdownMenuItem(value: 'other', child: Text(context.l10n.other)),
+                              ],
+                              onChanged: (value) {
+                                setState(() {
+                                  _tags = _tags.copyWith(mealTiming: value);
+                                });
+                              },
+                            ),
+                            const SizedBox(height: 16),
+                            // Notes
+                            TextFormField(
+                              controller: _notesController,
+                              maxLines: 3,
+                              decoration: InputDecoration(
+                                labelText: context.l10n.notes,
+                                hintText: context.l10n.notesHint,
+                                prefixIcon: const Icon(Icons.note_outlined),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                
                 // Sélection de date
                 Card(
                   child: InkWell(
@@ -516,6 +649,47 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildRatingSelector(BuildContext context, {int? value, required ValueChanged<int?> onChanged}) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: List.generate(5, (index) {
+        final rating = index + 1;
+        final isSelected = value == rating;
+        return InkWell(
+          onTap: () => onChanged(isSelected ? null : rating),
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? Theme.of(context).colorScheme.primaryContainer
+                  : Theme.of(context).colorScheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: isSelected
+                    ? Theme.of(context).colorScheme.primary
+                    : Theme.of(context).colorScheme.outline,
+                width: isSelected ? 2 : 1,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                '$rating',
+                style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      color: isSelected
+                          ? Theme.of(context).colorScheme.onPrimaryContainer
+                          : Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+              ),
+            ),
+          ),
+        );
+      }),
     );
   }
 }

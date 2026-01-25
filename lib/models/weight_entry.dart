@@ -1,20 +1,26 @@
+import '../core/models/weight_entry_tags.dart';
+
 /// Modèle représentant une entrée de poids
 class WeightEntry {
   final DateTime date;
   final double weight;
+  final WeightEntryTags? tags; // Optional context tags
 
   WeightEntry({
     required this.date,
     required this.weight,
+    this.tags,
   });
 
   WeightEntry copyWith({
     DateTime? date,
     double? weight,
+    WeightEntryTags? tags,
   }) {
     return WeightEntry(
       date: date ?? this.date,
       weight: weight ?? this.weight,
+      tags: tags ?? this.tags,
     );
   }
 

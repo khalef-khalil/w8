@@ -633,4 +633,53 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get viewAllAchievements => 'View All';
+
+  @override
+  String get addContext => 'Add Context (Optional)';
+
+  @override
+  String get addContextDescription =>
+      'Track factors that might affect your weight';
+
+  @override
+  String get sleepQuality => 'Sleep Quality';
+
+  @override
+  String get stressLevel => 'Stress Level';
+
+  @override
+  String get exercisedToday => 'Exercised Today';
+
+  @override
+  String get mealTiming => 'Meal Timing';
+
+  @override
+  String get selectMealTiming => 'Select when you weighed';
+
+  @override
+  String get beforeBreakfast => 'Before Breakfast';
+
+  @override
+  String get afterBreakfast => 'After Breakfast';
+
+  @override
+  String get beforeLunch => 'Before Lunch';
+
+  @override
+  String get afterLunch => 'After Lunch';
+
+  @override
+  String get beforeDinner => 'Before Dinner';
+
+  @override
+  String get afterDinner => 'After Dinner';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get notesHint => 'Add any additional notes...';
 }

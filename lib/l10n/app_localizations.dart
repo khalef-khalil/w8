@@ -1243,6 +1243,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'View All'**
   String get viewAllAchievements;
+
+  /// No description provided for @addContext.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Context (Optional)'**
+  String get addContext;
+
+  /// No description provided for @addContextDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Track factors that might affect your weight'**
+  String get addContextDescription;
+
+  /// No description provided for @sleepQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep Quality'**
+  String get sleepQuality;
+
+  /// No description provided for @stressLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stress Level'**
+  String get stressLevel;
+
+  /// No description provided for @exercisedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercised Today'**
+  String get exercisedToday;
+
+  /// No description provided for @mealTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal Timing'**
+  String get mealTiming;
+
+  /// No description provided for @selectMealTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Select when you weighed'**
+  String get selectMealTiming;
+
+  /// No description provided for @beforeBreakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Before Breakfast'**
+  String get beforeBreakfast;
+
+  /// No description provided for @afterBreakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'After Breakfast'**
+  String get afterBreakfast;
+
+  /// No description provided for @beforeLunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Before Lunch'**
+  String get beforeLunch;
+
+  /// No description provided for @afterLunch.
+  ///
+  /// In en, this message translates to:
+  /// **'After Lunch'**
+  String get afterLunch;
+
+  /// No description provided for @beforeDinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Before Dinner'**
+  String get beforeDinner;
+
+  /// No description provided for @afterDinner.
+  ///
+  /// In en, this message translates to:
+  /// **'After Dinner'**
+  String get afterDinner;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @notes.
+  ///
+  /// In en, this message translates to:
+  /// **'Notes'**
+  String get notes;
+
+  /// No description provided for @notesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add any additional notes...'**
+  String get notesHint;
 }
 
 class _AppLocalizationsDelegate

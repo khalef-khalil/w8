@@ -9,6 +9,7 @@ import '../../../core/services/hive_storage_service.dart';
 import '../../../core/models/goal_configuration.dart';
 import '../../../core/utils/weight_converter.dart';
 import '../../../core/widgets/empty_state.dart';
+import '../../../core/models/weight_entry_tags.dart';
 import '../../../models/weight_entry.dart';
 
 class HistoryScreen extends ConsumerWidget {
@@ -37,7 +38,7 @@ class HistoryScreen extends ConsumerWidget {
                   child: Column(
                     children: [
                       for (final entry in entries)
-                        _WeighInTile(
+                        _WeighInTileWithContext(
                           entry: entry,
                           unit: state.goalConfig?.unit ?? WeightUnit.kg,
                           onEdit: () => context.push(
@@ -217,6 +218,186 @@ class _WeighInTile extends StatelessWidget {
             tooltip: context.l10n.delete,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _WeighInTileWithContext extends StatelessWidget {
+  const _WeighInTileWithContext({
+    required this.entry,
+    required this.unit,
+    required this.onEdit,
+    required this.onDelete,
+  });
+
+  final WeightEntry entry;
+  final WeightUnit unit;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    final isToday = date_utils.AppDateUtils.isSameDay(
+        entry.date, DateTime.now());
+    final isYesterday = date_utils.AppDateUtils.isSameDay(
+      entry.date,
+      DateTime.now().subtract(const Duration(days: 1)),
+    );
+    final locale =
+        Localizations.localeOf(context).toString();
+    final unitStr = unit == WeightUnit.lbs
+        ? context.l10n.lbsUnit
+        : context.l10n.kgUnit;
+    final display =
+        WeightConverter.forDisplay(entry.weight, unit);
+
+    String dateLabel;
+    if (isToday) {
+      dateLabel = context.l10n.today;
+    } else if (isYesterday) {
+      dateLabel = context.l10n.yesterday;
+    } else {
+      dateLabel =
+          DateFormat('EEEE d MMMM', locale).format(entry.date);
+    }
+
+    final tags = entry.tags;
+    final hasContext = tags != null && !tags.isEmpty;
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 12),
+      child: ExpansionTile(
+        leading: Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: Theme.of(context)
+                .colorScheme
+                .primaryContainer,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(
+            Icons.scale_rounded,
+            color: Theme.of(context)
+                .colorScheme
+                .onPrimaryContainer,
+          ),
+        ),
+        title: Text(
+          dateLabel,
+          style:
+              Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+        ),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              DateFormat('HH:mm', locale).format(entry.date),
+              style:
+                  Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurfaceVariant,
+                      ),
+            ),
+            if (hasContext) ...[
+              const SizedBox(height: 4),
+              Wrap(
+                spacing: 4,
+                runSpacing: 4,
+                children: [
+                  if (tags!.sleepQuality != null)
+                    Chip(
+                      label: Text('😴 ${tags.sleepQualityLabel}'),
+                      visualDensity: VisualDensity.compact,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  if (tags.stressLevel != null)
+                    Chip(
+                      label: Text('😰 ${tags.stressLevelLabel}'),
+                      visualDensity: VisualDensity.compact,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                  if (tags.exercised == true)
+                    Chip(
+                      label: Text('💪 ${context.l10n.exercisedToday}'),
+                      visualDensity: VisualDensity.compact,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                ],
+              ),
+            ],
+          ],
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              '${display.toStringAsFixed(2)} $unitStr',
+              style:
+                  Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+            ),
+            IconButton(
+              icon: const Icon(Icons.edit_outlined),
+              onPressed: onEdit,
+              tooltip: context.l10n.edit,
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.delete_outline,
+                color: Theme.of(context).colorScheme.error,
+              ),
+              onPressed: onDelete,
+              tooltip: context.l10n.delete,
+            ),
+          ],
+        ),
+        children: hasContext ? [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (tags!.mealTiming != null) ...[
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.restaurant_rounded,
+                        size: 16,
+                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        tags.mealTimingLabel ?? '',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                ],
+                if (tags.notes != null && tags.notes!.isNotEmpty) ...[
+                  Text(
+                    context.l10n.notes,
+                    style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    tags.notes!,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ] : [],
       ),
     );
   }

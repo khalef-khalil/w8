@@ -638,4 +638,53 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get viewAllAchievements => 'Voir tout';
+
+  @override
+  String get addContext => 'Ajouter du contexte (optionnel)';
+
+  @override
+  String get addContextDescription =>
+      'Suivre les facteurs qui peuvent affecter ton poids';
+
+  @override
+  String get sleepQuality => 'Qualité du sommeil';
+
+  @override
+  String get stressLevel => 'Niveau de stress';
+
+  @override
+  String get exercisedToday => 'Exercice aujourd\'hui';
+
+  @override
+  String get mealTiming => 'Moment du repas';
+
+  @override
+  String get selectMealTiming => 'Sélectionne quand tu t\'es pesé';
+
+  @override
+  String get beforeBreakfast => 'Avant le petit-déjeuner';
+
+  @override
+  String get afterBreakfast => 'Après le petit-déjeuner';
+
+  @override
+  String get beforeLunch => 'Avant le déjeuner';
+
+  @override
+  String get afterLunch => 'Après le déjeuner';
+
+  @override
+  String get beforeDinner => 'Avant le dîner';
+
+  @override
+  String get afterDinner => 'Après le dîner';
+
+  @override
+  String get other => 'Autre';
+
+  @override
+  String get notes => 'Notes';
+
+  @override
+  String get notesHint => 'Ajoute des notes supplémentaires...';
 }

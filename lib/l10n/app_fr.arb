@@ -212,5 +212,22 @@
     }
   },
   "noAchievementsYet": "Continue à suivre pour débloquer des succès !",
-  "viewAllAchievements": "Voir tout"
+  "viewAllAchievements": "Voir tout",
+
+  "addContext": "Ajouter du contexte (optionnel)",
+  "addContextDescription": "Suivre les facteurs qui peuvent affecter ton poids",
+  "sleepQuality": "Qualité du sommeil",
+  "stressLevel": "Niveau de stress",
+  "exercisedToday": "Exercice aujourd'hui",
+  "mealTiming": "Moment du repas",
+  "selectMealTiming": "Sélectionne quand tu t'es pesé",
+  "beforeBreakfast": "Avant le petit-déjeuner",
+  "afterBreakfast": "Après le petit-déjeuner",
+  "beforeLunch": "Avant le déjeuner",
+  "afterLunch": "Après le déjeuner",
+  "beforeDinner": "Avant le dîner",
+  "afterDinner": "Après le dîner",
+  "other": "Autre",
+  "notes": "Notes",
+  "notesHint": "Ajoute des notes supplémentaires..."
 }

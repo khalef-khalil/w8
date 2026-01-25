@@ -1,6 +1,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 import '../../models/weight_entry.dart';
 import '../constants/app_constants.dart';
+import '../models/weight_entry_tags.dart';
 import 'achievement_service.dart';
 import 'goal_storage_service.dart';
 
@@ -199,12 +200,53 @@ class WeightEntryAdapter extends TypeAdapter<WeightEntry> {
   WeightEntry read(BinaryReader reader) {
     final date = DateTime.parse(reader.readString());
     final weight = reader.readDouble();
-    return WeightEntry(date: date, weight: weight);
+    
+    // Read optional tags (for backward compatibility)
+    // Check if there's more data (tags) by checking if we can read a bool
+    WeightEntryTags? tags;
+    try {
+      // Try to read the hasTags flag - if it fails, there are no tags (old format)
+      if (reader.availableBytes > 0) {
+        final hasTags = reader.readBool();
+        if (hasTags) {
+          final sleepQuality = reader.readByte();
+          final stressLevel = reader.readByte();
+          final exercised = reader.readBool();
+          final mealTiming = reader.readString();
+          final notes = reader.readString();
+          
+          tags = WeightEntryTags(
+            sleepQuality: sleepQuality > 0 && sleepQuality <= 5 ? sleepQuality : null,
+            stressLevel: stressLevel > 0 && stressLevel <= 5 ? stressLevel : null,
+            exercised: exercised ? true : null,
+            mealTiming: mealTiming.isNotEmpty ? mealTiming : null,
+            notes: notes.isNotEmpty ? notes : null,
+          );
+        }
+      }
+    } catch (e) {
+      // If reading tags fails, assume no tags (backward compatibility with old entries)
+      tags = null;
+    }
+    
+    return WeightEntry(date: date, weight: weight, tags: tags);
   }
 
   @override
   void write(BinaryWriter writer, WeightEntry obj) {
     writer.writeString(obj.date.toIso8601String());
     writer.writeDouble(obj.weight);
+    
+    // Write optional tags
+    final hasTags = obj.tags != null && !obj.tags!.isEmpty;
+    writer.writeBool(hasTags);
+    if (hasTags) {
+      final tags = obj.tags!;
+      writer.writeByte(tags.sleepQuality ?? 0);
+      writer.writeByte(tags.stressLevel ?? 0);
+      writer.writeBool(tags.exercised ?? false);
+      writer.writeString(tags.mealTiming ?? '');
+      writer.writeString(tags.notes ?? '');
+    }
   }
 }
