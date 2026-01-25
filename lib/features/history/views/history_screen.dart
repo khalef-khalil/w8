@@ -178,10 +178,6 @@ class _WeighInTileWithContext extends StatelessWidget {
   Widget build(BuildContext context) {
     final isToday = date_utils.AppDateUtils.isSameDay(
         entry.date, DateTime.now());
-    final isYesterday = date_utils.AppDateUtils.isSameDay(
-      entry.date,
-      DateTime.now().subtract(const Duration(days: 1)),
-    );
     final locale =
         Localizations.localeOf(context).toString();
     final unitStr = unit == WeightUnit.lbs
@@ -193,8 +189,6 @@ class _WeighInTileWithContext extends StatelessWidget {
     String dateLabel;
     if (isToday) {
       dateLabel = context.l10n.today;
-    } else if (isYesterday) {
-      dateLabel = context.l10n.yesterday;
     } else {
       dateLabel =
           DateFormat('EEEE d MMMM', locale).format(entry.date);
@@ -276,41 +270,56 @@ class _WeighInTileWithContext extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 4),
+              padding: const EdgeInsets.only(right: 2),
               child: Text(
                 '${display.toStringAsFixed(2)} $unitStr',
                 style:
-                    Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Theme.of(context).colorScheme.primary,
                         ),
               ),
             ),
-            IconButton(
-              icon: const Icon(Icons.edit_outlined),
-              iconSize: 20,
+            PopupMenuButton<String>(
+              iconSize: 18,
               padding: EdgeInsets.zero,
               constraints: const BoxConstraints(
-                minWidth: 32,
-                minHeight: 32,
+                minWidth: 28,
+                minHeight: 28,
               ),
-              onPressed: onEdit,
-              tooltip: context.l10n.edit,
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.delete_outline,
-                size: 20,
-                color: Theme.of(context).colorScheme.error,
-              ),
-              iconSize: 20,
-              padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(
-                minWidth: 32,
-                minHeight: 32,
-              ),
-              onPressed: onDelete,
-              tooltip: context.l10n.delete,
+              onSelected: (value) {
+                if (value == 'edit') {
+                  onEdit();
+                } else if (value == 'delete') {
+                  onDelete();
+                }
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                  value: 'edit',
+                  child: Row(
+                    children: [
+                      Icon(Icons.edit_outlined, size: 18),
+                      const SizedBox(width: 8),
+                      Text(context.l10n.edit),
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  value: 'delete',
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.delete_outline,
+                        size: 18,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(context.l10n.delete),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
