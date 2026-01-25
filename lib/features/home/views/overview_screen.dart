@@ -41,45 +41,50 @@ class OverviewScreen extends ConsumerWidget {
               // Progress overview card
               _buildProgressCard(context, state),
               const SizedBox(height: 20),
-              // Goal vs Actual (if we have data)
-              if (state.progress.currentWeight != null && 
-                  state.progress.targetWeight != null) ...[
-                _buildGoalVsActual(context, state),
-                const SizedBox(height: 20),
-              ],
-              // On-track banner (if we have enough data)
-              if (state.metrics != null && state.entries.length >= 2) ...[
-                _buildOnTrackBanner(context, state.metrics!),
-                const SizedBox(height: 20),
-              ],
-              // Stats row
-              if (state.progress.currentWeight != null) ...[
-                _buildStatsRow(context, state),
-                const SizedBox(height: 24),
-              ],
-              // Weekly chart
-              WeeklyChartCard(
-                entries: state.entries,
-                initialWeight: state.progress.initialWeight,
-                targetWeight: state.progress.targetWeight,
-                unit: state.goalConfig?.unit ?? WeightUnit.kg,
-                weekStartsOn:
-                    state.goalConfig?.weekStartDay ?? WeekStartDay.monday,
-              ),
-              // Insights section (show placeholder if less than 7 days)
-              const SizedBox(height: 24),
-              if (state.metrics != null && 
-                  state.entries.length >= 2 && 
-                  state.totalDaysTracked >= 7) ...[
-                InsightsCard(metrics: state.metrics!),
-                const SizedBox(height: 24),
-                ProgressComparisonCard(metrics: state.metrics!),
-                // Pattern insights (if we have context data)
-                if (state.entries.any((e) => e.tags != null && !e.tags!.isEmpty)) ...[
+              // All elements below progress bar require 7 days of tracking
+              if (state.totalDaysTracked >= 7) ...[
+                // Goal vs Actual (if we have data)
+                if (state.progress.currentWeight != null && 
+                    state.progress.targetWeight != null) ...[
+                  _buildGoalVsActual(context, state),
+                  const SizedBox(height: 20),
+                ],
+                // On-track banner (if we have enough data)
+                if (state.metrics != null && state.entries.length >= 2) ...[
+                  _buildOnTrackBanner(context, state.metrics!),
+                  const SizedBox(height: 20),
+                ],
+                // Stats row
+                if (state.progress.currentWeight != null) ...[
+                  _buildStatsRow(context, state),
                   const SizedBox(height: 24),
-                  _buildPatternInsights(context, state.entries),
+                ],
+                // Weekly chart
+                WeeklyChartCard(
+                  entries: state.entries,
+                  initialWeight: state.progress.initialWeight,
+                  targetWeight: state.progress.targetWeight,
+                  unit: state.goalConfig?.unit ?? WeightUnit.kg,
+                  weekStartsOn:
+                      state.goalConfig?.weekStartDay ?? WeekStartDay.monday,
+                ),
+                // Insights section
+                const SizedBox(height: 24),
+                if (state.metrics != null && state.entries.length >= 2) ...[
+                  InsightsCard(metrics: state.metrics!),
+                  const SizedBox(height: 24),
+                  ProgressComparisonCard(metrics: state.metrics!),
+                  // Pattern insights (if we have context data)
+                  if (state.entries.any((e) => e.tags != null && !e.tags!.isEmpty)) ...[
+                    const SizedBox(height: 24),
+                    _buildPatternInsights(context, state.entries),
+                  ],
                 ],
               ] else if (state.entries.length >= 2) ...[
+                // Show placeholder for weekly evolution and other sections
+                _buildWeeklyEvolutionPlaceholder(context, state.totalDaysTracked),
+                const SizedBox(height: 24),
+                // Insights placeholder
                 _buildInsightsPlaceholder(context, state.totalDaysTracked),
               ],
             ],
@@ -574,6 +579,57 @@ class OverviewScreen extends ConsumerWidget {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildWeeklyEvolutionPlaceholder(BuildContext context, int daysTracked) {
+    final daysRemaining = (7 - daysTracked).clamp(0, 7);
+    
+    return Card(
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+            Icon(
+              Icons.show_chart_rounded,
+              size: 48,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              context.l10n.insightsComingSoon,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              context.l10n.insightsComingSoonMessage,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Text(
+                context.l10n.insightsDaysRemaining(daysRemaining),
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onPrimaryContainer,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
