@@ -435,6 +435,14 @@
   "validationLosingWhileGaining": "Tu perds du poids alors que ton objectif est de gagner. Ce n'est pas grave - les revers arrivent. Veux-tu continuer ?",
   "validationMovingAwayFromGoal": "Tu t'éloignes de ton objectif. Cela peut être normal (fluctuations, événements de la vie). Est-ce correct ?",
   "validationUnusualWeight": "Ce poids semble inhabituel par rapport à tes entrées récentes. Tout va bien ?",
+  "insightsComingSoon": "Insights à venir",
+  "insightsComingSoonMessage": "Suis ton poids pendant 7 jours pour débloquer les insights et l'analyse de progression.",
+  "insightsDaysRemaining": "{days} jours restants",
+  "@insightsDaysRemaining": {
+    "placeholders": {
+      "days": {"type": "int"}
+    }
+  },
   
   "statusOnTrack": "Tu es sur la bonne voie ! Continue comme ça !",
   "statusAheadWithDays": "Tu es en avance ! {days} jours d'avance",
