@@ -700,4 +700,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recommendations => 'Recommendations';
+
+  @override
+  String get appearance => 'Appearance';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get lightTheme => 'Light';
+
+  @override
+  String get darkTheme => 'Dark';
+
+  @override
+  String get systemTheme => 'System';
+
+  @override
+  String get selectTheme => 'Select Theme';
 }

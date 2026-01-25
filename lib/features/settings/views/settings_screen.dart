@@ -7,8 +7,11 @@ import '../../../core/services/goal_storage_service.dart';
 import '../../../core/services/data_export_service.dart';
 import '../../../core/services/reminder_service.dart';
 import '../../../core/services/achievement_service.dart';
+import '../../../core/services/preferences_service.dart';
 import '../../../core/models/achievement.dart';
 import '../../../core/models/education_content.dart';
+import '../../../core/models/user_preferences.dart';
+import '../../../core/providers/theme_provider.dart';
 import '../../../core/widgets/education_overlay.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/extensions/l10n_context.dart';
@@ -27,6 +30,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   bool _loading = true;
   bool _reminderEnabled = false;
   TimeOfDay? _reminderTime;
+  UserPreferences? _preferences;
 
   @override
   void initState() {
@@ -39,6 +43,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       _config = GoalStorageService.getGoalConfiguration();
       _reminderEnabled = ReminderService.isReminderEnabled();
       _reminderTime = ReminderService.getReminderTime();
+      _preferences = PreferencesService.getPreferences();
       _loading = false;
     });
   }
@@ -85,6 +90,25 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Appearance Section
+            Text(
+              context.l10n.appearance,
+              style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            const SizedBox(height: 12),
+            Card(
+              child: ListTile(
+                leading: const Icon(Icons.palette_rounded),
+                title: Text(context.l10n.theme),
+                subtitle: Text(_getThemeLabel(context, _preferences?.themeMode ?? ThemeMode.system)),
+                trailing: const Icon(Icons.chevron_right_rounded),
+                onTap: () => _showThemeSelector(context),
+              ),
+            ),
+            const SizedBox(height: 32),
+            // Language Section
             Text(
               context.l10n.languageTitle,
               style: Theme.of(context).textTheme.titleMedium?.copyWith(

@@ -238,5 +238,12 @@
   "gotIt": "Compris",
   "tipsAndEducation": "Conseils et éducation",
 
-  "recommendations": "Recommandations"
+  "recommendations": "Recommandations",
+
+  "appearance": "Apparence",
+  "theme": "Thème",
+  "lightTheme": "Clair",
+  "darkTheme": "Sombre",
+  "systemTheme": "Système",
+  "selectTheme": "Sélectionner le thème"
 }

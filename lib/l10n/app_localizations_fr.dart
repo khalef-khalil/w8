@@ -705,4 +705,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get recommendations => 'Recommandations';
+
+  @override
+  String get appearance => 'Apparence';
+
+  @override
+  String get theme => 'Thème';
+
+  @override
+  String get lightTheme => 'Clair';
+
+  @override
+  String get darkTheme => 'Sombre';
+
+  @override
+  String get systemTheme => 'Système';
+
+  @override
+  String get selectTheme => 'Sélectionner le thème';
 }

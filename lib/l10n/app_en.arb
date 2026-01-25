@@ -337,5 +337,12 @@
   "gotIt": "Got it",
   "tipsAndEducation": "Tips & Education",
 
-  "recommendations": "Recommendations"
+  "recommendations": "Recommendations",
+
+  "appearance": "Appearance",
+  "theme": "Theme",
+  "lightTheme": "Light",
+  "darkTheme": "Dark",
+  "systemTheme": "System",
+  "selectTheme": "Select Theme"
 }
