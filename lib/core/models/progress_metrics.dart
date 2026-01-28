@@ -26,12 +26,23 @@ class ProgressMetrics {
   }
 
   /// Progression basée sur le poids (0.0 à 1.0)
+  /// Gère explicitement les dépassements d'objectif
   double get progressByWeight {
     final totalChange = goal.targetWeight - goal.initialWeight;
     if (totalChange == 0) return 0.0;
     
     final currentChange = currentWeight - goal.initialWeight;
-    return (currentChange / totalChange).clamp(0.0, 1.0);
+    final progress = currentChange / totalChange;
+    
+    // Si l'objectif est atteint ou dépassé, retourner 1.0
+    if (goal.type == GoalType.gain && progress >= 1.0) return 1.0;
+    if (goal.type == GoalType.loss && progress <= 1.0) return 1.0;
+    
+    // Si on va dans la mauvaise direction, retourner 0.0
+    if (goal.type == GoalType.gain && progress < 0) return 0.0;
+    if (goal.type == GoalType.loss && progress > 0) return 0.0;
+    
+    return progress.clamp(0.0, 1.0);
   }
 
   /// Gain/perte actuel
@@ -165,26 +176,57 @@ class ProgressMetrics {
     }
     return SmoothingCalculator.calculateRolling7Days(entries);
   }
+  
+  /// Progression lissée avec moyenne mobile exponentielle (EMA)
+  /// Plus stable que progressByWeight, réduit les sauts brusques
+  double get smoothedProgress {
+    if (entries.length < 3) {
+      return progressByWeight;
+    }
+    
+    // Utiliser EMA pour lisser le poids actuel
+    final smoothedWeight = SmoothingCalculator.calculateEMA(entries, 0.3);
+    final totalChange = goal.targetWeight - goal.initialWeight;
+    if (totalChange == 0) return 0.0;
+    
+    final currentChange = smoothedWeight - goal.initialWeight;
+    final progress = currentChange / totalChange;
+    
+    // Gérer les dépassements comme dans progressByWeight
+    if (goal.type == GoalType.gain && progress >= 1.0) return 1.0;
+    if (goal.type == GoalType.loss && progress <= 1.0) return 1.0;
+    if (goal.type == GoalType.gain && progress < 0) return 0.0;
+    if (goal.type == GoalType.loss && progress > 0) return 0.0;
+    
+    return progress.clamp(0.0, 1.0);
+  }
 
   /// Créer depuis une liste d'entrées
+  /// Utilise uniquement les semaines complètes (≥3 entrées) pour la médiane
+  /// Si la semaine actuelle est incomplète, utilise la dernière semaine complète
   factory ProgressMetrics.fromEntries(
     GoalConfiguration goal,
     List<WeightEntry> entries,
   ) {
-    // Utiliser médiane de la dernière semaine ou rolling 7 jours
-    final weeklyMedians = date_utils.AppDateUtils.getWeeklyMedians(
+    double currentWeight;
+    
+    // Obtenir la dernière semaine complète avec médiane valide
+    final lastCompleteWeek = date_utils.AppDateUtils.getLastCompleteWeekMedian(
       entries,
       goal.weekStartDay,
     );
-    double currentWeight;
     
-    if (weeklyMedians.isNotEmpty) {
-      currentWeight = weeklyMedians.last.value;
+    if (lastCompleteWeek != null) {
+      // Utiliser la médiane de la dernière semaine complète
+      currentWeight = lastCompleteWeek.value;
     } else if (entries.length >= 3) {
+      // Pas de semaine complète, utiliser rolling 7 jours
       currentWeight = SmoothingCalculator.calculateRolling7Days(entries);
     } else if (entries.isNotEmpty) {
+      // Moins de 3 entrées, utiliser la dernière entrée
       currentWeight = entries.last.weight;
     } else {
+      // Aucune entrée, utiliser le poids initial
       currentWeight = goal.initialWeight;
     }
 
@@ -193,6 +235,34 @@ class ProgressMetrics {
       entries: entries,
       currentWeight: currentWeight,
     );
+  }
+  
+  /// Obtenir un indicateur de confiance dans les données (0.0 à 1.0)
+  /// 1.0 = données très fiables, 0.0 = données peu fiables
+  double get dataConfidence {
+    if (entries.isEmpty) return 0.0;
+    
+    // Vérifier le nombre de semaines complètes récentes
+    final completeWeeks = date_utils.AppDateUtils.getWeeklyMedians(
+      entries,
+      goal.weekStartDay,
+      minEntries: 3,
+      onlyCompleteWeeks: true,
+    );
+    
+    // Plus de semaines complètes = plus de confiance
+    if (completeWeeks.length >= 4) return 1.0;
+    if (completeWeeks.length >= 2) return 0.75;
+    if (completeWeeks.length >= 1) return 0.5;
+    
+    // Vérifier la consistance des entrées récentes
+    if (entries.length >= 7) {
+      final recentEntries = entries.sublist(entries.length - 7);
+      final daysSpan = recentEntries.last.date.difference(recentEntries.first.date).inDays;
+      if (daysSpan <= 10) return 0.4; // Entrées récentes et fréquentes
+    }
+    
+    return 0.25; // Données peu fiables
   }
 }
 

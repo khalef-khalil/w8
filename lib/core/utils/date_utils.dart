@@ -75,21 +75,38 @@ class AppDateUtils {
   }
 
   /// Obtenir la médiane hebdomadaire
+  /// [minEntries] : nombre minimum d'entrées requis (défaut: 3)
+  /// Retourne null si moins d'entrées que le minimum
   static double? getWeeklyMedian(
     List<WeightEntry> entries,
-    DateTime weekStart,
-  ) {
+    DateTime weekStart, {
+    int minEntries = 3,
+  }) {
     final weights = getWeeklyWeights(entries, weekStart);
-    if (weights.isEmpty) return null;
+    if (weights.isEmpty || weights.length < minEntries) return null;
     return WeightEntry.calculateMedian(weights);
+  }
+  
+  /// Vérifier si une semaine est complète (a au moins [minEntries] entrées)
+  static bool isWeekComplete(
+    List<WeightEntry> entries,
+    DateTime weekStart, {
+    int minEntries = 3,
+  }) {
+    final weights = getWeeklyWeights(entries, weekStart);
+    return weights.length >= minEntries;
   }
 
   /// Obtenir toutes les médianes hebdomadaires
   /// Amélioré pour mieux gérer les données éparses
+  /// [minEntries] : nombre minimum d'entrées par semaine (défaut: 3)
+  /// [onlyCompleteWeeks] : si true, n'inclut que les semaines complètes
   static List<MapEntry<DateTime, double>> getWeeklyMedians(
-    List<WeightEntry> entries, [
-    WeekStartDay weekStartsOn = WeekStartDay.monday,
-  ]) {
+    List<WeightEntry> entries,
+    WeekStartDay weekStartsOn, {
+    int minEntries = 3,
+    bool onlyCompleteWeeks = false,
+  }) {
     if (entries.isEmpty) return [];
 
     final startDate = entries.first.date;
@@ -105,7 +122,13 @@ class AppDateUtils {
     while (currentWeek.isBefore(lastWeek) || 
            currentWeek.isAtSameMomentAs(lastWeek) ||
            isSameWeek(currentWeek, lastWeek, weekStartsOn)) {
-      final median = getWeeklyMedian(entries, currentWeek);
+      // Si onlyCompleteWeeks, vérifier que la semaine est complète
+      if (onlyCompleteWeeks && !isWeekComplete(entries, currentWeek, minEntries: minEntries)) {
+        currentWeek = currentWeek.add(const Duration(days: 7));
+        continue;
+      }
+      
+      final median = getWeeklyMedian(entries, currentWeek, minEntries: minEntries);
       if (median != null) {
         medians.add(MapEntry(currentWeek, median));
       }
@@ -118,5 +141,23 @@ class AppDateUtils {
     }
 
     return medians;
+  }
+  
+  /// Obtenir la dernière semaine complète avec médiane valide
+  /// Retourne null si aucune semaine complète trouvée
+  static MapEntry<DateTime, double>? getLastCompleteWeekMedian(
+    List<WeightEntry> entries,
+    WeekStartDay weekStartsOn,
+  ) {
+    if (entries.isEmpty) return null;
+    
+    final medians = getWeeklyMedians(
+      entries,
+      weekStartsOn,
+      minEntries: 3,
+      onlyCompleteWeeks: true,
+    );
+    
+    return medians.isNotEmpty ? medians.last : null;
   }
 }

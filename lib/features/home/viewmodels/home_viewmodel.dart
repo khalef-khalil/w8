@@ -3,6 +3,7 @@ import '../../../models/weight_entry.dart';
 import '../../../core/services/hive_storage_service.dart';
 import '../../../core/services/goal_storage_service.dart';
 import '../../../core/services/streak_service.dart';
+import '../../../core/services/smoothing_calculator.dart';
 import '../../../core/utils/date_utils.dart' as date_utils;
 import '../../../core/models/progress_data.dart';
 import '../../../core/models/progress_metrics.dart';
@@ -92,14 +93,16 @@ class HomeViewModel extends StateNotifier<AsyncValue<HomeState>> {
       );
     }
 
-    // Utiliser la médiane de la dernière semaine ou le dernier poids
-    final lastWeekMedians = date_utils.AppDateUtils.getWeeklyMedians(
+    // Utiliser la dernière semaine complète avec médiane valide
+    final lastCompleteWeek = date_utils.AppDateUtils.getLastCompleteWeekMedian(
       entries,
       config.weekStartDay,
     );
-    final currentWeight = lastWeekMedians.isNotEmpty
-        ? lastWeekMedians.last.value
-        : (entries.isNotEmpty ? entries.last.weight : config.initialWeight);
+    final currentWeight = lastCompleteWeek != null
+        ? lastCompleteWeek.value
+        : (entries.length >= 3
+            ? SmoothingCalculator.calculateRolling7Days(entries)
+            : (entries.isNotEmpty ? entries.last.weight : config.initialWeight));
 
     final weightChange = currentWeight - config.initialWeight;
     final totalWeightChange = config.targetWeight - config.initialWeight;

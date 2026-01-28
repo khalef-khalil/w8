@@ -16,7 +16,6 @@ import '../../../core/models/progress_metrics.dart';
 import '../../../core/models/achievement.dart';
 import '../../../core/models/weight_entry_tags.dart';
 import '../../../core/widgets/celebration_overlay.dart';
-import '../../../core/widgets/success_animation.dart';
 import '../../../core/widgets/error_boundary.dart';
 import '../../../core/utils/weight_converter.dart';
 
@@ -244,40 +243,21 @@ class _AddWeightScreenState extends ConsumerState<AddWeightScreen> {
           }
         });
       } else {
-        // Show success snackbar with animation
+        // Show success snackbar
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: DefaultTextStyle(
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onPrimaryContainer,
               ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 24,
-                    height: 24,
-                    child: SuccessAnimation(
-                      size: 24,
-                      color: Theme.of(context).colorScheme.onPrimaryContainer,
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      original != null
-                          ? context.l10n.weightUpdatedSuccess
-                          : context.l10n.weightSavedSuccess,
-                    ),
-                  ),
-                ],
+              child: Text(
+                original != null
+                    ? context.l10n.weightUpdatedSuccess
+                    : context.l10n.weightSavedSuccess,
               ),
             ),
             backgroundColor: Theme.of(context).colorScheme.primaryContainer,
             behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            duration: const Duration(seconds: 2),
           ),
         );
       }

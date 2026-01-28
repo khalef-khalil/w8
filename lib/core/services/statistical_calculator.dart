@@ -6,6 +6,7 @@ import '../models/goal_configuration.dart';
 class StatisticalCalculator {
   /// Calculer la vitesse actuelle basée sur la tendance récente
   /// Utilise les dernières N semaines au lieu de tout l'historique
+  /// Utilise la régression linéaire pour une meilleure robustesse
   static double calculateRecentRatePerWeek(
     List<WeightEntry> entries,
     GoalConfiguration goal,
@@ -13,10 +14,12 @@ class StatisticalCalculator {
   ) {
     if (entries.isEmpty) return 0.0;
 
-    // Utiliser les médianes hebdomadaires pour une meilleure précision
+    // Utiliser les médianes hebdomadaires complètes uniquement
     final weeklyMedians = date_utils.AppDateUtils.getWeeklyMedians(
       entries,
       goal.weekStartDay,
+      minEntries: 3,
+      onlyCompleteWeeks: true,
     );
 
     if (weeklyMedians.length < 2) {
@@ -33,19 +36,61 @@ class StatisticalCalculator {
       return _calculateSimpleRate(entries, goal);
     }
 
-    // Calculer la tendance linéaire sur les médianes récentes
-    final firstMedian = recentMedians.first;
-    final lastMedian = recentMedians.last;
+    // Utiliser la régression linéaire avec pondération temporelle
+    return _calculateLinearRegressionRate(recentMedians);
+  }
+  
+  /// Calculer la vitesse en utilisant la régression linéaire
+  /// avec pondération temporelle (semaines récentes plus importantes)
+  static double _calculateLinearRegressionRate(
+    List<MapEntry<DateTime, double>> medians,
+  ) {
+    if (medians.length < 2) return 0.0;
     
-    final weeksBetween = date_utils.AppDateUtils.getWeeksBetween(
-      firstMedian.key,
-      lastMedian.key,
-    );
-
-    if (weeksBetween == 0) return 0.0;
-
-    final weightChange = lastMedian.value - firstMedian.value;
-    return weightChange / weeksBetween;
+    // Convertir les dates en semaines depuis la première date
+    final firstDate = medians.first.key;
+    final weeksSinceStart = medians.map((m) {
+      return date_utils.AppDateUtils.getWeeksBetween(firstDate, m.key).toDouble();
+    }).toList();
+    
+    final weights = medians.map((m) => m.value).toList();
+    
+    // Calculer les moyennes pondérées (semaines récentes = plus de poids)
+    double sumWeights = 0.0;
+    double sumTime = 0.0;
+    double sumTimeWeight = 0.0;
+    double sumWeight = 0.0;
+    double sumTimeSquared = 0.0;
+    
+    for (int i = 0; i < medians.length; i++) {
+      // Pondération exponentielle : semaines récentes ont plus de poids
+      final timeWeight = (i + 1).toDouble(); // Plus récent = plus de poids
+      
+      sumWeights += timeWeight;
+      sumTime += weeksSinceStart[i] * timeWeight;
+      sumWeight += weights[i] * timeWeight;
+      sumTimeWeight += weeksSinceStart[i] * weights[i] * timeWeight;
+      sumTimeSquared += weeksSinceStart[i] * weeksSinceStart[i] * timeWeight;
+    }
+    
+    // Calculer la pente (vitesse) : slope = (n*Σ(t*w) - Σ(t)*Σ(w)) / (n*Σ(t²) - (Σ(t))²)
+    final n = sumWeights;
+    final denominator = n * sumTimeSquared - sumTime * sumTime;
+    
+    if (denominator.abs() < 0.0001) {
+      // Dénominateur trop petit, utiliser méthode simple
+      final firstMedian = medians.first;
+      final lastMedian = medians.last;
+      final weeksBetween = date_utils.AppDateUtils.getWeeksBetween(
+        firstMedian.key,
+        lastMedian.key,
+      );
+      if (weeksBetween == 0) return 0.0;
+      return (lastMedian.value - firstMedian.value) / weeksBetween;
+    }
+    
+    final slope = (n * sumTimeWeight - sumTime * sumWeight) / denominator;
+    return slope;
   }
 
   /// Calculer la vitesse simple (méthode de fallback)

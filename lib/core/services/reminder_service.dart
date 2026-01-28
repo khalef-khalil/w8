@@ -41,6 +41,11 @@ class ReminderService {
     );
 
     _initialized = true;
+
+    // Reschedule reminders if they were previously enabled
+    if (isReminderEnabled()) {
+      await rescheduleRemindersIfEnabled();
+    }
   }
 
   /// Handle notification tap
@@ -100,6 +105,22 @@ class ReminderService {
     }
   }
 
+  /// Reschedule reminders if enabled (called on app start)
+  static Future<void> rescheduleRemindersIfEnabled() async {
+    if (!isReminderEnabled()) {
+      return;
+    }
+
+    // Check permissions first
+    final hasPermission = await requestPermissions();
+    if (!hasPermission) {
+      debugPrint('ReminderService: Notification permission not granted, cannot schedule reminders');
+      return;
+    }
+
+    await scheduleReminder();
+  }
+
   /// Schedule daily reminder at the specified time
   static Future<void> scheduleReminder() async {
     if (!_initialized) {
@@ -116,7 +137,13 @@ class ReminderService {
     final time = getReminderTime();
     if (time == null) return;
 
-    // Request permissions (Android 13+)
+    // Request permissions before scheduling (Android 13+)
+    final hasPermission = await requestPermissions();
+    if (!hasPermission) {
+      debugPrint('ReminderService: Notification permission not granted, cannot schedule reminders');
+      return;
+    }
+
     final androidDetails = AndroidNotificationDetails(
       'weight_reminder',
       'Weight Tracking Reminders',
