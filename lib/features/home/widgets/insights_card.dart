@@ -295,11 +295,7 @@ class InsightsCard extends StatelessWidget {
   ) {
     final now = DateTime.now();
     final daysUntilGoal = predictedDate.difference(now).inDays;
-    final goalEndDate = DateTime(
-      metrics.goal.goalStartDate.year,
-      metrics.goal.goalStartDate.month + metrics.goal.durationMonths,
-      metrics.goal.goalStartDate.day,
-    );
+    final goalEndDate = metrics.goal.goalEndDate;
     final daysDifference = predictedDate.difference(goalEndDate).inDays;
 
     return Container(

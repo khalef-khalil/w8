@@ -6,6 +6,10 @@ class GoalConfiguration {
   final double targetWeight;
   final DateTime goalStartDate;
   final int durationMonths;
+  /// Extra days beyond full months (0–31). Used with duration or derived from [goalEndDateOverride].
+  final int durationDays;
+  /// When set, goal end is this exact date (e.g. user picked "use end date"). Otherwise end = start + months + days.
+  final DateTime? goalEndDateOverride;
   final GoalType type;
   final WeightUnit unit;
   final WeekStartDay weekStartDay;
@@ -15,6 +19,8 @@ class GoalConfiguration {
     required this.targetWeight,
     required this.goalStartDate,
     required this.durationMonths,
+    this.durationDays = 0,
+    this.goalEndDateOverride,
     required this.type,
     this.unit = WeightUnit.kg,
     this.weekStartDay = WeekStartDay.monday,
@@ -27,6 +33,9 @@ class GoalConfiguration {
       'targetWeight': targetWeight,
       'goalStartDate': goalStartDate.toIso8601String(),
       'durationMonths': durationMonths,
+      'durationDays': durationDays,
+      if (goalEndDateOverride != null)
+        'goalEndDateOverride': goalEndDateOverride!.toIso8601String(),
       'type': type.name,
       'unit': unit.name,
       'weekStartDay': weekStartDay.name,
@@ -40,6 +49,10 @@ class GoalConfiguration {
       targetWeight: (json['targetWeight'] as num).toDouble(),
       goalStartDate: DateTime.parse(json['goalStartDate'] as String),
       durationMonths: json['durationMonths'] as int,
+      durationDays: (json['durationDays'] as int?) ?? 0,
+      goalEndDateOverride: json['goalEndDateOverride'] != null
+          ? DateTime.parse(json['goalEndDateOverride'] as String)
+          : null,
       type: GoalType.values.firstWhere(
         (e) => e.name == json['type'],
         orElse: () => GoalType.gain,
@@ -94,14 +107,25 @@ class GoalConfiguration {
     if (durationMonths < 1 || durationMonths > 24) {
       return ValidationResult.error('La durée doit être entre 1 et 24 mois');
     }
+    if (durationDays < 0 || durationDays > 31) {
+      return ValidationResult.error('Les jours supplémentaires doivent être entre 0 et 31');
+    }
+    if (goalEndDateOverride != null &&
+        !goalEndDateOverride!.isAfter(goalStartDate)) {
+      return ValidationResult.error('La date de fin doit être après la date de début');
+    }
 
     // Vérifier que le gain/perte est réaliste
     final weightChange = (targetWeight - initialWeight).abs();
-    final maxRealisticChange = durationMonths * 2.0; // 2kg/mois max
+    final totalMonthsApprox = durationMonths + (durationDays / 30.0);
+    final maxRealisticChange = totalMonthsApprox * 2.0; // 2kg/mois max
 
     if (weightChange > maxRealisticChange) {
+      final durationStr = durationDays > 0
+          ? '$durationMonths mois et $durationDays jours'
+          : '$durationMonths mois';
       return ValidationResult.warning(
-        'L\'objectif semble ambitieux (${weightChange.toStringAsFixed(2)}kg en $durationMonths mois). '
+        'L\'objectif semble ambitieux (${weightChange.toStringAsFixed(2)}kg en $durationStr). '
         'Est-ce réaliste ?',
       );
     }
@@ -112,27 +136,42 @@ class GoalConfiguration {
   /// Calculer le gain/perte total
   double get weightChange => (targetWeight - initialWeight).abs();
 
+  /// Total duration in days (for rate and weeks).
+  int get totalDurationDays {
+    if (goalEndDateOverride != null) {
+      return goalEndDateOverride!.difference(goalStartDate).inDays;
+    }
+    // Approximate: 30 days per month + extra days
+    return durationMonths * 30 + durationDays;
+  }
+
   /// Calculer la vitesse requise (kg/mois)
-  double get requiredRatePerMonth => weightChange / durationMonths;
+  double get requiredRatePerMonth => weightChange / (totalDurationDays / 30.0);
 
   /// Calculer la vitesse requise (kg/semaine)
-  double get requiredRatePerWeek => requiredRatePerMonth / 4.33;
+  double get requiredRatePerWeek => weightChange / (totalDurationDays / 7.0);
 
   /// Calculer la date de fin théorique
-  DateTime get goalEndDate => DateTime(
-        goalStartDate.year,
-        goalStartDate.month + durationMonths,
-        goalStartDate.day,
-      );
+  DateTime get goalEndDate {
+    if (goalEndDateOverride != null) return goalEndDateOverride!;
+    final afterMonths = DateTime(
+      goalStartDate.year,
+      goalStartDate.month + durationMonths,
+      goalStartDate.day,
+    );
+    return afterMonths.add(Duration(days: durationDays));
+  }
 
   /// Calculer le nombre total de semaines
-  int get totalWeeks => durationMonths * 4;
+  int get totalWeeks => (totalDurationDays / 7).ceil().clamp(1, 999);
 
   GoalConfiguration copyWith({
     double? initialWeight,
     double? targetWeight,
     DateTime? goalStartDate,
     int? durationMonths,
+    int? durationDays,
+    DateTime? goalEndDateOverride,
     GoalType? type,
     WeightUnit? unit,
     WeekStartDay? weekStartDay,
@@ -142,6 +181,8 @@ class GoalConfiguration {
       targetWeight: targetWeight ?? this.targetWeight,
       goalStartDate: goalStartDate ?? this.goalStartDate,
       durationMonths: durationMonths ?? this.durationMonths,
+      durationDays: durationDays ?? this.durationDays,
+      goalEndDateOverride: goalEndDateOverride ?? this.goalEndDateOverride,
       type: type ?? this.type,
       unit: unit ?? this.unit,
       weekStartDay: weekStartDay ?? this.weekStartDay,

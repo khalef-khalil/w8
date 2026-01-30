@@ -8,7 +8,13 @@
   "startTrackingPrompt": "Start tracking your weight",
   "addFirstWeighIn": "Add your first weigh-in to get started",
   "currentWeight": "Current Weight",
-  "progressToGoal": "Progress to goal (+15kg)",
+  "progressToGoal": "Progress to goal",
+  "progressToGoalWithAmount": "Progress to goal ({amount})",
+  "@progressToGoalWithAmount": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
   "start": "Start",
   "goal": "Goal",
   "weeks": "Weeks",
@@ -70,7 +76,10 @@
   "goalStartDate": "Goal start date",
   "selectDate": "Select a date",
   "durationMonths": "Duration (months)",
+  "durationDays": "Extra days",
   "durationHint": "e.g. 6",
+  "durationDaysHint": "0–31",
+  "daysUnit": "days",
   "goalEndDate": "Goal End Date",
   "selectEndDate": "Select End Date",
   "useDuration": "Use Duration",
@@ -85,6 +94,15 @@
       "initial": {"type": "String"},
       "target": {"type": "String"},
       "months": {"type": "int"}
+    }
+  },
+  "goalSummaryFromToWithDays": "From {initial}kg to {target}kg in {months} months and {days} days",
+  "@goalSummaryFromToWithDays": {
+    "placeholders": {
+      "initial": {"type": "String"},
+      "target": {"type": "String"},
+      "months": {"type": "int"},
+      "days": {"type": "int"}
     }
   },
   "perMonth": "≈ {rate} kg/month",
@@ -250,6 +268,34 @@
   },
   "weeksLeftLabel": "Weeks left",
   "goalWeight": "Goal weight",
+  "estimationCalculatorTitle": "Projections",
+  "estimationCalculatorDescription": "Uses your current rate to estimate when you'll reach a weight, or what weight to expect by a date.",
+  "estimationCalculatorNeedData": "Add at least 2 weigh-ins to use the estimation calculator.",
+  "estimationCurrentRate": "Current rate: {rate} per week",
+  "@estimationCurrentRate": {
+    "placeholders": {
+      "rate": {"type": "String"}
+    }
+  },
+  "estimationWeightToDate": "When will I reach this weight?",
+  "estimationWeightToDateHint": "Enter target weight",
+  "estimationWeightToDateResult": "Estimated date: {date}",
+  "@estimationWeightToDateResult": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "estimationWeightToDateInvalid": "Enter a weight in the right direction (gain: above current; loss: below current).",
+  "estimationWeightToDateNoRate": "Current rate is zero; add more data to estimate.",
+  "estimationDateToWeight": "What will my weight be by this date?",
+  "estimationDateToWeightPick": "Pick a date",
+  "estimationDateToWeightResult": "Estimated weight: {weight}",
+  "@estimationDateToWeightResult": {
+    "placeholders": {
+      "weight": {"type": "String"}
+    }
+  },
+  "estimationDateToWeightPast": "Pick a future date.",
   "chartGoalLine": "Goal",
   "chartStartLine": "Start",
 

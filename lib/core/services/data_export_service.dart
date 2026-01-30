@@ -53,6 +53,9 @@ class DataExportService {
         'targetWeight': goal.targetWeight,
         'goalStartDate': goal.goalStartDate.toIso8601String(),
         'durationMonths': goal.durationMonths,
+        'durationDays': goal.durationDays,
+        if (goal.goalEndDateOverride != null)
+          'goalEndDateOverride': goal.goalEndDateOverride!.toIso8601String(),
         'type': goal.type.name,
         'unit': goal.unit.name,
         'weekStartDay': goal.weekStartDay.name,
@@ -102,6 +105,10 @@ class DataExportService {
               targetWeight: (goalData['targetWeight'] as num).toDouble(),
               goalStartDate: DateTime.parse(goalData['goalStartDate'] as String),
               durationMonths: goalData['durationMonths'] as int,
+              durationDays: (goalData['durationDays'] as int?) ?? 0,
+              goalEndDateOverride: goalData['goalEndDateOverride'] != null
+                  ? DateTime.parse(goalData['goalEndDateOverride'] as String)
+                  : null,
               type: GoalType.values.firstWhere(
                 (e) => e.name == goalData['type'] as String,
                 orElse: () => GoalType.gain,

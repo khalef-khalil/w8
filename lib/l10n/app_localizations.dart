@@ -151,8 +151,14 @@ abstract class AppLocalizations {
   /// No description provided for @progressToGoal.
   ///
   /// In en, this message translates to:
-  /// **'Progress to goal (+15kg)'**
+  /// **'Progress to goal'**
   String get progressToGoal;
+
+  /// No description provided for @progressToGoalWithAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress to goal ({amount})'**
+  String progressToGoalWithAmount(String amount);
 
   /// No description provided for @start.
   ///
@@ -472,11 +478,29 @@ abstract class AppLocalizations {
   /// **'Duration (months)'**
   String get durationMonths;
 
+  /// No description provided for @durationDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra days'**
+  String get durationDays;
+
   /// No description provided for @durationHint.
   ///
   /// In en, this message translates to:
   /// **'e.g. 6'**
   String get durationHint;
+
+  /// No description provided for @durationDaysHint.
+  ///
+  /// In en, this message translates to:
+  /// **'0–31'**
+  String get durationDaysHint;
+
+  /// No description provided for @daysUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'days'**
+  String get daysUnit;
 
   /// No description provided for @goalEndDate.
   ///
@@ -531,6 +555,13 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'From {initial}kg to {target}kg in {months} months'**
   String goalSummaryFromTo(String initial, String target, int months);
+
+  /// No description provided for @goalSummaryFromToWithDays.
+  ///
+  /// In en, this message translates to:
+  /// **'From {initial}kg to {target}kg in {months} months and {days} days'**
+  String goalSummaryFromToWithDays(
+      String initial, String target, int months, int days);
 
   /// No description provided for @perMonth.
   ///
@@ -1011,6 +1042,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Goal weight'**
   String get goalWeight;
+
+  /// No description provided for @estimationCalculatorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Projections'**
+  String get estimationCalculatorTitle;
+
+  /// No description provided for @estimationCalculatorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses your current rate to estimate when you\'ll reach a weight, or what weight to expect by a date.'**
+  String get estimationCalculatorDescription;
+
+  /// No description provided for @estimationCalculatorNeedData.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least 2 weigh-ins to use the estimation calculator.'**
+  String get estimationCalculatorNeedData;
+
+  /// No description provided for @estimationCurrentRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rate: {rate} per week'**
+  String estimationCurrentRate(String rate);
+
+  /// No description provided for @estimationWeightToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'When will I reach this weight?'**
+  String get estimationWeightToDate;
+
+  /// No description provided for @estimationWeightToDateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter target weight'**
+  String get estimationWeightToDateHint;
+
+  /// No description provided for @estimationWeightToDateResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated date: {date}'**
+  String estimationWeightToDateResult(String date);
+
+  /// No description provided for @estimationWeightToDateInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a weight in the right direction (gain: above current; loss: below current).'**
+  String get estimationWeightToDateInvalid;
+
+  /// No description provided for @estimationWeightToDateNoRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Current rate is zero; add more data to estimate.'**
+  String get estimationWeightToDateNoRate;
+
+  /// No description provided for @estimationDateToWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'What will my weight be by this date?'**
+  String get estimationDateToWeight;
+
+  /// No description provided for @estimationDateToWeightPick.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a date'**
+  String get estimationDateToWeightPick;
+
+  /// No description provided for @estimationDateToWeightResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated weight: {weight}'**
+  String estimationDateToWeightResult(String weight);
+
+  /// No description provided for @estimationDateToWeightPast.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a future date.'**
+  String get estimationDateToWeightPast;
 
   /// No description provided for @chartGoalLine.
   ///

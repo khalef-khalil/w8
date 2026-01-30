@@ -23,7 +23,8 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
   late final TextEditingController _initialWeightController;
   late final TextEditingController _targetWeightController;
   late final TextEditingController _durationController;
-  
+  late final TextEditingController _durationDaysController;
+
   GoalConfiguration? _currentConfig;
   GoalType? _selectedGoalType;
   DateTime? _selectedStartDate;
@@ -43,9 +44,25 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
       _currentConfig = config;
       _selectedGoalType = config?.type ?? GoalType.gain;
       _selectedStartDate = config?.goalStartDate ?? DateTime.now();
-      _selectedEndDate = config?.goalEndDate;
-      
       if (config != null) {
+        if (config.goalEndDateOverride != null) {
+          _selectedEndDate = config.goalEndDateOverride;
+          _durationMode = _DurationMode.endDate;
+          final pair = _calendarMonthsAndDaysBetween(config.goalStartDate, config.goalEndDate);
+          if (pair != null) {
+            _durationController = TextEditingController(text: pair.$1.toString());
+            _durationDaysController = TextEditingController(text: pair.$2.toString());
+          } else {
+            final totalDays = config.goalEndDate.difference(config.goalStartDate).inDays;
+            _durationController = TextEditingController(text: (totalDays ~/ 30).toString());
+            _durationDaysController = TextEditingController(text: (totalDays % 30).toString());
+          }
+        } else {
+          _selectedEndDate = config.goalEndDate;
+          _durationMode = _DurationMode.duration;
+          _durationController = TextEditingController(text: config.durationMonths.toString());
+          _durationDaysController = TextEditingController(text: config.durationDays.toString());
+        }
         final unit = config.unit;
         _initialWeightController = TextEditingController(
           text: WeightConverter.forDisplay(config.initialWeight, unit)
@@ -55,13 +72,11 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
           text: WeightConverter.forDisplay(config.targetWeight, unit)
               .toStringAsFixed(2),
         );
-        _durationController = TextEditingController(
-          text: config.durationMonths.toString(),
-        );
       } else {
         _initialWeightController = TextEditingController();
         _targetWeightController = TextEditingController();
         _durationController = TextEditingController();
+        _durationDaysController = TextEditingController(text: '0');
       }
       _loading = false;
     });
@@ -72,6 +87,7 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
     _initialWeightController.dispose();
     _targetWeightController.dispose();
     _durationController.dispose();
+    _durationDaysController.dispose();
     super.dispose();
   }
 
@@ -91,16 +107,8 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
     if (picked != null) {
       setState(() {
         _selectedStartDate = picked;
-        // Recalculate end date if duration mode
-        if (_durationMode == _DurationMode.duration && _durationController.text.isNotEmpty) {
-          final months = int.tryParse(_durationController.text);
-          if (months != null && months > 0) {
-            _selectedEndDate = DateTime(
-              picked.year,
-              picked.month + months,
-              picked.day,
-            );
-          }
+        if (_durationMode == _DurationMode.duration) {
+          _selectedEndDate = _calculateEndDateFromDuration();
         }
       });
     }
@@ -123,37 +131,58 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
     if (picked != null) {
       setState(() {
         _selectedEndDate = picked;
-        // Calculate duration from end date
         if (startDate.isBefore(picked)) {
-          final months = ((picked.year - startDate.year) * 12) + 
-                         (picked.month - startDate.month);
-          if (months >= 1 && months <= 24) {
-            _durationController.text = months.toString();
+          final pair = _calendarMonthsAndDaysBetween(startDate, picked);
+          if (pair != null) {
+            _durationController.text = pair.$1.toString();
+            _durationDaysController.text = pair.$2.toString();
           }
         }
       });
     }
   }
 
-  int? _calculateDurationFromEndDate() {
+  /// Inverse of duration → end date: (months, days) such that
+  /// start + M calendar months + D days = end. Keeps mode switching round-trip consistent.
+  (int months, int days)? _calendarMonthsAndDaysBetween(DateTime start, DateTime end) {
+    final startDate = DateTime(start.year, start.month, start.day);
+    final endDate = DateTime(end.year, end.month, end.day);
+    if (!endDate.isAfter(startDate)) return null;
+    int months = 0;
+    for (int m = 1; m <= 24; m++) {
+      final candidate = DateTime(startDate.year, startDate.month + m, startDate.day);
+      if (candidate.isAfter(endDate)) break;
+      months = m;
+    }
+    final afterMonths = DateTime(startDate.year, startDate.month + months, startDate.day);
+    final days = endDate.difference(afterMonths).inDays;
+    if (days < 0 || days > 31) return null;
+    return (months, days);
+  }
+
+  /// Returns (months, days) for display when using end date. Uses calendar months so switching modes is round-trip consistent.
+  (int months, int days)? _getDurationMonthsAndDaysFromEndDate() {
     if (_selectedStartDate == null || _selectedEndDate == null) return null;
-    if (!_selectedEndDate!.isAfter(_selectedStartDate!)) return null;
-    
-    final months = ((_selectedEndDate!.year - _selectedStartDate!.year) * 12) + 
-                   (_selectedEndDate!.month - _selectedStartDate!.month);
-    return months >= 1 && months <= 24 ? months : null;
+    return _calendarMonthsAndDaysBetween(_selectedStartDate!, _selectedEndDate!);
+  }
+
+  int? _calculateDurationMonthsFromEndDate() {
+    final pair = _getDurationMonthsAndDaysFromEndDate();
+    return pair?.$1;
   }
 
   DateTime? _calculateEndDateFromDuration() {
     if (_selectedStartDate == null || _durationController.text.isEmpty) return null;
     final months = int.tryParse(_durationController.text);
+    final days = int.tryParse(_durationDaysController.text) ?? 0;
     if (months == null || months < 1 || months > 24) return null;
-    
-    return DateTime(
+    if (days < 0 || days > 31) return null;
+    final afterMonths = DateTime(
       _selectedStartDate!.year,
       _selectedStartDate!.month + months,
       _selectedStartDate!.day,
     );
+    return afterMonths.add(Duration(days: days));
   }
 
   void _updateGoalType(GoalType type) {
@@ -188,6 +217,8 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
       unit,
     );
     int durationMonths;
+    int durationDays;
+    DateTime? goalEndDateOverride;
     if (_durationMode == _DurationMode.duration) {
       if (_durationController.text.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -199,9 +230,7 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
         return;
       }
       durationMonths = int.parse(_durationController.text);
-    } else {
-      final calculated = _calculateDurationFromEndDate();
-      if (calculated == null) {
+      if (durationMonths < 1 || durationMonths > 24) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(context.l10n.invalidDuration),
@@ -210,7 +239,40 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
         );
         return;
       }
-      durationMonths = calculated;
+      durationDays = int.tryParse(_durationDaysController.text) ?? 0;
+      if (durationDays < 0 || durationDays > 31) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(context.l10n.invalidDuration),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+        return;
+      }
+      goalEndDateOverride = null;
+    } else {
+      if (_selectedEndDate == null || !_selectedEndDate!.isAfter(_selectedStartDate ?? DateTime(0))) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(context.l10n.invalidDuration),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+        return;
+      }
+      goalEndDateOverride = _selectedEndDate;
+      final pair = _calendarMonthsAndDaysBetween(_selectedStartDate!, _selectedEndDate!);
+      if (pair == null || pair.$1 < 1 || pair.$1 > 24 || pair.$2 < 0 || pair.$2 > 31) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(context.l10n.invalidDuration),
+            backgroundColor: Theme.of(context).colorScheme.error,
+          ),
+        );
+        return;
+      }
+      durationMonths = pair.$1;
+      durationDays = pair.$2;
     }
 
     final updatedConfig = GoalConfiguration(
@@ -218,6 +280,8 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
       targetWeight: targetWeight,
       goalStartDate: _selectedStartDate ?? config.goalStartDate,
       durationMonths: durationMonths,
+      durationDays: durationDays,
+      goalEndDateOverride: goalEndDateOverride,
       type: _selectedGoalType ?? config.type,
       unit: config.unit,
       weekStartDay: config.weekStartDay,
@@ -521,7 +585,7 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
                       prefixIcon: const Icon(Icons.calendar_month_rounded),
                       suffixText: context.l10n.monthsUnit,
                     ),
-                    onChanged: (value) {
+                    onChanged: (_) {
                       setState(() {
                         _selectedEndDate = _calculateEndDateFromDuration();
                       });
@@ -532,6 +596,33 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
                       }
                       final months = int.tryParse(value);
                       if (months == null || months < 1 || months > 24) {
+                        return context.l10n.invalidDuration;
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _durationDaysController,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(2),
+                    ],
+                    decoration: InputDecoration(
+                      labelText: context.l10n.durationDays,
+                      hintText: context.l10n.durationDaysHint,
+                      prefixIcon: const Icon(Icons.today_rounded),
+                      suffixText: context.l10n.daysUnit,
+                    ),
+                    onChanged: (_) {
+                      setState(() {
+                        _selectedEndDate = _calculateEndDateFromDuration();
+                      });
+                    },
+                    validator: (value) {
+                      final days = int.tryParse(value ?? '');
+                      if (days != null && (days < 0 || days > 31)) {
                         return context.l10n.invalidDuration;
                       }
                       return null;
@@ -617,7 +708,7 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
                       ),
                     ),
                   ),
-                  if (_selectedEndDate != null && _calculateDurationFromEndDate() != null) ...[
+                  if (_selectedEndDate != null) ...[
                     const SizedBox(height: 12),
                     Card(
                       color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -632,11 +723,21 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
                             ),
                             const SizedBox(width: 8),
                             Expanded(
-                              child: Text(
-                                '${context.l10n.calculatedDuration}: ${_calculateDurationFromEndDate()} ${context.l10n.monthsUnit}',
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
+                              child: Builder(
+                                builder: (context) {
+                                  final pair = _getDurationMonthsAndDaysFromEndDate();
+                                  final durationStr = pair == null
+                                      ? '—'
+                                      : pair.$2 > 0
+                                          ? '${pair.$1} ${context.l10n.monthsUnit}, ${pair.$2} ${context.l10n.daysUnit}'
+                                          : '${pair.$1} ${context.l10n.monthsUnit}';
+                                  return Text(
+                                    '${context.l10n.calculatedDuration}: $durationStr',
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                        ),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -684,11 +785,22 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
                           ),
                           const SizedBox(height: 12),
                           Text(
-                            context.l10n.goalSummaryFromTo(
-                              _initialWeightController.text,
-                              _targetWeightController.text,
-                              int.tryParse(_durationController.text) ?? 0,
-                            ),
+                            () {
+                              final months = int.tryParse(_durationController.text) ?? 0;
+                              final days = int.tryParse(_durationDaysController.text) ?? 0;
+                              return days > 0
+                                  ? context.l10n.goalSummaryFromToWithDays(
+                                      _initialWeightController.text,
+                                      _targetWeightController.text,
+                                      months,
+                                      days,
+                                    )
+                                  : context.l10n.goalSummaryFromTo(
+                                      _initialWeightController.text,
+                                      _targetWeightController.text,
+                                      months,
+                                    );
+                            }(),
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                   color: Theme.of(context)
                                       .colorScheme
@@ -780,9 +892,10 @@ class _EditGoalScreenState extends ConsumerState<EditGoalScreen> {
         setState(() {
           _durationMode = mode;
           if (mode == _DurationMode.duration && _selectedEndDate != null) {
-            final months = _calculateDurationFromEndDate();
-            if (months != null) {
-              _durationController.text = months.toString();
+            final pair = _getDurationMonthsAndDaysFromEndDate();
+            if (pair != null) {
+              _durationController.text = pair.$1.toString();
+              _durationDaysController.text = pair.$2.toString();
             }
           } else if (mode == _DurationMode.endDate && _durationController.text.isNotEmpty) {
             _selectedEndDate = _calculateEndDateFromDuration();

@@ -33,7 +33,12 @@ class AppLocalizationsFr extends AppLocalizations {
   String get currentWeight => 'Poids Actuel';
 
   @override
-  String get progressToGoal => 'Progrès vers l\'objectif (+15kg)';
+  String get progressToGoal => 'Progrès vers l\'objectif';
+
+  @override
+  String progressToGoalWithAmount(String amount) {
+    return 'Progrès vers l\'objectif ($amount)';
+  }
 
   @override
   String get start => 'Départ';
@@ -203,7 +208,16 @@ class AppLocalizationsFr extends AppLocalizations {
   String get durationMonths => 'Durée (mois)';
 
   @override
+  String get durationDays => 'Jours en plus';
+
+  @override
   String get durationHint => 'Ex: 6';
+
+  @override
+  String get durationDaysHint => '0–31';
+
+  @override
+  String get daysUnit => 'jours';
 
   @override
   String get goalEndDate => 'Date de fin de l\'objectif';
@@ -232,6 +246,12 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String goalSummaryFromTo(String initial, String target, int months) {
     return 'Passer de ${initial}kg à ${target}kg en $months mois';
+  }
+
+  @override
+  String goalSummaryFromToWithDays(
+      String initial, String target, int months, int days) {
+    return 'Passer de ${initial}kg à ${target}kg en $months mois et $days jours';
   }
 
   @override
@@ -508,6 +528,55 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get goalWeight => 'Poids objectif';
+
+  @override
+  String get estimationCalculatorTitle => 'Projections';
+
+  @override
+  String get estimationCalculatorDescription =>
+      'Utilise votre rythme actuel pour estimer quand vous atteindrez un poids, ou le poids attendu à une date.';
+
+  @override
+  String get estimationCalculatorNeedData =>
+      'Ajoutez au moins 2 pesées pour utiliser le calculateur d\'estimation.';
+
+  @override
+  String estimationCurrentRate(String rate) {
+    return 'Rythme actuel : $rate par semaine';
+  }
+
+  @override
+  String get estimationWeightToDate => 'Quand vais-je atteindre ce poids ?';
+
+  @override
+  String get estimationWeightToDateHint => 'Saisir le poids cible';
+
+  @override
+  String estimationWeightToDateResult(String date) {
+    return 'Date estimée : $date';
+  }
+
+  @override
+  String get estimationWeightToDateInvalid =>
+      'Saisissez un poids dans la bonne direction (prise : au-dessus du actuel ; perte : en dessous).';
+
+  @override
+  String get estimationWeightToDateNoRate =>
+      'Le rythme actuel est nul ; ajoutez des données pour estimer.';
+
+  @override
+  String get estimationDateToWeight => 'Quel sera mon poids à cette date ?';
+
+  @override
+  String get estimationDateToWeightPick => 'Choisir une date';
+
+  @override
+  String estimationDateToWeightResult(String weight) {
+    return 'Poids estimé : $weight';
+  }
+
+  @override
+  String get estimationDateToWeightPast => 'Choisissez une date future.';
 
   @override
   String get chartGoalLine => 'Objectif';

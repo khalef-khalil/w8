@@ -33,7 +33,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get currentWeight => 'الوزن الحالي';
 
   @override
-  String get progressToGoal => 'التقدم نحو الهدف (+15 كجم)';
+  String get progressToGoal => 'التقدم نحو الهدف';
+
+  @override
+  String progressToGoalWithAmount(String amount) {
+    return 'التقدم نحو الهدف ($amount)';
+  }
 
   @override
   String get start => 'البداية';
@@ -199,7 +204,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get durationMonths => 'المدة (أشهر)';
 
   @override
+  String get durationDays => 'أيام إضافية';
+
+  @override
   String get durationHint => 'مثال: 6';
+
+  @override
+  String get durationDaysHint => '0–31';
+
+  @override
+  String get daysUnit => 'أيام';
 
   @override
   String get goalEndDate => 'تاريخ نهاية الهدف';
@@ -228,6 +242,12 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String goalSummaryFromTo(String initial, String target, int months) {
     return 'من $initial كجم إلى $target كجم في $months أشهر';
+  }
+
+  @override
+  String goalSummaryFromToWithDays(
+      String initial, String target, int months, int days) {
+    return 'من $initial كجم إلى $target كجم في $months أشهر و $days أيام';
   }
 
   @override
@@ -502,6 +522,55 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get goalWeight => 'الوزن المستهدف';
+
+  @override
+  String get estimationCalculatorTitle => 'التوقعات';
+
+  @override
+  String get estimationCalculatorDescription =>
+      'تستخدم معدلك الحالي لتقدير متى تصل إلى وزن معين، أو الوزن المتوقع في تاريخ معين.';
+
+  @override
+  String get estimationCalculatorNeedData =>
+      'أضف وزنين على الأقل لاستخدام حاسبة التقدير.';
+
+  @override
+  String estimationCurrentRate(String rate) {
+    return 'المعدل الحالي: $rate في الأسبوع';
+  }
+
+  @override
+  String get estimationWeightToDate => 'متى سأصل إلى هذا الوزن؟';
+
+  @override
+  String get estimationWeightToDateHint => 'أدخل الوزن المستهدف';
+
+  @override
+  String estimationWeightToDateResult(String date) {
+    return 'التاريخ المتوقع: $date';
+  }
+
+  @override
+  String get estimationWeightToDateInvalid =>
+      'أدخل وزناً في الاتجاه الصحيح (زيادة: أعلى من الحالي؛ خسارة: أقل من الحالي).';
+
+  @override
+  String get estimationWeightToDateNoRate =>
+      'المعدل الحالي صفر؛ أضف المزيد من البيانات للتقدير.';
+
+  @override
+  String get estimationDateToWeight => 'ما الوزن المتوقع في هذا التاريخ؟';
+
+  @override
+  String get estimationDateToWeightPick => 'اختر تاريخاً';
+
+  @override
+  String estimationDateToWeightResult(String weight) {
+    return 'الوزن المتوقع: $weight';
+  }
+
+  @override
+  String get estimationDateToWeightPast => 'اختر تاريخاً مستقبلياً.';
 
   @override
   String get chartGoalLine => 'الهدف';

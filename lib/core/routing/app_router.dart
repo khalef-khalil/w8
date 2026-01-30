@@ -12,6 +12,7 @@ import '../../features/onboarding/views/language_selection_screen.dart';
 import '../../features/settings/views/edit_goal_screen.dart';
 import '../../features/settings/views/education_page.dart';
 import '../../features/settings/views/achievements_page.dart';
+import '../../features/home/views/estimation_calculator_screen.dart';
 import '../../core/services/goal_storage_service.dart';
 
 /// Custom page transitions
@@ -160,6 +161,14 @@ final appRouter = GoRouter(
       name: 'achievements',
       pageBuilder: (context, state) => _buildPageWithTransition(
         const AchievementsPage(),
+        state,
+      ),
+    ),
+    GoRoute(
+      path: '/estimation-calculator',
+      name: 'estimation-calculator',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const EstimationCalculatorScreen(),
         state,
       ),
     ),

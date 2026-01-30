@@ -117,6 +117,19 @@ class HomeScreen extends ConsumerWidget {
       progress.weightGained,
       unit,
     );
+    final totalChange = progress.initialWeight != null &&
+            progress.targetWeight != null
+        ? (progress.targetWeight! - progress.initialWeight!).abs()
+        : null;
+    final totalChangeDisplay = totalChange != null
+        ? WeightConverter.forDisplay(totalChange, unit)
+        : null;
+    final goalType = goalConfig?.type ?? GoalType.gain;
+    final amountStr = totalChangeDisplay != null
+        ? (goalType == GoalType.gain
+            ? '+${totalChangeDisplay.toStringAsFixed(2)} $unitStr'
+            : '−${totalChangeDisplay.toStringAsFixed(2)} $unitStr')
+        : null;
 
     return Card(
       child: Padding(
@@ -173,7 +186,9 @@ class HomeScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              context.l10n.progressToGoal,
+              amountStr != null
+                  ? context.l10n.progressToGoalWithAmount(amountStr)
+                  : context.l10n.progressToGoal,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -205,7 +220,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 Flexible(
                   child: Text(
-                    '${gainedDisplay.toStringAsFixed(2)} $unitStr / ${targetDisplay != null ? '${targetDisplay.toStringAsFixed(2)} $unitStr' : '—'}',
+                    '${gainedDisplay.toStringAsFixed(2)} $unitStr / ${totalChangeDisplay != null ? '${totalChangeDisplay.toStringAsFixed(2)} $unitStr' : '—'}',
                     style: Theme.of(context).textTheme.bodySmall,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.end,

@@ -213,6 +213,19 @@ class OverviewScreen extends ConsumerWidget {
       progress.weightGained,
       unit,
     );
+    final totalChange = progress.initialWeight != null &&
+            progress.targetWeight != null
+        ? (progress.targetWeight! - progress.initialWeight!).abs()
+        : null;
+    final totalChangeDisplay = totalChange != null
+        ? WeightConverter.forDisplay(totalChange, unit)
+        : null;
+    final goalType = state.goalConfig?.type ?? GoalType.gain;
+    final amountStr = totalChangeDisplay != null
+        ? (goalType == GoalType.gain
+            ? '+${totalChangeDisplay.toStringAsFixed(2)} $unitStr'
+            : '−${totalChangeDisplay.toStringAsFixed(2)} $unitStr')
+        : null;
 
     return Card(
       child: Padding(
@@ -272,7 +285,9 @@ class OverviewScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              context.l10n.progressToGoal,
+              amountStr != null
+                  ? context.l10n.progressToGoalWithAmount(amountStr)
+                  : context.l10n.progressToGoal,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: Theme.of(context).colorScheme.onSurfaceVariant,
                   ),
@@ -295,7 +310,7 @@ class OverviewScreen extends ConsumerWidget {
                 ),
                 Flexible(
                   child: Text(
-                    '${gainedDisplay.toStringAsFixed(2)} $unitStr / ${targetDisplay != null ? '${targetDisplay.toStringAsFixed(2)} $unitStr' : '—'}',
+                    '${gainedDisplay.toStringAsFixed(2)} $unitStr / ${totalChangeDisplay != null ? '${totalChangeDisplay.toStringAsFixed(2)} $unitStr' : '—'}',
                     style: Theme.of(context).textTheme.bodySmall,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.end,
@@ -387,6 +402,17 @@ class OverviewScreen extends ConsumerWidget {
     final unitStr = unit == WeightUnit.lbs ? l10n.lbsUnit : l10n.kgUnit;
     final currentDisplay = WeightConverter.forDisplay(p.currentWeight!, unit);
     final targetDisplay = WeightConverter.forDisplay(p.targetWeight!, unit);
+    final totalChange = p.initialWeight != null && p.targetWeight != null
+        ? (p.targetWeight! - p.initialWeight!).abs()
+        : null;
+    final totalChangeDisplay =
+        totalChange != null ? WeightConverter.forDisplay(totalChange, unit) : null;
+    final goalType = state.goalConfig?.type ?? GoalType.gain;
+    final amountStr = totalChangeDisplay != null
+        ? (goalType == GoalType.gain
+            ? '+${totalChangeDisplay.toStringAsFixed(2)} $unitStr'
+            : '−${totalChangeDisplay.toStringAsFixed(2)} $unitStr')
+        : null;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -448,7 +474,9 @@ class OverviewScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              l10n.progressToGoal,
+              amountStr != null
+                  ? l10n.progressToGoalWithAmount(amountStr)
+                  : l10n.progressToGoal,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context)
                         .colorScheme

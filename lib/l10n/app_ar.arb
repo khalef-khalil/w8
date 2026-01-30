@@ -8,7 +8,13 @@
   "startTrackingPrompt": "ابدأ بتتبع وزنك",
   "addFirstWeighIn": "أضف أول قياس وزن للبدء",
   "currentWeight": "الوزن الحالي",
-  "progressToGoal": "التقدم نحو الهدف (+15 كجم)",
+  "progressToGoal": "التقدم نحو الهدف",
+  "progressToGoalWithAmount": "التقدم نحو الهدف ({amount})",
+  "@progressToGoalWithAmount": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
   "start": "البداية",
   "goal": "الهدف",
   "weeks": "أسابيع",
@@ -70,7 +76,10 @@
   "goalStartDate": "تاريخ بداية الهدف",
   "selectDate": "اختر تاريخاً",
   "durationMonths": "المدة (أشهر)",
+  "durationDays": "أيام إضافية",
   "durationHint": "مثال: 6",
+  "durationDaysHint": "0–31",
+  "daysUnit": "أيام",
   "goalEndDate": "تاريخ نهاية الهدف",
   "selectEndDate": "اختر تاريخ النهاية",
   "useDuration": "استخدم المدة",
@@ -85,6 +94,15 @@
       "initial": {"type": "String"},
       "target": {"type": "String"},
       "months": {"type": "int"}
+    }
+  },
+  "goalSummaryFromToWithDays": "من {initial} كجم إلى {target} كجم في {months} أشهر و {days} أيام",
+  "@goalSummaryFromToWithDays": {
+    "placeholders": {
+      "initial": {"type": "String"},
+      "target": {"type": "String"},
+      "months": {"type": "int"},
+      "days": {"type": "int"}
     }
   },
   "perMonth": "≈ {rate} كجم/شهر",
@@ -250,6 +268,34 @@
   },
   "weeksLeftLabel": "الأسابيع المتبقية",
   "goalWeight": "الوزن المستهدف",
+  "estimationCalculatorTitle": "التوقعات",
+  "estimationCalculatorDescription": "تستخدم معدلك الحالي لتقدير متى تصل إلى وزن معين، أو الوزن المتوقع في تاريخ معين.",
+  "estimationCalculatorNeedData": "أضف وزنين على الأقل لاستخدام حاسبة التقدير.",
+  "estimationCurrentRate": "المعدل الحالي: {rate} في الأسبوع",
+  "@estimationCurrentRate": {
+    "placeholders": {
+      "rate": {"type": "String"}
+    }
+  },
+  "estimationWeightToDate": "متى سأصل إلى هذا الوزن؟",
+  "estimationWeightToDateHint": "أدخل الوزن المستهدف",
+  "estimationWeightToDateResult": "التاريخ المتوقع: {date}",
+  "@estimationWeightToDateResult": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "estimationWeightToDateInvalid": "أدخل وزناً في الاتجاه الصحيح (زيادة: أعلى من الحالي؛ خسارة: أقل من الحالي).",
+  "estimationWeightToDateNoRate": "المعدل الحالي صفر؛ أضف المزيد من البيانات للتقدير.",
+  "estimationDateToWeight": "ما الوزن المتوقع في هذا التاريخ؟",
+  "estimationDateToWeightPick": "اختر تاريخاً",
+  "estimationDateToWeightResult": "الوزن المتوقع: {weight}",
+  "@estimationDateToWeightResult": {
+    "placeholders": {
+      "weight": {"type": "String"}
+    }
+  },
+  "estimationDateToWeightPast": "اختر تاريخاً مستقبلياً.",
   "chartGoalLine": "الهدف",
   "chartStartLine": "البداية",
 

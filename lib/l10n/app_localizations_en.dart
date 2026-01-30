@@ -33,7 +33,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentWeight => 'Current Weight';
 
   @override
-  String get progressToGoal => 'Progress to goal (+15kg)';
+  String get progressToGoal => 'Progress to goal';
+
+  @override
+  String progressToGoalWithAmount(String amount) {
+    return 'Progress to goal ($amount)';
+  }
 
   @override
   String get start => 'Start';
@@ -202,7 +207,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get durationMonths => 'Duration (months)';
 
   @override
+  String get durationDays => 'Extra days';
+
+  @override
   String get durationHint => 'e.g. 6';
+
+  @override
+  String get durationDaysHint => '0–31';
+
+  @override
+  String get daysUnit => 'days';
 
   @override
   String get goalEndDate => 'Goal End Date';
@@ -231,6 +245,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String goalSummaryFromTo(String initial, String target, int months) {
     return 'From ${initial}kg to ${target}kg in $months months';
+  }
+
+  @override
+  String goalSummaryFromToWithDays(
+      String initial, String target, int months, int days) {
+    return 'From ${initial}kg to ${target}kg in $months months and $days days';
   }
 
   @override
@@ -506,6 +526,55 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get goalWeight => 'Goal weight';
+
+  @override
+  String get estimationCalculatorTitle => 'Projections';
+
+  @override
+  String get estimationCalculatorDescription =>
+      'Uses your current rate to estimate when you\'ll reach a weight, or what weight to expect by a date.';
+
+  @override
+  String get estimationCalculatorNeedData =>
+      'Add at least 2 weigh-ins to use the estimation calculator.';
+
+  @override
+  String estimationCurrentRate(String rate) {
+    return 'Current rate: $rate per week';
+  }
+
+  @override
+  String get estimationWeightToDate => 'When will I reach this weight?';
+
+  @override
+  String get estimationWeightToDateHint => 'Enter target weight';
+
+  @override
+  String estimationWeightToDateResult(String date) {
+    return 'Estimated date: $date';
+  }
+
+  @override
+  String get estimationWeightToDateInvalid =>
+      'Enter a weight in the right direction (gain: above current; loss: below current).';
+
+  @override
+  String get estimationWeightToDateNoRate =>
+      'Current rate is zero; add more data to estimate.';
+
+  @override
+  String get estimationDateToWeight => 'What will my weight be by this date?';
+
+  @override
+  String get estimationDateToWeightPick => 'Pick a date';
+
+  @override
+  String estimationDateToWeightResult(String weight) {
+    return 'Estimated weight: $weight';
+  }
+
+  @override
+  String get estimationDateToWeightPast => 'Pick a future date.';
 
   @override
   String get chartGoalLine => 'Goal';

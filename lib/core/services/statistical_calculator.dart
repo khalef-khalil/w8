@@ -22,9 +22,13 @@ class StatisticalCalculator {
       onlyCompleteWeeks: true,
     );
 
-    if (weeklyMedians.length < 2) {
-      // Pas assez de données, utiliser la méthode simple
-      return _calculateSimpleRate(entries, goal);
+    // Avec moins de 3 semaines complètes, la régression sur 2 points (médiane
+    // semaine 1 vs semaine 2) peut sous-estimer le taux car la 1re médiane
+    // peut être plus haute que le premier poids saisi (ex: 61.3 vs 61.15).
+    // On utilise la période de suivi réelle (1re entrée → dernière) pour
+    // refléter le progrès réel (61.15→61.97 en 6 jours ≈ 0.96 kg/semaine).
+    if (weeklyMedians.length < 3) {
+      return _calculateSimpleRate(entries, goal, useTrackingPeriod: true);
     }
 
     // Prendre les dernières N semaines
@@ -33,7 +37,7 @@ class StatisticalCalculator {
         : weeklyMedians;
 
     if (recentMedians.length < 2) {
-      return _calculateSimpleRate(entries, goal);
+      return _calculateSimpleRate(entries, goal, useTrackingPeriod: true);
     }
 
     // Utiliser la régression linéaire avec pondération temporelle
@@ -93,18 +97,33 @@ class StatisticalCalculator {
     return slope;
   }
 
-  /// Calculer la vitesse simple (méthode de fallback)
+  /// Calculer la vitesse simple (méthode de fallback).
+  /// When [useTrackingPeriod] is true (e.g. we have no/few complete weeks), use
+  /// first-entry to last-entry so the rate reflects "since I started tracking"
+  /// and matches user expectation (e.g. 61.15→61.97 in 6 days ≈ 0.96 kg/week).
   static double _calculateSimpleRate(
     List<WeightEntry> entries,
-    GoalConfiguration goal,
-  ) {
-    final daysElapsed = DateTime.now().difference(goal.goalStartDate).inDays;
-    if (daysElapsed == 0) return 0.0;
+    GoalConfiguration goal, {
+    bool useTrackingPeriod = false,
+  }) {
+    if (entries.isEmpty) return 0.0;
+    final sorted = List<WeightEntry>.from(entries)
+      ..sort((a, b) => a.date.compareTo(b.date));
+    final firstEntry = sorted.first;
+    final lastEntry = sorted.last;
 
-    final currentWeight = entries.isNotEmpty
-        ? entries.last.weight
-        : goal.initialWeight;
-    final weightChange = currentWeight - goal.initialWeight;
+    int daysElapsed;
+    double weightChange;
+    if (useTrackingPeriod && sorted.length >= 2) {
+      daysElapsed = DateTime.now().difference(firstEntry.date).inDays;
+      if (daysElapsed == 0) return 0.0;
+      weightChange = lastEntry.weight - firstEntry.weight;
+    } else {
+      daysElapsed = DateTime.now().difference(goal.goalStartDate).inDays;
+      if (daysElapsed == 0) return 0.0;
+      final currentWeight = lastEntry.weight;
+      weightChange = currentWeight - goal.initialWeight;
+    }
     return (weightChange / daysElapsed) * 7;
   }
 

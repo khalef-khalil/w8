@@ -21,8 +21,8 @@ class ProgressMetrics {
   /// Progression basée sur le temps écoulé (0.0 à 1.0)
   double get progressByTime {
     final elapsed = calculationDate.difference(goal.goalStartDate).inDays;
-    final total = goal.durationMonths * 30; // Approximation
-    return (elapsed / total).clamp(0.0, 1.0);
+    final total = goal.totalDurationDays;
+    return total > 0 ? (elapsed / total).clamp(0.0, 1.0) : 0.0;
   }
 
   /// Progression basée sur le poids (0.0 à 1.0)
@@ -164,8 +164,7 @@ class ProgressMetrics {
     final actualProgress = progressByWeight;
     
     final diff = actualProgress - expectedProgress;
-    final totalDays = goal.durationMonths * 30;
-    
+    final totalDays = goal.totalDurationDays;
     return (diff * totalDays).round();
   }
 

@@ -75,6 +75,17 @@ class ProgressScreen extends ConsumerWidget {
     final unitStr = unit == WeightUnit.lbs ? l10n.lbsUnit : l10n.kgUnit;
     final currentDisplay = WeightConverter.forDisplay(p.currentWeight!, unit);
     final targetDisplay = WeightConverter.forDisplay(p.targetWeight!, unit);
+    final totalChange = p.initialWeight != null && p.targetWeight != null
+        ? (p.targetWeight! - p.initialWeight!).abs()
+        : null;
+    final totalChangeDisplay =
+        totalChange != null ? WeightConverter.forDisplay(totalChange, unit) : null;
+    final goalType = state.goalConfig?.type ?? GoalType.gain;
+    final amountStr = totalChangeDisplay != null
+        ? (goalType == GoalType.gain
+            ? '+${totalChangeDisplay.toStringAsFixed(2)} $unitStr'
+            : '−${totalChangeDisplay.toStringAsFixed(2)} $unitStr')
+        : null;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -131,7 +142,9 @@ class ProgressScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              l10n.progressToGoal,
+              amountStr != null
+                  ? l10n.progressToGoalWithAmount(amountStr)
+                  : l10n.progressToGoal,
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context)
                         .colorScheme

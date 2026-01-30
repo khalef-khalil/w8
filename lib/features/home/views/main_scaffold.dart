@@ -60,14 +60,23 @@ class _MainScaffoldState extends State<MainScaffold> {
         actions: [
           if (_currentIndex == 0) ...[
             Semantics(
-              label: l10n.addWeight,
+              label: l10n.estimationCalculatorTitle,
               button: true,
               child: IconButton(
-                icon: const Icon(Icons.add),
-                onPressed: () => context.go('/add-weight'),
-                tooltip: l10n.addWeight,
+                icon: const Icon(Icons.calculate_outlined),
+                onPressed: () => context.go('/estimation-calculator'),
+                tooltip: l10n.estimationCalculatorTitle,
               ),
             ),
+            Semantics(
+              label: l10n.addWeight,
+                button: true,
+                child: IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () => context.go('/add-weight'),
+                  tooltip: l10n.addWeight,
+                ),
+              ),
           ],
         ],
       ),
