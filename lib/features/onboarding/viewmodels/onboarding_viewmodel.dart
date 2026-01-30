@@ -30,9 +30,22 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
     state = state.copyWith(goalStartDate: date);
   }
 
-  /// Mettre à jour la durée
+  /// Mettre à jour la durée (mois)
   void setDurationMonths(int months) {
     state = state.copyWith(durationMonths: months);
+  }
+
+  /// Mettre à jour les jours supplémentaires de la durée
+  void setDurationDays(int days) {
+    state = state.copyWith(durationDays: days);
+  }
+
+  /// Mettre à jour la date de fin (mode « utiliser la date de fin »). Passer null pour effacer.
+  void setGoalEndDateOverride(DateTime? endDate) {
+    state = state.copyWith(
+      goalEndDateOverride: endDate,
+      clearGoalEndDateOverride: endDate == null,
+    );
   }
 
   /// Mettre à jour l'unité
@@ -53,6 +66,8 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
         targetWeight: state.targetWeight!,
         goalStartDate: state.goalStartDate!,
         durationMonths: state.durationMonths!,
+        durationDays: state.durationDays ?? 0,
+        goalEndDateOverride: state.goalEndDateOverride,
         type: state.goalType!,
         unit: state.unit!,
         weekStartDay: state.weekStartDay!,
@@ -111,6 +126,10 @@ class OnboardingViewModel extends StateNotifier<OnboardingState> {
         if (state.durationMonths == null || state.durationMonths! < 1) {
           return ValidationResult.error(l10n.enterDuration);
         }
+        final days = state.durationDays ?? 0;
+        if (days < 0 || days > 31) {
+          return ValidationResult.error(l10n.invalidDuration);
+        }
         if (state.goalType == GoalType.gain &&
             state.targetWeight! <= state.initialWeight!) {
           return ValidationResult.error(l10n.targetMustBeGreater);
@@ -133,6 +152,8 @@ class OnboardingState {
   final double? targetWeight;
   final DateTime? goalStartDate;
   final int? durationMonths;
+  final int? durationDays;
+  final DateTime? goalEndDateOverride;
   final WeightUnit? unit;
   final WeekStartDay? weekStartDay;
   final String? warningMessage;
@@ -143,6 +164,8 @@ class OnboardingState {
     this.targetWeight,
     this.goalStartDate,
     this.durationMonths,
+    this.durationDays,
+    this.goalEndDateOverride,
     this.unit,
     this.weekStartDay,
     this.warningMessage,
@@ -162,6 +185,9 @@ class OnboardingState {
     double? targetWeight,
     DateTime? goalStartDate,
     int? durationMonths,
+    int? durationDays,
+    DateTime? goalEndDateOverride,
+    bool clearGoalEndDateOverride = false,
     WeightUnit? unit,
     WeekStartDay? weekStartDay,
     String? warningMessage,
@@ -172,6 +198,8 @@ class OnboardingState {
       targetWeight: targetWeight ?? this.targetWeight,
       goalStartDate: goalStartDate ?? this.goalStartDate,
       durationMonths: durationMonths ?? this.durationMonths,
+      durationDays: durationDays ?? this.durationDays,
+      goalEndDateOverride: clearGoalEndDateOverride ? null : (goalEndDateOverride ?? this.goalEndDateOverride),
       unit: unit ?? this.unit,
       weekStartDay: weekStartDay ?? this.weekStartDay,
       warningMessage: warningMessage ?? this.warningMessage,

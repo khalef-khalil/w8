@@ -23,6 +23,7 @@ class _GoalConfigurationScreenState
   final _initialWeightController = TextEditingController();
   final _targetWeightController = TextEditingController();
   final _durationController = TextEditingController(text: '6');
+  final _durationDaysController = TextEditingController(text: '0');
   _DurationMode _durationMode = _DurationMode.duration;
   DateTime? _selectedEndDate;
 
@@ -31,6 +32,7 @@ class _GoalConfigurationScreenState
     _initialWeightController.dispose();
     _targetWeightController.dispose();
     _durationController.dispose();
+    _durationDaysController.dispose();
     super.dispose();
   }
 
@@ -48,6 +50,13 @@ class _GoalConfigurationScreenState
       }
       if (state.durationMonths != null) {
         _durationController.text = state.durationMonths!.toString();
+      }
+      if (state.durationDays != null) {
+        _durationDaysController.text = state.durationDays!.toString();
+      }
+      if (state.goalEndDateOverride != null) {
+        _selectedEndDate = state.goalEndDateOverride;
+        _durationMode = _DurationMode.endDate;
       }
     });
   }
@@ -70,18 +79,10 @@ class _GoalConfigurationScreenState
 
     if (picked != null) {
       ref.read(onboardingViewModelProvider.notifier).setGoalStartDate(picked);
-      // Recalculate end date if duration mode
-      if (_durationMode == _DurationMode.duration && _durationController.text.isNotEmpty) {
-        final months = int.tryParse(_durationController.text);
-        if (months != null && months > 0) {
-          setState(() {
-            _selectedEndDate = DateTime(
-              picked.year,
-              picked.month + months,
-              picked.day,
-            );
-          });
-        }
+      if (_durationMode == _DurationMode.duration) {
+        setState(() {
+          _selectedEndDate = _calculateEndDateFromDuration();
+        });
       }
     }
   }
@@ -102,30 +103,50 @@ class _GoalConfigurationScreenState
     );
 
     if (picked != null) {
+      final notifier = ref.read(onboardingViewModelProvider.notifier);
       setState(() {
         _selectedEndDate = picked;
-        // Calculate duration from end date
         if (startDate.isBefore(picked)) {
-          final months = ((picked.year - startDate.year) * 12) + 
-                         (picked.month - startDate.month);
-          if (months >= 1 && months <= 24) {
-            _durationController.text = months.toString();
-            ref.read(onboardingViewModelProvider.notifier).setDurationMonths(months);
+          final pair = _calendarMonthsAndDaysBetween(startDate, picked);
+          if (pair != null) {
+            _durationController.text = pair.$1.toString();
+            _durationDaysController.text = pair.$2.toString();
+            notifier.setDurationMonths(pair.$1);
+            notifier.setDurationDays(pair.$2);
+            notifier.setGoalEndDateOverride(picked);
           }
         }
       });
     }
   }
 
-  int? _calculateDurationFromEndDate() {
+  /// Inverse of duration → end date: (months, days) such that start + months calendar + days = end.
+  (int months, int days)? _calendarMonthsAndDaysBetween(DateTime start, DateTime end) {
+    final startDate = DateTime(start.year, start.month, start.day);
+    final endDate = DateTime(end.year, end.month, end.day);
+    if (!endDate.isAfter(startDate)) return null;
+    int months = 0;
+    for (int m = 1; m <= 24; m++) {
+      final candidate = DateTime(startDate.year, startDate.month + m, startDate.day);
+      if (candidate.isAfter(endDate)) break;
+      months = m;
+    }
+    final afterMonths = DateTime(startDate.year, startDate.month + months, startDate.day);
+    final days = endDate.difference(afterMonths).inDays;
+    if (days < 0 || days > 31) return null;
+    return (months, days);
+  }
+
+  (int months, int days)? _getDurationMonthsAndDaysFromEndDate() {
     final state = ref.read(onboardingViewModelProvider);
     final startDate = state.goalStartDate ?? DateTime.now();
     if (_selectedEndDate == null) return null;
-    if (!_selectedEndDate!.isAfter(startDate)) return null;
-    
-    final months = ((_selectedEndDate!.year - startDate.year) * 12) + 
-                   (_selectedEndDate!.month - startDate.month);
-    return months >= 1 && months <= 24 ? months : null;
+    return _calendarMonthsAndDaysBetween(startDate, _selectedEndDate!);
+  }
+
+  int? _calculateDurationMonthsFromEndDate() {
+    final pair = _getDurationMonthsAndDaysFromEndDate();
+    return pair?.$1;
   }
 
   DateTime? _calculateEndDateFromDuration() {
@@ -133,13 +154,15 @@ class _GoalConfigurationScreenState
     final startDate = state.goalStartDate ?? DateTime.now();
     if (_durationController.text.isEmpty) return null;
     final months = int.tryParse(_durationController.text);
+    final days = int.tryParse(_durationDaysController.text) ?? 0;
     if (months == null || months < 1 || months > 24) return null;
-    
-    return DateTime(
+    if (days < 0 || days > 31) return null;
+    final afterMonths = DateTime(
       startDate.year,
       startDate.month + months,
       startDate.day,
     );
+    return afterMonths.add(Duration(days: days));
   }
 
   void _updateGoalType(GoalType type) {
@@ -410,39 +433,85 @@ class _GoalConfigurationScreenState
 
                 // Duration input (when duration mode)
                 if (_durationMode == _DurationMode.duration) ...[
-                  TextFormField(
-                    controller: _durationController,
-                    keyboardType: TextInputType.number,
-                    inputFormatters: [
-                      FilteringTextInputFormatter.digitsOnly,
-                      LengthLimitingTextInputFormatter(2),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _durationController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(2),
+                          ],
+                          decoration: InputDecoration(
+                            labelText: context.l10n.durationMonths,
+                            hintText: context.l10n.durationHint,
+                            prefixIcon: const Icon(Icons.calendar_month_rounded),
+                            suffixText: context.l10n.monthsUnit,
+                          ),
+                          onChanged: (value) {
+                            final notifier = ref.read(onboardingViewModelProvider.notifier);
+                            final months = int.tryParse(value);
+                            final days = int.tryParse(_durationDaysController.text) ?? 0;
+                            if (months != null && months >= 1 && months <= 24) {
+                              notifier.setDurationMonths(months);
+                              notifier.setDurationDays(days.clamp(0, 31));
+                              notifier.setGoalEndDateOverride(null);
+                              setState(() {
+                                _selectedEndDate = _calculateEndDateFromDuration();
+                              });
+                            }
+                          },
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return context.l10n.enterDuration;
+                            }
+                            final months = int.tryParse(value);
+                            if (months == null || months < 1 || months > 24) {
+                              return context.l10n.invalidDuration;
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _durationDaysController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            LengthLimitingTextInputFormatter(2),
+                          ],
+                          decoration: InputDecoration(
+                            labelText: context.l10n.durationDays,
+                            hintText: context.l10n.durationDaysHint,
+                            suffixText: context.l10n.daysUnit,
+                          ),
+                          onChanged: (value) {
+                            final notifier = ref.read(onboardingViewModelProvider.notifier);
+                            final months = int.tryParse(_durationController.text);
+                            final days = int.tryParse(value) ?? 0;
+                            if (months != null && months >= 1 && months <= 24) {
+                              notifier.setDurationMonths(months);
+                              notifier.setDurationDays(days.clamp(0, 31));
+                              notifier.setGoalEndDateOverride(null);
+                              setState(() {
+                                _selectedEndDate = _calculateEndDateFromDuration();
+                              });
+                            }
+                          },
+                          validator: (value) {
+                            final days = int.tryParse(value ?? '');
+                            if (days != null && (days < 0 || days > 31)) {
+                              return context.l10n.invalidDuration;
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
                     ],
-                    decoration: InputDecoration(
-                      labelText: context.l10n.durationMonths,
-                      hintText: context.l10n.durationHint,
-                      prefixIcon: const Icon(Icons.calendar_month_rounded),
-                      suffixText: context.l10n.monthsUnit,
-                    ),
-                    onChanged: (value) {
-                      final months = int.tryParse(value);
-                      if (months != null && months > 0) {
-                        ref.read(onboardingViewModelProvider.notifier)
-                            .setDurationMonths(months);
-                        setState(() {
-                          _selectedEndDate = _calculateEndDateFromDuration();
-                        });
-                      }
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return context.l10n.enterDuration;
-                      }
-                      final months = int.tryParse(value);
-                      if (months == null || months < 1 || months > 24) {
-                        return context.l10n.invalidDuration;
-                      }
-                      return null;
-                    },
                   ),
                   if (_selectedEndDate != null) ...[
                     const SizedBox(height: 12),
@@ -524,7 +593,7 @@ class _GoalConfigurationScreenState
                       ),
                     ),
                   ),
-                  if (_selectedEndDate != null && _calculateDurationFromEndDate() != null) ...[
+                  if (_selectedEndDate != null) ...[
                     const SizedBox(height: 12),
                     Card(
                       color: Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -539,11 +608,21 @@ class _GoalConfigurationScreenState
                             ),
                             const SizedBox(width: 8),
                             Expanded(
-                              child: Text(
-                                '${context.l10n.calculatedDuration}: ${_calculateDurationFromEndDate()} ${context.l10n.monthsUnit}',
-                                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                                    ),
+                              child: Builder(
+                                builder: (context) {
+                                  final pair = _getDurationMonthsAndDaysFromEndDate();
+                                  final durationStr = pair == null
+                                      ? '—'
+                                      : pair.$2 > 0
+                                          ? '${pair.$1} ${context.l10n.monthsUnit}, ${pair.$2} ${context.l10n.daysUnit}'
+                                          : '${pair.$1} ${context.l10n.monthsUnit}';
+                                  return Text(
+                                    '${context.l10n.calculatedDuration}: $durationStr',
+                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                                        ),
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -558,7 +637,7 @@ class _GoalConfigurationScreenState
                 if (state.initialWeight != null &&
                     state.targetWeight != null &&
                     ((_durationMode == _DurationMode.duration && state.durationMonths != null) ||
-                     (_durationMode == _DurationMode.endDate && _selectedEndDate != null && _calculateDurationFromEndDate() != null)))
+                     (_durationMode == _DurationMode.endDate && _selectedEndDate != null && _getDurationMonthsAndDaysFromEndDate() != null)))
                   Card(
                     color: Theme.of(context).colorScheme.primaryContainer,
                     child: Padding(
@@ -590,35 +669,52 @@ class _GoalConfigurationScreenState
                             ],
                           ),
                           const SizedBox(height: 12),
-                          Text(
-                            context.l10n.goalSummaryFromTo(
-                              state.initialWeight!.toStringAsFixed(2),
-                              state.targetWeight!.toStringAsFixed(2),
-                              _durationMode == _DurationMode.duration
+                          Builder(
+                            builder: (context) {
+                              final months = _durationMode == _DurationMode.duration
                                   ? state.durationMonths!
-                                  : (_calculateDurationFromEndDate() ?? 0),
-                            ),
-                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onPrimaryContainer,
-                                ),
-                          ),
-                          if ((_durationMode == _DurationMode.duration && state.durationMonths! > 0) ||
-                              (_durationMode == _DurationMode.endDate && _calculateDurationFromEndDate() != null && _calculateDurationFromEndDate()! > 0))
-                            Text(
-                              context.l10n.perMonth(
-                                ((state.targetWeight! - state.initialWeight!) / 
-                                 (_durationMode == _DurationMode.duration
-                                     ? state.durationMonths!
-                                     : (_calculateDurationFromEndDate() ?? 1))).toStringAsFixed(2),
-                              ),
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onPrimaryContainer,
+                                  : _calculateDurationMonthsFromEndDate() ?? 0;
+                              final days = _durationMode == _DurationMode.duration
+                                  ? (state.durationDays ?? 0)
+                                  : (_getDurationMonthsAndDaysFromEndDate()?.$2 ?? 0);
+                              final monthsForRate = months + (days / 30.0);
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    days > 0
+                                        ? context.l10n.goalSummaryFromToWithDays(
+                                            state.initialWeight!.toStringAsFixed(2),
+                                            state.targetWeight!.toStringAsFixed(2),
+                                            months,
+                                            days,
+                                          )
+                                        : context.l10n.goalSummaryFromTo(
+                                            state.initialWeight!.toStringAsFixed(2),
+                                            state.targetWeight!.toStringAsFixed(2),
+                                            months,
+                                          ),
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .onPrimaryContainer,
+                                        ),
                                   ),
-                            ),
+                                  if (monthsForRate > 0)
+                                    Text(
+                                      context.l10n.perMonth(
+                                        ((state.targetWeight! - state.initialWeight!) / monthsForRate).toStringAsFixed(2),
+                                      ),
+                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .onPrimaryContainer,
+                                          ),
+                                    ),
+                                ],
+                              );
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -701,16 +797,23 @@ class _GoalConfigurationScreenState
   ) {
     return InkWell(
       onTap: () {
+        final notifier = ref.read(onboardingViewModelProvider.notifier);
         setState(() {
           _durationMode = mode;
           if (mode == _DurationMode.duration && _selectedEndDate != null) {
-            final months = _calculateDurationFromEndDate();
-            if (months != null) {
-              _durationController.text = months.toString();
-              ref.read(onboardingViewModelProvider.notifier).setDurationMonths(months);
+            final pair = _getDurationMonthsAndDaysFromEndDate();
+            if (pair != null) {
+              _durationController.text = pair.$1.toString();
+              _durationDaysController.text = pair.$2.toString();
+              notifier.setDurationMonths(pair.$1);
+              notifier.setDurationDays(pair.$2);
+              notifier.setGoalEndDateOverride(null);
             }
           } else if (mode == _DurationMode.endDate && _durationController.text.isNotEmpty) {
             _selectedEndDate = _calculateEndDateFromDuration();
+            if (_selectedEndDate != null) {
+              notifier.setGoalEndDateOverride(_selectedEndDate);
+            }
           }
         });
       },
