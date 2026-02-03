@@ -109,8 +109,8 @@ class AchievementService {
       if (achievement != null) newAchievements.add(achievement);
     }
 
-    // Check first entry achievement
-    if (entries.length == 1 && !isUnlocked(AchievementType.firstEntry)) {
+    // Check first entry achievement (unlock when user has at least one entry)
+    if (entries.isNotEmpty && !isUnlocked(AchievementType.firstEntry)) {
       final achievement = await unlockAchievement(AchievementType.firstEntry, l10n);
       if (achievement != null) newAchievements.add(achievement);
     }
