@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../../models/weight_entry.dart';
 import '../models/goal_configuration.dart';
 
@@ -59,17 +61,29 @@ class AppDateUtils {
     return (difference / 7).floor();
   }
 
-  /// Obtenir les poids d'une semaine spécifique
+  /// Obtenir les poids d'une semaine spécifique.
+  /// Compares (year, month, day) so the full last day of the week is included
+  /// regardless of time or timezone.
   static List<double> getWeeklyWeights(
     List<WeightEntry> entries,
     DateTime weekStart,
   ) {
     final weekEnd = weekStart.add(const Duration(days: 6));
-    
+    final wsY = weekStart.year;
+    final wsM = weekStart.month;
+    final wsD = weekStart.day;
+    final weY = weekEnd.year;
+    final weM = weekEnd.month;
+    final weD = weekEnd.day;
+
+    bool inRange(int y, int m, int d) {
+      if (y < wsY || (y == wsY && (m < wsM || (m == wsM && d < wsD)))) return false;
+      if (y > weY || (y == weY && (m > weM || (m == weM && d > weD)))) return false;
+      return true;
+    }
+
     return entries
-        .where((entry) =>
-            entry.date.isAfter(weekStart.subtract(const Duration(days: 1))) &&
-            entry.date.isBefore(weekEnd.add(const Duration(days: 1))))
+        .where((entry) => inRange(entry.date.year, entry.date.month, entry.date.day))
         .map((entry) => entry.weight)
         .toList();
   }
@@ -143,21 +157,35 @@ class AppDateUtils {
     return medians;
   }
   
-  /// Obtenir la dernière semaine complète avec médiane valide
-  /// Retourne null si aucune semaine complète trouvée
+  /// Obtenir la dernière semaine complète avec médiane valide.
+  /// "Last complete week" = the full week (Mon–Sun) that ends the day before the
+  /// current week's Monday. E.g. if current week is Mon Feb 2 – Sun Feb 8, then
+  /// last complete week is Mon Jan 26 – Sun Feb 1 (previous Monday = currentMonday - 7).
   static MapEntry<DateTime, double>? getLastCompleteWeekMedian(
     List<WeightEntry> entries,
     WeekStartDay weekStartsOn,
   ) {
     if (entries.isEmpty) return null;
-    
-    final medians = getWeeklyMedians(
-      entries,
-      weekStartsOn,
-      minEntries: 3,
-      onlyCompleteWeeks: true,
-    );
-    
-    return medians.isNotEmpty ? medians.last : null;
+
+    final ref = entries.last.date;
+    final currentWeekMonday = getWeekStart(ref, weekStartsOn);
+    // Last complete week = previous full week: Mon (currentMonday - 7) to Sun (currentMonday - 1).
+    final lastCompleteWeekStart = currentWeekMonday.subtract(const Duration(days: 7));
+    // Normalize to midnight so week boundaries are Mon 00:00 - Sun 00:00 (next day)
+    final weekStartMidnight = DateTime(lastCompleteWeekStart.year, lastCompleteWeekStart.month, lastCompleteWeekStart.day);
+
+    final weights = getWeeklyWeights(entries, weekStartMidnight);
+    if (weights.length < 3) return null;
+
+    final median = WeightEntry.calculateMedian(weights);
+
+    if (kDebugMode) {
+      final weekEnd = weekStartMidnight.add(const Duration(days: 6));
+      debugPrint('[CurrentWeight] lastCompleteWeek: ${weekStartMidnight.year}-${weekStartMidnight.month.toString().padLeft(2, '0')}-${weekStartMidnight.day} (Mon) → ${weekEnd.year}-${weekEnd.month.toString().padLeft(2, '0')}-${weekEnd.day} (Sun)');
+      debugPrint('[CurrentWeight] ref=entries.last.date: $ref  weekStartsOn: $weekStartsOn');
+      debugPrint('[CurrentWeight] weights in week (n=${weights.length}): $weights  → median: $median');
+    }
+
+    return MapEntry(weekStartMidnight, median);
   }
 }

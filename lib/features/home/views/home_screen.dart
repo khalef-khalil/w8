@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../../../core/extensions/l10n_context.dart';
 import '../../../core/models/goal_configuration.dart';
@@ -142,30 +143,61 @@ class HomeScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        context.l10n.currentWeight,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant,
+                  child: Builder(
+                    builder: (context) {
+                      final l10n = context.l10n;
+                      final start = progress.currentWeightPeriodStart;
+                      final end = progress.currentWeightPeriodEnd;
+                      final hasPeriod = start != null && end != null;
+                      final tooltipMessage = hasPeriod
+                          ? l10n.currentWeightTooltipRollingMedian
+                          : l10n.currentWeightTooltipLastWeighIn;
+                      String periodLabel;
+                      if (hasPeriod) {
+                        final locale = Localizations.localeOf(context);
+                        periodLabel = '${l10n.currentWeightPeriodLast7Days} (${DateFormat.MMMd(locale.toString()).format(start)} – ${DateFormat.MMMd(locale.toString()).format(end)})';
+                      } else {
+                        periodLabel = l10n.currentWeightPeriodLastWeighIn;
+                      }
+                      return Tooltip(
+                        message: tooltipMessage,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              l10n.currentWeight,
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant,
+                                  ),
                             ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '${currentDisplay.toStringAsFixed(2)} $unitStr',
-                        style:
-                            Theme.of(context).textTheme.displayMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+                            const SizedBox(height: 4),
+                            Text(
+                              '${currentDisplay.toStringAsFixed(2)} $unitStr',
+                              style:
+                                  Theme.of(context).textTheme.displayMedium?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).colorScheme.primary,
+                                      ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 2),
+                            Text(
+                              periodLabel,
+                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant
+                                        .withValues(alpha: 0.8),
+                                  ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const SizedBox(width: 12),

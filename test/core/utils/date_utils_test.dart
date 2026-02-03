@@ -337,19 +337,18 @@ void main() {
     });
 
     group('getLastCompleteWeekMedian', () {
-      test('should return last complete week median', () {
+      test('should return last complete week median (week ending Sunday before current week Monday)', () {
+        // Last entry Feb 3 (Tue); current week Mon Feb 2–Sun Feb 8; last complete = Mon Jan 26–Sun Feb 1.
         final entries = [
-          // Week 1 (complete)
-          WeightEntry(date: DateTime(2024, 1, 15), weight: 70.0),
-          WeightEntry(date: DateTime(2024, 1, 16), weight: 70.2),
-          WeightEntry(date: DateTime(2024, 1, 17), weight: 70.1),
-          // Week 2 (incomplete)
-          WeightEntry(date: DateTime(2024, 1, 22), weight: 70.5),
-          WeightEntry(date: DateTime(2024, 1, 23), weight: 70.7),
-          // Week 3 (complete)
-          WeightEntry(date: DateTime(2024, 1, 29), weight: 71.0),
-          WeightEntry(date: DateTime(2024, 1, 30), weight: 71.2),
-          WeightEntry(date: DateTime(2024, 1, 31), weight: 71.1),
+          WeightEntry(date: DateTime(2026, 1, 26), weight: 61.3),
+          WeightEntry(date: DateTime(2026, 1, 27), weight: 61.9),
+          WeightEntry(date: DateTime(2026, 1, 28), weight: 61.6),
+          WeightEntry(date: DateTime(2026, 1, 29), weight: 62.05),
+          WeightEntry(date: DateTime(2026, 1, 30), weight: 62.1),
+          WeightEntry(date: DateTime(2026, 1, 31), weight: 62.5),
+          WeightEntry(date: DateTime(2026, 2, 1), weight: 63.1),
+          WeightEntry(date: DateTime(2026, 2, 2), weight: 63.6), // current week Mon
+          WeightEntry(date: DateTime(2026, 2, 3), weight: 63.9),
         ];
 
         final lastComplete = date_utils.AppDateUtils.getLastCompleteWeekMedian(
@@ -358,7 +357,8 @@ void main() {
         );
 
         expect(lastComplete, isNotNull);
-        expect(lastComplete!.value, 71.1); // From week 3
+        // Last complete week Jan 26–Feb 1: 7 entries (no Feb 2, it's current week Mon), median = 62.05
+        expect(lastComplete!.value, closeTo(62.05, 0.01));
       });
 
       test('should return null if no complete weeks', () {
@@ -388,10 +388,11 @@ void main() {
         final now = DateTime.now();
         final weekStart = date_utils.AppDateUtils.getWeekStart(now, WeekStartDay.monday);
         final entries = [
-          // Previous complete week
+          // Last complete week = Mon (weekStart-7) .. Sun (weekStart-1)
           WeightEntry(date: weekStart.subtract(const Duration(days: 7)), weight: 70.0),
           WeightEntry(date: weekStart.subtract(const Duration(days: 6)), weight: 70.2),
           WeightEntry(date: weekStart.subtract(const Duration(days: 5)), weight: 70.1),
+          WeightEntry(date: weekStart.subtract(const Duration(days: 4)), weight: 70.5),
           // Current incomplete week (only 2 entries)
           WeightEntry(date: weekStart, weight: 70.5),
           WeightEntry(date: weekStart.add(const Duration(days: 1)), weight: 70.7),
@@ -403,7 +404,8 @@ void main() {
         );
 
         expect(lastComplete, isNotNull);
-        expect(lastComplete!.value, 70.1); // From previous complete week
+        // Last complete week = weekStart-7..weekStart-1 (4 entries); median (70.0,70.1,70.2,70.5) = (70.1+70.2)/2 = 70.15
+        expect(lastComplete!.value, closeTo(70.15, 0.01));
       });
     });
 

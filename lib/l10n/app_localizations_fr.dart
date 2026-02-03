@@ -33,6 +33,20 @@ class AppLocalizationsFr extends AppLocalizations {
   String get currentWeight => 'Poids Actuel';
 
   @override
+  String get currentWeightTooltipRollingMedian =>
+      'Médiane glissante sur 7 jours. Basée sur les pesées des 7 derniers jours.';
+
+  @override
+  String get currentWeightTooltipLastWeighIn =>
+      'Basé sur ta dernière pesée (aucune entrée dans les 7 derniers jours).';
+
+  @override
+  String get currentWeightPeriodLast7Days => '7 derniers jours';
+
+  @override
+  String get currentWeightPeriodLastWeighIn => 'Dernière pesée';
+
+  @override
   String get progressToGoal => 'Progrès vers l\'objectif';
 
   @override
@@ -59,7 +73,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get addWeighInsForChart => 'Ajoutez des pesées pour voir le graphique';
 
   @override
-  String get weeklyEvolution => 'Évolution Hebdomadaire';
+  String get weeklyEvolution => 'Évolution hebdomadaire';
 
   @override
   String get recentWeighIns => 'Dernières Pesées';
@@ -133,11 +147,11 @@ class AppLocalizationsFr extends AppLocalizations {
       'Ton compagnon pour suivre ta progression de poids. Gagne 15kg en 6 mois ou définis ton propre objectif.';
 
   @override
-  String get featureMedianTitle => 'Médiane hebdomadaire';
+  String get featureMedianTitle => 'Tendances lissées';
 
   @override
   String get featureMedianDesc =>
-      'Calcule automatiquement la médiane pour lisser les fluctuations.';
+      'L\'aperçu utilise une médiane glissante sur 7 jours ; les graphiques utilisent les médianes hebdomadaires pour lisser les fluctuations.';
 
   @override
   String get featureSmartTitle => 'Suivi intelligent';
@@ -1323,15 +1337,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get educationWhyFluctuatesContent =>
-      'Ton poids fluctue naturellement tout au long de la journée et de la semaine. C\'est complètement normal ! Les facteurs incluent :\n\n• Rétention d\'eau (peut varier de 1-2 kg)\n• Nourriture et digestion\n• Qualité et durée du sommeil\n• Changements hormonaux\n• Exercice et récupération musculaire\n\nC\'est pourquoi nous utilisons les médianes hebdomadaires - elles lissent le bruit quotidien et montrent ton vrai progrès.';
+      'Ton poids fluctue naturellement tout au long de la journée et de la semaine. C\'est complètement normal ! Les facteurs incluent :\n\n• Rétention d\'eau (peut varier de 1-2 kg)\n• Nourriture et digestion\n• Qualité et durée du sommeil\n• Changements hormonaux\n• Exercice et récupération musculaire\n\nC\'est pourquoi nous utilisons une médiane glissante sur 7 jours pour ton poids actuel et les médianes hebdomadaires dans les graphiques - elles lissent le bruit quotidien et montrent ton vrai progrès.';
 
   @override
-  String get educationWeeklyMediansTitle =>
-      'Comment fonctionnent les médianes hebdomadaires';
+  String get educationWeeklyMediansTitle => 'Comment on lisse tes données';
 
   @override
   String get educationWeeklyMediansContent =>
-      'Les médianes hebdomadaires t\'aident à voir ton vrai progrès en réduisant le bruit quotidien.\n\nAu lieu de se concentrer sur les changements jour par jour, nous calculons le poids médian pour chaque semaine. Cela te donne une image plus claire de ta tendance globale.\n\nPar exemple : Si tu pèses 70kg, 71kg, 70.5kg, 70.2kg et 70.8kg en une semaine, la médiane est 70.5kg - un nombre plus stable que n\'importe quel jour unique.';
+      'Ton poids actuel sur l\'aperçu est une médiane glissante sur 7 jours : la médiane de toutes les pesées des 7 derniers jours (ou ta dernière pesée si aucune dans cette fenêtre). Cela garde le nombre réactif et robuste aux valeurs aberrantes.\n\nLes graphiques utilisent les médianes hebdomadaires : on prend le poids médian pour chaque semaine complète (lun.–dim.). Cela donne une tendance stable dans le temps. Par exemple : si tu pèses 70kg, 71kg, 70.5kg, 70.2kg et 70.8kg en une semaine, la médiane est 70.5kg - un nombre plus stable qu\'un seul jour.';
 
   @override
   String get educationBestPracticesTitle =>

@@ -68,8 +68,8 @@ void main() {
         ));
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        // Should calculate median of all 7 entries (70.3)
-        expect(metrics.currentWeight, closeTo(70.3, 0.1));
+        // No entries in last 7 days → last entry (70.6)
+        expect(metrics.currentWeight, closeTo(70.6, 0.1));
       });
 
       test('should handle entries at exact same time', () {
@@ -90,7 +90,7 @@ void main() {
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 70.1); // Median
+        expect(metrics.currentWeight, 70.1); // Last entry (no entries in last 7 days)
       });
     });
 
@@ -112,7 +112,7 @@ void main() {
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 70.1); // Should use median
+        expect(metrics.currentWeight, 70.1); // Last entry (no entries in last 7 days)
       });
 
       test('should handle exactly 2 entries (below threshold)', () {
@@ -149,8 +149,8 @@ void main() {
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        // progressByTime should handle zero duration
-        expect(metrics.progressByTime, 1.0); // Clamped
+        // When total duration is 0, progressByTime returns 0.0 (avoids division by zero)
+        expect(metrics.progressByTime, 0.0);
       });
     });
 
@@ -324,7 +324,7 @@ void main() {
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        // Median should handle this (70.0)
+        // Last entry (no entries in last 7 days) = 70.0
         expect(metrics.currentWeight, 70.0);
       });
 

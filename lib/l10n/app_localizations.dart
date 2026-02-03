@@ -148,6 +148,30 @@ abstract class AppLocalizations {
   /// **'Current Weight'**
   String get currentWeight;
 
+  /// No description provided for @currentWeightTooltipRollingMedian.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day rolling median. Based on weigh-ins in the last 7 days.'**
+  String get currentWeightTooltipRollingMedian;
+
+  /// No description provided for @currentWeightTooltipLastWeighIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your last weigh-in (no entries in the last 7 days).'**
+  String get currentWeightTooltipLastWeighIn;
+
+  /// No description provided for @currentWeightPeriodLast7Days.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get currentWeightPeriodLast7Days;
+
+  /// No description provided for @currentWeightPeriodLastWeighIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Last weigh-in'**
+  String get currentWeightPeriodLastWeighIn;
+
   /// No description provided for @progressToGoal.
   ///
   /// In en, this message translates to:
@@ -199,7 +223,7 @@ abstract class AppLocalizations {
   /// No description provided for @weeklyEvolution.
   ///
   /// In en, this message translates to:
-  /// **'Weekly Evolution (Median)'**
+  /// **'Weekly Evolution'**
   String get weeklyEvolution;
 
   /// No description provided for @recentWeighIns.
@@ -337,13 +361,13 @@ abstract class AppLocalizations {
   /// No description provided for @featureMedianTitle.
   ///
   /// In en, this message translates to:
-  /// **'Weekly median'**
+  /// **'Smooth trends'**
   String get featureMedianTitle;
 
   /// No description provided for @featureMedianDesc.
   ///
   /// In en, this message translates to:
-  /// **'Automatically computes the median to smooth fluctuations.'**
+  /// **'Your overview uses a 7-day rolling median; charts use weekly medians to smooth fluctuations.'**
   String get featureMedianDesc;
 
   /// No description provided for @featureSmartTitle.
@@ -2388,19 +2412,19 @@ abstract class AppLocalizations {
   /// No description provided for @educationWhyFluctuatesContent.
   ///
   /// In en, this message translates to:
-  /// **'Your weight naturally fluctuates throughout the day and week. This is completely normal! Factors include:\n\n• Water retention (can vary by 1-2 kg)\n• Food and digestion\n• Sleep quality and duration\n• Hormonal changes\n• Exercise and muscle recovery\n\nThat\'s why we use weekly medians - they smooth out daily noise and show your true progress.'**
+  /// **'Your weight naturally fluctuates throughout the day and week. This is completely normal! Factors include:\n\n• Water retention (can vary by 1-2 kg)\n• Food and digestion\n• Sleep quality and duration\n• Hormonal changes\n• Exercise and muscle recovery\n\nThat\'s why we use a 7-day rolling median for your current weight and weekly medians in charts - they smooth out daily noise and show your true progress.'**
   String get educationWhyFluctuatesContent;
 
   /// No description provided for @educationWeeklyMediansTitle.
   ///
   /// In en, this message translates to:
-  /// **'How Weekly Medians Work'**
+  /// **'How We Smooth Your Data'**
   String get educationWeeklyMediansTitle;
 
   /// No description provided for @educationWeeklyMediansContent.
   ///
   /// In en, this message translates to:
-  /// **'Weekly medians help you see your real progress by reducing daily noise.\n\nInstead of focusing on day-to-day changes, we calculate the median weight for each week. This gives you a clearer picture of your overall trend.\n\nFor example: If you weigh 70kg, 71kg, 70.5kg, 70.2kg, and 70.8kg in a week, the median is 70.5kg - a more stable number than any single day.'**
+  /// **'Your current weight on the overview is a 7-day rolling median: the median of all weigh-ins in the last 7 days (or your last weigh-in if none in that window). This keeps the number responsive and robust to outliers.\n\nCharts use weekly medians: we take the median weight for each full week (Mon–Sun). That gives a stable trend over time. For example: if you weigh 70kg, 71kg, 70.5kg, 70.2kg, and 70.8kg in a week, the median is 70.5kg - a more stable number than any single day.'**
   String get educationWeeklyMediansContent;
 
   /// No description provided for @educationBestPracticesTitle.

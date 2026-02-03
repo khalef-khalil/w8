@@ -8,7 +8,7 @@ import '../utils/date_utils.dart' as date_utils;
 class ProgressMetrics {
   final GoalConfiguration goal;
   final List<WeightEntry> entries;
-  final double currentWeight; // Poids actuel (médiane ou rolling average)
+  final double currentWeight; // Poids actuel (7-day rolling median)
   final DateTime calculationDate;
 
   ProgressMetrics({
@@ -201,33 +201,14 @@ class ProgressMetrics {
   }
 
   /// Créer depuis une liste d'entrées
-  /// Utilise uniquement les semaines complètes (≥3 entrées) pour la médiane
-  /// Si la semaine actuelle est incomplète, utilise la dernière semaine complète
+  /// Current weight = 7-day rolling median (fallback to last entry if no entries in last 7 days, else initial)
   factory ProgressMetrics.fromEntries(
     GoalConfiguration goal,
     List<WeightEntry> entries,
   ) {
-    double currentWeight;
-    
-    // Obtenir la dernière semaine complète avec médiane valide
-    final lastCompleteWeek = date_utils.AppDateUtils.getLastCompleteWeekMedian(
-      entries,
-      goal.weekStartDay,
-    );
-    
-    if (lastCompleteWeek != null) {
-      // Utiliser la médiane de la dernière semaine complète
-      currentWeight = lastCompleteWeek.value;
-    } else if (entries.length >= 3) {
-      // Pas de semaine complète, utiliser rolling 7 jours
-      currentWeight = SmoothingCalculator.calculateRolling7Days(entries);
-    } else if (entries.isNotEmpty) {
-      // Moins de 3 entrées, utiliser la dernière entrée
-      currentWeight = entries.last.weight;
-    } else {
-      // Aucune entrée, utiliser le poids initial
-      currentWeight = goal.initialWeight;
-    }
+    final currentWeight = entries.isEmpty
+        ? goal.initialWeight
+        : SmoothingCalculator.calculateRolling7DaysMedian(entries);
 
     return ProgressMetrics(
       goal: goal,

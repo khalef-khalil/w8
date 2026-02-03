@@ -7,59 +7,8 @@ void main() {
   group('ProgressMetrics.fromEntries', () {
     final baseDate = DateTime(2024, 1, 15, 10, 0); // Monday
 
-    group('Fallback chain - Complete week median', () {
-      test('should use last complete week median when available', () {
-        final goal = GoalConfiguration(
-          initialWeight: 70.0,
-          targetWeight: 85.0,
-          goalStartDate: DateTime(2024, 1, 1),
-          durationMonths: 6,
-          type: GoalType.gain,
-          weekStartDay: WeekStartDay.monday,
-        );
-
-        final entries = [
-          // Week 1 (complete)
-          WeightEntry(date: DateTime(2024, 1, 15), weight: 70.0),
-          WeightEntry(date: DateTime(2024, 1, 16), weight: 70.2),
-          WeightEntry(date: DateTime(2024, 1, 17), weight: 70.1),
-          // Current week (incomplete - only 2 entries)
-          WeightEntry(date: DateTime(2024, 1, 22), weight: 70.5),
-          WeightEntry(date: DateTime(2024, 1, 23), weight: 70.7),
-        ];
-
-        final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 70.1); // Median of week 1
-      });
-
-      test('should use most recent complete week when multiple exist', () {
-        final goal = GoalConfiguration(
-          initialWeight: 70.0,
-          targetWeight: 85.0,
-          goalStartDate: DateTime(2024, 1, 1),
-          durationMonths: 6,
-          type: GoalType.gain,
-          weekStartDay: WeekStartDay.monday,
-        );
-
-        final entries = [
-          // Week 1
-          WeightEntry(date: DateTime(2024, 1, 15), weight: 70.0),
-          WeightEntry(date: DateTime(2024, 1, 16), weight: 70.2),
-          WeightEntry(date: DateTime(2024, 1, 17), weight: 70.1),
-          // Week 2
-          WeightEntry(date: DateTime(2024, 1, 22), weight: 71.0),
-          WeightEntry(date: DateTime(2024, 1, 23), weight: 71.2),
-          WeightEntry(date: DateTime(2024, 1, 24), weight: 71.1),
-        ];
-
-        final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 71.1); // Median of week 2 (most recent)
-      });
-    });
-
-    group('Fallback chain - Rolling 7-day average', () {
-      test('should use rolling 7-day when no complete week but ≥3 entries', () {
+    group('Current weight = 7-day rolling average', () {
+      test('should use rolling 7-day average when entries in last 7 days', () {
         final goal = GoalConfiguration(
           initialWeight: 70.0,
           targetWeight: 85.0,
@@ -77,11 +26,54 @@ void main() {
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        // Should use rolling average (approximately 70.1)
+        expect(metrics.currentWeight, closeTo(70.1, 0.1)); // Average of 70.0, 70.2, 70.1
+      });
+
+      test('should use rolling 7-day average of most recent entries', () {
+        final goal = GoalConfiguration(
+          initialWeight: 70.0,
+          targetWeight: 85.0,
+          goalStartDate: DateTime(2024, 1, 1),
+          durationMonths: 6,
+          type: GoalType.gain,
+          weekStartDay: WeekStartDay.monday,
+        );
+
+        final now = DateTime.now();
+        final entries = [
+          WeightEntry(date: now.subtract(const Duration(days: 1)), weight: 71.0),
+          WeightEntry(date: now.subtract(const Duration(days: 2)), weight: 71.2),
+          WeightEntry(date: now.subtract(const Duration(days: 3)), weight: 71.1),
+        ];
+
+        final metrics = ProgressMetrics.fromEntries(goal, entries);
+        expect(metrics.currentWeight, closeTo(71.1, 0.1)); // Average of 71.0, 71.2, 71.1
+      });
+    });
+
+    group('Rolling 7-day average when entries in last 7 days', () {
+      test('should use rolling 7-day average when entries in last 7 days', () {
+        final goal = GoalConfiguration(
+          initialWeight: 70.0,
+          targetWeight: 85.0,
+          goalStartDate: DateTime(2024, 1, 1),
+          durationMonths: 6,
+          type: GoalType.gain,
+          weekStartDay: WeekStartDay.monday,
+        );
+
+        final now = DateTime.now();
+        final entries = [
+          WeightEntry(date: now.subtract(const Duration(days: 1)), weight: 70.0),
+          WeightEntry(date: now.subtract(const Duration(days: 2)), weight: 70.2),
+          WeightEntry(date: now.subtract(const Duration(days: 3)), weight: 70.1),
+        ];
+
+        final metrics = ProgressMetrics.fromEntries(goal, entries);
         expect(metrics.currentWeight, closeTo(70.1, 0.1));
       });
 
-      test('should use rolling 7-day when entries span multiple incomplete weeks', () {
+      test('should use rolling average in range when entries in last 7 days', () {
         final goal = GoalConfiguration(
           initialWeight: 70.0,
           targetWeight: 85.0,
@@ -99,14 +91,13 @@ void main() {
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        // No complete week, but ≥3 entries, so uses rolling average
         expect(metrics.currentWeight, greaterThan(70.0));
         expect(metrics.currentWeight, lessThanOrEqualTo(70.5));
       });
     });
 
-    group('Fallback chain - Last entry', () {
-      test('should use last entry when <3 entries', () {
+    group('Fallback - Last entry when no entries in last 7 days', () {
+      test('should use last entry when all entries older than 7 days (2 entries)', () {
         final goal = GoalConfiguration(
           initialWeight: 70.0,
           targetWeight: 85.0,
@@ -122,7 +113,7 @@ void main() {
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 70.2); // Last entry
+        expect(metrics.currentWeight, 70.2); // Last entry (no entries in last 7 days)
       });
 
       test('should use last entry when only 1 entry', () {
@@ -160,8 +151,8 @@ void main() {
       });
     });
 
-    group('Different week start days', () {
-      test('should work with Monday start', () {
+    group('Current weight (rolling 7d) independent of week start', () {
+      test('should use rolling average / last entry regardless of week start', () {
         final goal = GoalConfiguration(
           initialWeight: 70.0,
           targetWeight: 85.0,
@@ -171,39 +162,20 @@ void main() {
           weekStartDay: WeekStartDay.monday,
         );
 
+        // Old dates: no entries in last 7 days, so fallback to last entry
         final entries = [
-          WeightEntry(date: DateTime(2024, 1, 15), weight: 70.0), // Mon
-          WeightEntry(date: DateTime(2024, 1, 16), weight: 70.2), // Tue
-          WeightEntry(date: DateTime(2024, 1, 17), weight: 70.1), // Wed
+          WeightEntry(date: DateTime(2024, 1, 15), weight: 70.0),
+          WeightEntry(date: DateTime(2024, 1, 16), weight: 70.2),
+          WeightEntry(date: DateTime(2024, 1, 17), weight: 70.1),
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 70.1);
-      });
-
-      test('should work with Sunday start', () {
-        final goal = GoalConfiguration(
-          initialWeight: 70.0,
-          targetWeight: 85.0,
-          goalStartDate: DateTime(2024, 1, 1),
-          durationMonths: 6,
-          type: GoalType.gain,
-          weekStartDay: WeekStartDay.sunday,
-        );
-
-        final entries = [
-          WeightEntry(date: DateTime(2024, 1, 14), weight: 70.0), // Sun
-          WeightEntry(date: DateTime(2024, 1, 15), weight: 70.2), // Mon
-          WeightEntry(date: DateTime(2024, 1, 16), weight: 70.1), // Tue
-        ];
-
-        final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 70.1);
+        expect(metrics.currentWeight, 70.1); // Last entry
       });
     });
 
-    group('Outlier robustness', () {
-      test('should ignore outliers in weekly median', () {
+    group('Rolling average', () {
+      test('should use mean of all entries in last 7 days (outliers affect average)', () {
         final goal = GoalConfiguration(
           initialWeight: 70.0,
           targetWeight: 85.0,
@@ -213,16 +185,15 @@ void main() {
           weekStartDay: WeekStartDay.monday,
         );
 
+        final now = DateTime.now();
         final entries = [
-          WeightEntry(date: DateTime(2024, 1, 15), weight: 70.0),
-          WeightEntry(date: DateTime(2024, 1, 16), weight: 200.0), // Outlier
-          WeightEntry(date: DateTime(2024, 1, 17), weight: 70.1),
-          WeightEntry(date: DateTime(2024, 1, 18), weight: 70.2),
-          WeightEntry(date: DateTime(2024, 1, 19), weight: 70.3),
+          WeightEntry(date: now.subtract(const Duration(days: 1)), weight: 70.0),
+          WeightEntry(date: now.subtract(const Duration(days: 2)), weight: 70.2),
+          WeightEntry(date: now.subtract(const Duration(days: 3)), weight: 70.1),
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 70.2); // Median ignores outlier
+        expect(metrics.currentWeight, closeTo(70.1, 0.1)); // Average, not median
       });
     });
 
@@ -264,7 +235,7 @@ void main() {
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
-        expect(metrics.currentWeight, 70.2); // Median regardless of order
+        expect(metrics.currentWeight, 70.1); // Last entry (no entries in last 7 days)
       });
 
       test('should handle very old entries', () {
@@ -494,20 +465,20 @@ void main() {
           weekStartDay: WeekStartDay.monday,
         );
 
+        // Use now-relative dates so rate is computed over a short period (~1–2 weeks)
+        final now = DateTime.now();
         final entries = [
-          // Week 1
-          WeightEntry(date: DateTime(2024, 1, 15), weight: 70.0),
-          WeightEntry(date: DateTime(2024, 1, 16), weight: 70.2),
-          WeightEntry(date: DateTime(2024, 1, 17), weight: 70.1),
-          // Week 2
-          WeightEntry(date: DateTime(2024, 1, 22), weight: 71.0),
-          WeightEntry(date: DateTime(2024, 1, 23), weight: 71.2),
-          WeightEntry(date: DateTime(2024, 1, 24), weight: 71.1),
+          WeightEntry(date: now.subtract(const Duration(days: 14)), weight: 70.0),
+          WeightEntry(date: now.subtract(const Duration(days: 13)), weight: 70.2),
+          WeightEntry(date: now.subtract(const Duration(days: 12)), weight: 70.1),
+          WeightEntry(date: now.subtract(const Duration(days: 5)), weight: 71.0),
+          WeightEntry(date: now.subtract(const Duration(days: 4)), weight: 71.2),
+          WeightEntry(date: now.subtract(const Duration(days: 3)), weight: 71.1),
         ];
 
         final metrics = ProgressMetrics.fromEntries(goal, entries);
         final rate = metrics.currentRatePerWeek;
-        // Should be approximately 1.0 kg/week (71.1 - 70.1 = 1.0 over 1 week)
+        // Should be approximately 1.0 kg/week (71.1 - 70.1 over ~1 week)
         expect(rate, greaterThan(0.5));
         expect(rate, lessThan(1.5));
       });

@@ -33,6 +33,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get currentWeight => 'الوزن الحالي';
 
   @override
+  String get currentWeightTooltipRollingMedian =>
+      'متوسط متحرك لـ 7 أيام. يعتمد على الوزنات في آخر 7 أيام.';
+
+  @override
+  String get currentWeightTooltipLastWeighIn =>
+      'يعتمد على آخر وزن (لا توجد مدخلات في آخر 7 أيام).';
+
+  @override
+  String get currentWeightPeriodLast7Days => 'آخر 7 أيام';
+
+  @override
+  String get currentWeightPeriodLastWeighIn => 'آخر وزن';
+
+  @override
   String get progressToGoal => 'التقدم نحو الهدف';
 
   @override
@@ -59,7 +73,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addWeighInsForChart => 'أضف قياسات الوزن لرؤية الرسم البياني';
 
   @override
-  String get weeklyEvolution => 'التطور الأسبوعي (المتوسط)';
+  String get weeklyEvolution => 'التطور الأسبوعي';
 
   @override
   String get recentWeighIns => 'قياسات الوزن الأخيرة';
@@ -131,10 +145,11 @@ class AppLocalizationsAr extends AppLocalizations {
       'رفيقك لتتبع تقدم وزنك. اكتسب 15 كجم في 6 أشهر أو حدد هدفك الخاص.';
 
   @override
-  String get featureMedianTitle => 'المتوسط الأسبوعي';
+  String get featureMedianTitle => 'اتجاهات منمقة';
 
   @override
-  String get featureMedianDesc => 'يحسب المتوسط تلقائياً لتخفيف التقلبات.';
+  String get featureMedianDesc =>
+      'الملخص يستخدم الوسيط المتحرك لـ 7 أيام؛ الرسوم البيانية تستخدم المتوسطات الأسبوعية لتخفيف التقلبات.';
 
   @override
   String get featureSmartTitle => 'تتبع ذكي';
@@ -1295,14 +1310,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get educationWhyFluctuatesContent =>
-      'وزنك يتقلب بشكل طبيعي طوال اليوم والأسبوع. هذا طبيعي تماماً! العوامل تشمل:\n\n• احتباس الماء (يمكن أن يختلف من 1-2 كجم)\n• الطعام والهضم\n• جودة ومدة النوم\n• التغيرات الهرمونية\n• التمرين واستعادة العضلات\n\nلهذا السبب نستخدم المتوسطات الأسبوعية - فهي تنعم الضوضاء اليومية وتظهر تقدمك الحقيقي.';
+      'وزنك يتقلب بشكل طبيعي طوال اليوم والأسبوع. هذا طبيعي تماماً! العوامل تشمل:\n\n• احتباس الماء (يمكن أن يختلف من 1-2 كجم)\n• الطعام والهضم\n• جودة ومدة النوم\n• التغيرات الهرمونية\n• التمرين واستعادة العضلات\n\nلهذا نستخدم الوسيط المتحرك لـ 7 أيام لوزنك الحالي والمتوسطات الأسبوعية في الرسوم البيانية - تنعم الضوضاء اليومية وتظهر تقدمك الحقيقي.';
 
   @override
-  String get educationWeeklyMediansTitle => 'كيف تعمل المتوسطات الأسبوعية';
+  String get educationWeeklyMediansTitle => 'كيف ننعم بياناتك';
 
   @override
   String get educationWeeklyMediansContent =>
-      'المتوسطات الأسبوعية تساعدك على رؤية تقدمك الحقيقي عن طريق تقليل الضوضاء اليومية.\n\nبدلاً من التركيز على التغييرات يوم بيوم، نحسب متوسط الوزن لكل أسبوع. هذا يعطيك صورة أوضح لاتجاهك العام.\n\nعلى سبيل المثال: إذا كنت تزن 70 كجم، 71 كجم، 70.5 كجم، 70.2 كجم، و 70.8 كجم في أسبوع، المتوسط هو 70.5 كجم - رقم أكثر استقراراً من أي يوم واحد.';
+      'وزنك الحالي في الملخص هو الوسيط المتحرك لـ 7 أيام: وسيط كل الوزنات في آخر 7 أيام (أو آخر وزن إن لم يكن في تلك الفترة). هذا يبقي الرقم مستجيباً ومقاوماً للقيم الشاذة.\n\nالرسوم البيانية تستخدم المتوسطات الأسبوعية: نأخذ متوسط الوزن لكل أسبوع كامل (الإثنين–الأحد). يعطي ذلك اتجاهاً مستقراً مع الزمن. مثلاً: إن وزنت 70، 71، 70.5، 70.2، 70.8 كجم في أسبوع، المتوسط 70.5 كجم - رقم أكثر استقراراً من يوم واحد.';
 
   @override
   String get educationBestPracticesTitle => 'أفضل الممارسات للتتبع';

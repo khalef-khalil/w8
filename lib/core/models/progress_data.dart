@@ -7,6 +7,9 @@ class ProgressData {
   final double progress; // 0.0 à 1.0
   final int weeksElapsed;
   final int totalWeeks;
+  /// When non-null, current weight is from a 7-day rolling median over this range (for "which dates" UI).
+  final DateTime? currentWeightPeriodStart;
+  final DateTime? currentWeightPeriodEnd;
 
   ProgressData({
     this.currentWeight,
@@ -16,6 +19,8 @@ class ProgressData {
     required this.progress,
     required this.weeksElapsed,
     required this.totalWeeks,
+    this.currentWeightPeriodStart,
+    this.currentWeightPeriodEnd,
   });
 
   /// Créer un ProgressData vide

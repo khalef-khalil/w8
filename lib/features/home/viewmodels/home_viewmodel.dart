@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../models/weight_entry.dart';
 import '../../../core/services/hive_storage_service.dart';
@@ -75,34 +76,30 @@ class HomeViewModel extends StateNotifier<AsyncValue<HomeState>> {
       }
       final initialWeight = HiveStorageService.getInitialWeight() ?? entries.first.weight;
       final targetWeight = initialWeight + 15.0; // Default fallback
-      final lastWeekMedians = date_utils.AppDateUtils.getWeeklyMedians(
-        entries,
-        WeekStartDay.monday,
-      );
-      final currentWeight = lastWeekMedians.isNotEmpty
-          ? lastWeekMedians.last.value
-          : entries.last.weight;
+      final result = SmoothingCalculator.getRolling7DaysMedianWithPeriod(entries);
       return ProgressData(
-        currentWeight: currentWeight,
+        currentWeight: result.weight,
         initialWeight: initialWeight,
         targetWeight: targetWeight,
-        weightGained: currentWeight - initialWeight,
-        progress: ((currentWeight - initialWeight) / 15.0).clamp(0.0, 1.0),
+        weightGained: result.weight - initialWeight,
+        progress: ((result.weight - initialWeight) / 15.0).clamp(0.0, 1.0),
         weeksElapsed: 0,
         totalWeeks: 24,
+        currentWeightPeriodStart: result.periodStart,
+        currentWeightPeriodEnd: result.periodEnd,
       );
     }
 
-    // Utiliser la dernière semaine complète avec médiane valide
-    final lastCompleteWeek = date_utils.AppDateUtils.getLastCompleteWeekMedian(
-      entries,
-      config.weekStartDay,
-    );
-    final currentWeight = lastCompleteWeek != null
-        ? lastCompleteWeek.value
-        : (entries.length >= 3
-            ? SmoothingCalculator.calculateRolling7Days(entries)
-            : (entries.isNotEmpty ? entries.last.weight : config.initialWeight));
+    // Current weight = 7-day rolling median (fallback to last entry if no entries in last 7 days)
+    final result = entries.isEmpty
+        ? (weight: config.initialWeight, periodStart: null, periodEnd: null)
+        : SmoothingCalculator.getRolling7DaysMedianWithPeriod(entries);
+    final currentWeight = entries.isEmpty ? config.initialWeight! : result.weight;
+
+    if (kDebugMode && entries.isNotEmpty) {
+      debugPrint('[CurrentWeight] entries: n=${entries.length} first=${entries.first.date} last=${entries.last.date}');
+      debugPrint('[CurrentWeight] rolling 7-day median → currentWeight=$currentWeight');
+    }
 
     final weightChange = currentWeight - config.initialWeight;
     final totalWeightChange = config.targetWeight - config.initialWeight;
@@ -124,6 +121,8 @@ class HomeViewModel extends StateNotifier<AsyncValue<HomeState>> {
       progress: progress,
       weeksElapsed: weeksElapsed,
       totalWeeks: config.totalWeeks,
+      currentWeightPeriodStart: result.periodStart,
+      currentWeightPeriodEnd: result.periodEnd,
     );
   }
 
