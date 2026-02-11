@@ -527,10 +527,10 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get weightToGoLabel => 'À prendre';
+  String get weightToGoLabel => 'Restant';
 
   @override
-  String get weightToLoseLabel => 'À perdre';
+  String get weightToLoseLabel => 'Restant';
 
   @override
   String weeksLeft(int count) {
@@ -1374,4 +1374,186 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get educationStayingMotivatedContent =>
       'Le suivi du poids est un marathon, pas un sprint.\n\nRappelle-toi :\n• Le progrès n\'est pas toujours linéaire\n• Les petites actions quotidiennes s\'accumulent avec le temps\n• Les revers font partie du voyage\n• Célèbre aussi les victoires non-échelle\n\nConcentre-toi sur la construction d\'habitudes durables. Chaque jour que tu suis est une victoire !';
+
+  @override
+  String get toolsTitle => 'Outils';
+
+  @override
+  String get toolsDescription =>
+      'Calculateurs et utilitaires pour ton suivi poids';
+
+  @override
+  String get toolProjections => 'Projections';
+
+  @override
+  String get toolProjectionsDesc =>
+      'Estime quand tu atteindras un poids ou le poids attendu à une date';
+
+  @override
+  String get toolBmi => 'Calculateur IMC';
+
+  @override
+  String get toolBmiDesc => 'Vérifie ton indice de masse corporelle';
+
+  @override
+  String get toolMaintenanceCalories => 'Calories de maintien';
+
+  @override
+  String get toolMaintenanceCaloriesDesc =>
+      'Ta dépense énergétique quotidienne et l\'effet de l\'apport sur le poids';
+
+  @override
+  String get profileTitle => 'Profil';
+
+  @override
+  String get profileDescription => 'Tes infos pour IMC et calories';
+
+  @override
+  String get editProfile => 'Modifier le profil';
+
+  @override
+  String get editProfileTitle => 'Modifier le profil';
+
+  @override
+  String get height => 'Taille';
+
+  @override
+  String get heightCm => 'Taille (cm)';
+
+  @override
+  String get heightHint => 'ex. 175';
+
+  @override
+  String get gender => 'Genre';
+
+  @override
+  String get male => 'Homme';
+
+  @override
+  String get female => 'Femme';
+
+  @override
+  String get birthDate => 'Date de naissance';
+
+  @override
+  String get birthDateHint => 'Pour l\'âge dans le calculateur de calories';
+
+  @override
+  String get saveToProfile => 'Enregistrer dans le profil';
+
+  @override
+  String get profileSaved => 'Profil enregistré';
+
+  @override
+  String get openSettings => 'Paramètres';
+
+  @override
+  String get openSettingsDesc => 'Thème, langue, rappels, objectif, export';
+
+  @override
+  String get bmiTitle => 'Calculateur IMC';
+
+  @override
+  String get bmiDescription =>
+      'Indice de masse corporelle à partir de ta taille et poids.';
+
+  @override
+  String get bmiUnderweight => 'Insuffisance pondérale';
+
+  @override
+  String get bmiNormal => 'Normal';
+
+  @override
+  String get bmiOverweight => 'Surpoids';
+
+  @override
+  String get bmiObese => 'Obésité';
+
+  @override
+  String get bmiSevereThinness => 'Maigreur sévère';
+
+  @override
+  String get bmiModerateThinness => 'Maigreur modérée';
+
+  @override
+  String get bmiMildThinness => 'Maigreur légère';
+
+  @override
+  String get bmiObeseClass1 => 'Obésité classe I';
+
+  @override
+  String get bmiObeseClass2 => 'Obésité classe II';
+
+  @override
+  String get bmiObeseClass3 => 'Obésité classe III';
+
+  @override
+  String get yourBmi => 'Ton IMC';
+
+  @override
+  String get enterHeightAndWeight =>
+      'Saisis taille et poids (ou définis-les dans le profil)';
+
+  @override
+  String get useCurrentWeight => 'Utiliser le poids actuel du suivi';
+
+  @override
+  String get weightForBmi => 'Poids pour l\'IMC';
+
+  @override
+  String get maintenanceTitle => 'Calories de maintien';
+
+  @override
+  String get maintenanceDescription =>
+      'Dépense énergétique quotidienne estimée (TDEE) et effet de l\'apport sur le poids.';
+
+  @override
+  String get maintenanceTdee => 'Maintien (TDEE)';
+
+  @override
+  String maintenanceTdeeResult(String calories) {
+    return 'Environ $calories kcal/jour';
+  }
+
+  @override
+  String get dailyIntake => 'Apport quotidien (kcal)';
+
+  @override
+  String get dailyIntakeHint => 'Optionnel : voir l\'effet sur le poids';
+
+  @override
+  String get periodWeeks => 'Période (semaines)';
+
+  @override
+  String get projectedChange => 'Changement projeté';
+
+  @override
+  String get activityLevel => 'Niveau d\'activité';
+
+  @override
+  String get activitySedentary => 'Sédentaire (peu ou pas d\'exercice)';
+
+  @override
+  String get activityLight => 'Léger (1–3 j/sem)';
+
+  @override
+  String get activityModerate => 'Modéré (3–5 j/sem)';
+
+  @override
+  String get activityActive => 'Actif (6–7 j/sem)';
+
+  @override
+  String get activityVeryActive => 'Très actif (intense quotidien)';
+
+  @override
+  String get age => 'Âge';
+
+  @override
+  String get ageYears => 'Âge (années)';
+
+  @override
+  String get weight => 'Poids';
+
+  @override
+  String get navProfile => 'Profil';
 }

@@ -262,8 +262,8 @@
       "value": {"type": "String"}
     }
   },
-  "weightToGoLabel": "الوزن المتبقي",
-  "weightToLoseLabel": "الوزن للفقدان",
+  "weightToGoLabel": "متبقي",
+  "weightToLoseLabel": "متبقي",
   "weeksLeft": "متبقي {count} أسابيع",
   "@weeksLeft": {
     "placeholders": {
@@ -672,5 +672,72 @@
     "placeholders": {
       "days": {"type": "int"}
     }
-  }
+  },
+
+  "toolsTitle": "أدوات",
+  "toolsDescription": "حاسبات ومساعدات لرحلتك مع الوزن",
+  "toolProjections": "التوقعات",
+  "toolProjectionsDesc": "قدّر متى تصل لوزن معين أو الوزن المتوقع في تاريخ معين",
+  "toolBmi": "حاسبة مؤشر كتلة الجسم",
+  "toolBmiDesc": "تحقق من مؤشر كتلة جسمك",
+  "toolMaintenanceCalories": "سعرات الإعالة",
+  "toolMaintenanceCaloriesDesc": "معدل استهلاكك اليومي وتأثير السعرات على الوزن",
+
+  "profileTitle": "الملف الشخصي",
+  "profileDescription": "معلوماتك لحاسبة مؤشر كتلة الجسم والسعرات",
+  "editProfile": "تعديل الملف",
+  "editProfileTitle": "تعديل الملف الشخصي",
+  "height": "الطول",
+  "heightCm": "الطول (سم)",
+  "heightHint": "مثال: 175",
+  "gender": "الجنس",
+  "male": "ذكر",
+  "female": "أنثى",
+  "birthDate": "تاريخ الميلاد",
+  "birthDateHint": "للعمر في حاسبة السعرات",
+  "saveToProfile": "حفظ في الملف",
+  "profileSaved": "تم حفظ الملف",
+  "openSettings": "الإعدادات",
+  "openSettingsDesc": "المظهر، اللغة، التذكيرات، الهدف، التصدير",
+
+  "bmiTitle": "حاسبة مؤشر كتلة الجسم",
+  "bmiDescription": "مؤشر كتلة الجسم من الطول والوزن.",
+  "bmiUnderweight": "نقص الوزن",
+  "bmiNormal": "طبيعي",
+  "bmiOverweight": "زيادة وزن",
+  "bmiObese": "سمنة",
+  "bmiSevereThinness": "نحافة شديدة",
+  "bmiModerateThinness": "نحافة متوسطة",
+  "bmiMildThinness": "نحافة خفيفة",
+  "bmiObeseClass1": "سمنة من الدرجة الأولى",
+  "bmiObeseClass2": "سمنة من الدرجة الثانية",
+  "bmiObeseClass3": "سمنة من الدرجة الثالثة",
+  "yourBmi": "مؤشر كتلة جسمك",
+  "enterHeightAndWeight": "أدخل الطول والوزن (أو عيّنهما في الملف)",
+  "useCurrentWeight": "استخدام الوزن الحالي من التتبع",
+  "weightForBmi": "الوزن لمؤشر كتلة الجسم",
+
+  "maintenanceTitle": "سعرات الإعالة",
+  "maintenanceDescription": "معدل استهلاك الطاقة اليومي التقريبي وتأثير السعرات على الوزن.",
+  "maintenanceTdee": "الإعالة (TDEE)",
+  "maintenanceTdeeResult": "حوالي {calories} سعرة/يوم",
+  "@maintenanceTdeeResult": {
+    "placeholders": {
+      "calories": {"type": "String"}
+    }
+  },
+  "dailyIntake": "السعرات اليومية",
+  "dailyIntakeHint": "اختياري: لرؤية التأثير على الوزن",
+  "periodWeeks": "المدة (أسابيع)",
+  "projectedChange": "التغير المتوقع",
+  "activityLevel": "مستوى النشاط",
+  "activitySedentary": "قليل الحركة",
+  "activityLight": "خفيف (1–3 أيام/أسبوع)",
+  "activityModerate": "متوسط (3–5 أيام/أسبوع)",
+  "activityActive": "نشط (6–7 أيام/أسبوع)",
+  "activityVeryActive": "نشط جداً (يومياً)",
+  "age": "العمر",
+  "ageYears": "العمر (سنوات)",
+  "weight": "الوزن",
+  "navProfile": "الملف"
 }

@@ -525,10 +525,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get weightToGoLabel => 'Weight to go';
+  String get weightToGoLabel => 'Remaining';
 
   @override
-  String get weightToLoseLabel => 'Weight to lose';
+  String get weightToLoseLabel => 'Remaining';
 
   @override
   String weeksLeft(int count) {
@@ -1364,4 +1364,187 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get educationStayingMotivatedContent =>
       'Weight tracking is a marathon, not a sprint.\n\nRemember:\n• Progress isn\'t always linear\n• Small daily actions compound over time\n• Setbacks are part of the journey\n• Celebrate non-scale victories too\n\nFocus on building sustainable habits. Every day you track is a win!';
+
+  @override
+  String get toolsTitle => 'Tools';
+
+  @override
+  String get toolsDescription =>
+      'Calculators and utilities for your weight journey';
+
+  @override
+  String get toolProjections => 'Projections';
+
+  @override
+  String get toolProjectionsDesc =>
+      'Estimate when you\'ll reach a weight or what weight to expect by a date';
+
+  @override
+  String get toolBmi => 'BMI Calculator';
+
+  @override
+  String get toolBmiDesc =>
+      'Check your Body Mass Index and see where you stand';
+
+  @override
+  String get toolMaintenanceCalories => 'Maintenance Calories';
+
+  @override
+  String get toolMaintenanceCaloriesDesc =>
+      'Your daily energy expenditure and how intake affects weight over time';
+
+  @override
+  String get profileTitle => 'Profile';
+
+  @override
+  String get profileDescription => 'Your info for BMI and calorie tools';
+
+  @override
+  String get editProfile => 'Edit profile';
+
+  @override
+  String get editProfileTitle => 'Edit profile';
+
+  @override
+  String get height => 'Height';
+
+  @override
+  String get heightCm => 'Height (cm)';
+
+  @override
+  String get heightHint => 'e.g. 175';
+
+  @override
+  String get gender => 'Gender';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get birthDate => 'Date of birth';
+
+  @override
+  String get birthDateHint => 'For age in calorie calculator';
+
+  @override
+  String get saveToProfile => 'Save to profile';
+
+  @override
+  String get profileSaved => 'Profile saved';
+
+  @override
+  String get openSettings => 'Settings';
+
+  @override
+  String get openSettingsDesc => 'Theme, language, reminders, goal, export';
+
+  @override
+  String get bmiTitle => 'BMI Calculator';
+
+  @override
+  String get bmiDescription =>
+      'Body Mass Index from your height and weight. Use profile data or enter below.';
+
+  @override
+  String get bmiUnderweight => 'Underweight';
+
+  @override
+  String get bmiNormal => 'Healthy';
+
+  @override
+  String get bmiOverweight => 'Overweight';
+
+  @override
+  String get bmiObese => 'Obese';
+
+  @override
+  String get bmiSevereThinness => 'Severe thinness';
+
+  @override
+  String get bmiModerateThinness => 'Moderate thinness';
+
+  @override
+  String get bmiMildThinness => 'Mild thinness';
+
+  @override
+  String get bmiObeseClass1 => 'Obese Class I';
+
+  @override
+  String get bmiObeseClass2 => 'Obese Class II';
+
+  @override
+  String get bmiObeseClass3 => 'Obese Class III';
+
+  @override
+  String get yourBmi => 'Your BMI';
+
+  @override
+  String get enterHeightAndWeight =>
+      'Enter height and weight (or set them in Profile)';
+
+  @override
+  String get useCurrentWeight => 'Use current weight from tracking';
+
+  @override
+  String get weightForBmi => 'Weight for BMI';
+
+  @override
+  String get maintenanceTitle => 'Maintenance Calories';
+
+  @override
+  String get maintenanceDescription =>
+      'Estimated daily energy expenditure (TDEE) and how your intake affects weight.';
+
+  @override
+  String get maintenanceTdee => 'Maintenance (TDEE)';
+
+  @override
+  String maintenanceTdeeResult(String calories) {
+    return 'About $calories kcal/day';
+  }
+
+  @override
+  String get dailyIntake => 'Daily intake (kcal)';
+
+  @override
+  String get dailyIntakeHint => 'Optional: see effect on weight';
+
+  @override
+  String get periodWeeks => 'Period (weeks)';
+
+  @override
+  String get projectedChange => 'Projected change';
+
+  @override
+  String get activityLevel => 'Activity level';
+
+  @override
+  String get activitySedentary => 'Sedentary (little or no exercise)';
+
+  @override
+  String get activityLight => 'Light (1–3 days/week)';
+
+  @override
+  String get activityModerate => 'Moderate (3–5 days/week)';
+
+  @override
+  String get activityActive => 'Active (6–7 days/week)';
+
+  @override
+  String get activityVeryActive => 'Very active (intense daily)';
+
+  @override
+  String get age => 'Age';
+
+  @override
+  String get ageYears => 'Age (years)';
+
+  @override
+  String get weight => 'Weight';
+
+  @override
+  String get navProfile => 'Profile';
 }

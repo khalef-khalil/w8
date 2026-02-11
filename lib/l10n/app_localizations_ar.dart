@@ -522,10 +522,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
-  String get weightToGoLabel => 'الوزن المتبقي';
+  String get weightToGoLabel => 'متبقي';
 
   @override
-  String get weightToLoseLabel => 'الوزن للفقدان';
+  String get weightToLoseLabel => 'متبقي';
 
   @override
   String weeksLeft(int count) {
@@ -1346,4 +1346,183 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get educationStayingMotivatedContent =>
       'تتبع الوزن هو ماراثون، وليس سباقاً.\n\nتذكر:\n• التقدم ليس دائماً خطياً\n• الإجراءات اليومية الصغيرة تتراكم مع مرور الوقت\n• النكسات جزء من الرحلة\n• احتفل أيضاً بانتصارات غير الميزان\n\nركز على بناء عادات مستدامة. كل يوم تتتبع فيه هو انتصار!';
+
+  @override
+  String get toolsTitle => 'أدوات';
+
+  @override
+  String get toolsDescription => 'حاسبات ومساعدات لرحلتك مع الوزن';
+
+  @override
+  String get toolProjections => 'التوقعات';
+
+  @override
+  String get toolProjectionsDesc =>
+      'قدّر متى تصل لوزن معين أو الوزن المتوقع في تاريخ معين';
+
+  @override
+  String get toolBmi => 'حاسبة مؤشر كتلة الجسم';
+
+  @override
+  String get toolBmiDesc => 'تحقق من مؤشر كتلة جسمك';
+
+  @override
+  String get toolMaintenanceCalories => 'سعرات الإعالة';
+
+  @override
+  String get toolMaintenanceCaloriesDesc =>
+      'معدل استهلاكك اليومي وتأثير السعرات على الوزن';
+
+  @override
+  String get profileTitle => 'الملف الشخصي';
+
+  @override
+  String get profileDescription => 'معلوماتك لحاسبة مؤشر كتلة الجسم والسعرات';
+
+  @override
+  String get editProfile => 'تعديل الملف';
+
+  @override
+  String get editProfileTitle => 'تعديل الملف الشخصي';
+
+  @override
+  String get height => 'الطول';
+
+  @override
+  String get heightCm => 'الطول (سم)';
+
+  @override
+  String get heightHint => 'مثال: 175';
+
+  @override
+  String get gender => 'الجنس';
+
+  @override
+  String get male => 'ذكر';
+
+  @override
+  String get female => 'أنثى';
+
+  @override
+  String get birthDate => 'تاريخ الميلاد';
+
+  @override
+  String get birthDateHint => 'للعمر في حاسبة السعرات';
+
+  @override
+  String get saveToProfile => 'حفظ في الملف';
+
+  @override
+  String get profileSaved => 'تم حفظ الملف';
+
+  @override
+  String get openSettings => 'الإعدادات';
+
+  @override
+  String get openSettingsDesc => 'المظهر، اللغة، التذكيرات، الهدف، التصدير';
+
+  @override
+  String get bmiTitle => 'حاسبة مؤشر كتلة الجسم';
+
+  @override
+  String get bmiDescription => 'مؤشر كتلة الجسم من الطول والوزن.';
+
+  @override
+  String get bmiUnderweight => 'نقص الوزن';
+
+  @override
+  String get bmiNormal => 'طبيعي';
+
+  @override
+  String get bmiOverweight => 'زيادة وزن';
+
+  @override
+  String get bmiObese => 'سمنة';
+
+  @override
+  String get bmiSevereThinness => 'نحافة شديدة';
+
+  @override
+  String get bmiModerateThinness => 'نحافة متوسطة';
+
+  @override
+  String get bmiMildThinness => 'نحافة خفيفة';
+
+  @override
+  String get bmiObeseClass1 => 'سمنة من الدرجة الأولى';
+
+  @override
+  String get bmiObeseClass2 => 'سمنة من الدرجة الثانية';
+
+  @override
+  String get bmiObeseClass3 => 'سمنة من الدرجة الثالثة';
+
+  @override
+  String get yourBmi => 'مؤشر كتلة جسمك';
+
+  @override
+  String get enterHeightAndWeight => 'أدخل الطول والوزن (أو عيّنهما في الملف)';
+
+  @override
+  String get useCurrentWeight => 'استخدام الوزن الحالي من التتبع';
+
+  @override
+  String get weightForBmi => 'الوزن لمؤشر كتلة الجسم';
+
+  @override
+  String get maintenanceTitle => 'سعرات الإعالة';
+
+  @override
+  String get maintenanceDescription =>
+      'معدل استهلاك الطاقة اليومي التقريبي وتأثير السعرات على الوزن.';
+
+  @override
+  String get maintenanceTdee => 'الإعالة (TDEE)';
+
+  @override
+  String maintenanceTdeeResult(String calories) {
+    return 'حوالي $calories سعرة/يوم';
+  }
+
+  @override
+  String get dailyIntake => 'السعرات اليومية';
+
+  @override
+  String get dailyIntakeHint => 'اختياري: لرؤية التأثير على الوزن';
+
+  @override
+  String get periodWeeks => 'المدة (أسابيع)';
+
+  @override
+  String get projectedChange => 'التغير المتوقع';
+
+  @override
+  String get activityLevel => 'مستوى النشاط';
+
+  @override
+  String get activitySedentary => 'قليل الحركة';
+
+  @override
+  String get activityLight => 'خفيف (1–3 أيام/أسبوع)';
+
+  @override
+  String get activityModerate => 'متوسط (3–5 أيام/أسبوع)';
+
+  @override
+  String get activityActive => 'نشط (6–7 أيام/أسبوع)';
+
+  @override
+  String get activityVeryActive => 'نشط جداً (يومياً)';
+
+  @override
+  String get age => 'العمر';
+
+  @override
+  String get ageYears => 'العمر (سنوات)';
+
+  @override
+  String get weight => 'الوزن';
+
+  @override
+  String get navProfile => 'الملف';
 }

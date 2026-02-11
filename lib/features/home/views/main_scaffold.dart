@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'overview_screen.dart';
 import '../../history/views/history_page.dart';
-import '../../settings/views/settings_screen.dart';
+import '../../tools/views/tools_screen.dart';
+import '../../profile/views/profile_screen.dart';
 import '../../../core/extensions/l10n_context.dart';
 
 class MainScaffold extends StatefulWidget {
@@ -19,7 +20,8 @@ class _MainScaffoldState extends State<MainScaffold> {
   static const _tabs = [
     _TabData(icon: Icons.dashboard_rounded, labelKey: 'navOverview'),
     _TabData(icon: Icons.history_rounded, labelKey: 'navHistory'),
-    _TabData(icon: Icons.settings_rounded, labelKey: 'navSettings'),
+    _TabData(icon: Icons.build_rounded, labelKey: 'navTools'),
+    _TabData(icon: Icons.person_rounded, labelKey: 'navProfile'),
   ];
 
   @override
@@ -28,7 +30,8 @@ class _MainScaffoldState extends State<MainScaffold> {
     final labels = [
       l10n.navOverview,
       l10n.navHistory,
-      l10n.settingsTitle,
+      l10n.toolsTitle,
+      l10n.profileTitle,
     ];
 
     return Scaffold(
@@ -37,7 +40,8 @@ class _MainScaffoldState extends State<MainScaffold> {
         children: const [
           OverviewScreen(),
           HistoryPage(),
-          SettingsScreen(),
+          ToolsScreen(asTabContent: true),
+          ProfileScreen(),
         ],
       ),
       bottomNavigationBar: NavigationBar(
@@ -59,15 +63,6 @@ class _MainScaffoldState extends State<MainScaffold> {
         title: Text(_appBarTitle(context)),
         actions: [
           if (_currentIndex == 0) ...[
-            Semantics(
-              label: l10n.estimationCalculatorTitle,
-              button: true,
-              child: IconButton(
-                icon: const Icon(Icons.calculate_outlined),
-                onPressed: () => context.go('/estimation-calculator'),
-                tooltip: l10n.estimationCalculatorTitle,
-              ),
-            ),
             Semantics(
               label: l10n.addWeight,
                 button: true,
@@ -97,7 +92,9 @@ class _MainScaffoldState extends State<MainScaffold> {
       case 1:
         return l10n.historyTitle;
       case 2:
-        return l10n.settingsTitle;
+        return l10n.toolsTitle;
+      case 3:
+        return l10n.profileTitle;
       default:
         return l10n.appTitle;
     }

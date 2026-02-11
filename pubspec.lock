@@ -373,6 +373,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  gauges:
+    dependency: "direct main"
+    description:
+      name: gauges
+      sha256: "195c00f5d67fd264f954fbe6eeba3aa560b7a6715dc0f89c3373cfa05326c7ed"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   glob:
     dependency: transitive
     description:

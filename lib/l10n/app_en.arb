@@ -262,8 +262,8 @@
       "value": {"type": "String"}
     }
   },
-  "weightToGoLabel": "Weight to go",
-  "weightToLoseLabel": "Weight to lose",
+  "weightToGoLabel": "Remaining",
+  "weightToLoseLabel": "Remaining",
   "weeksLeft": "{count} weeks left",
   "@weeksLeft": {
     "placeholders": {
@@ -674,5 +674,72 @@
   "educationContextTrackingTitle": "Why Track Context?",
   "educationContextTrackingContent": "Tracking context (sleep, stress, exercise, meal timing) helps you understand patterns.\n\nYou might discover:\n• Better sleep = better weight management\n• High stress affects your progress\n• Exercise timing matters\n• Meal timing impacts daily weight\n\nThese insights help you make informed decisions about your journey.",
   "educationStayingMotivatedTitle": "Staying Motivated",
-  "educationStayingMotivatedContent": "Weight tracking is a marathon, not a sprint.\n\nRemember:\n• Progress isn't always linear\n• Small daily actions compound over time\n• Setbacks are part of the journey\n• Celebrate non-scale victories too\n\nFocus on building sustainable habits. Every day you track is a win!"
+  "educationStayingMotivatedContent": "Weight tracking is a marathon, not a sprint.\n\nRemember:\n• Progress isn't always linear\n• Small daily actions compound over time\n• Setbacks are part of the journey\n• Celebrate non-scale victories too\n\nFocus on building sustainable habits. Every day you track is a win!",
+
+  "toolsTitle": "Tools",
+  "toolsDescription": "Calculators and utilities for your weight journey",
+  "toolProjections": "Projections",
+  "toolProjectionsDesc": "Estimate when you'll reach a weight or what weight to expect by a date",
+  "toolBmi": "BMI Calculator",
+  "toolBmiDesc": "Check your Body Mass Index and see where you stand",
+  "toolMaintenanceCalories": "Maintenance Calories",
+  "toolMaintenanceCaloriesDesc": "Your daily energy expenditure and how intake affects weight over time",
+
+  "profileTitle": "Profile",
+  "profileDescription": "Your info for BMI and calorie tools",
+  "editProfile": "Edit profile",
+  "editProfileTitle": "Edit profile",
+  "height": "Height",
+  "heightCm": "Height (cm)",
+  "heightHint": "e.g. 175",
+  "gender": "Gender",
+  "male": "Male",
+  "female": "Female",
+  "birthDate": "Date of birth",
+  "birthDateHint": "For age in calorie calculator",
+  "saveToProfile": "Save to profile",
+  "profileSaved": "Profile saved",
+  "openSettings": "Settings",
+  "openSettingsDesc": "Theme, language, reminders, goal, export",
+
+  "bmiTitle": "BMI Calculator",
+  "bmiDescription": "Body Mass Index from your height and weight. Use profile data or enter below.",
+  "bmiUnderweight": "Underweight",
+  "bmiNormal": "Healthy",
+  "bmiOverweight": "Overweight",
+  "bmiObese": "Obese",
+  "bmiSevereThinness": "Severe thinness",
+  "bmiModerateThinness": "Moderate thinness",
+  "bmiMildThinness": "Mild thinness",
+  "bmiObeseClass1": "Obese Class I",
+  "bmiObeseClass2": "Obese Class II",
+  "bmiObeseClass3": "Obese Class III",
+  "yourBmi": "Your BMI",
+  "enterHeightAndWeight": "Enter height and weight (or set them in Profile)",
+  "useCurrentWeight": "Use current weight from tracking",
+  "weightForBmi": "Weight for BMI",
+
+  "maintenanceTitle": "Maintenance Calories",
+  "maintenanceDescription": "Estimated daily energy expenditure (TDEE) and how your intake affects weight.",
+  "maintenanceTdee": "Maintenance (TDEE)",
+  "maintenanceTdeeResult": "About {calories} kcal/day",
+  "@maintenanceTdeeResult": {
+    "placeholders": {
+      "calories": {"type": "String"}
+    }
+  },
+  "dailyIntake": "Daily intake (kcal)",
+  "dailyIntakeHint": "Optional: see effect on weight",
+  "periodWeeks": "Period (weeks)",
+  "projectedChange": "Projected change",
+  "activityLevel": "Activity level",
+  "activitySedentary": "Sedentary (little or no exercise)",
+  "activityLight": "Light (1–3 days/week)",
+  "activityModerate": "Moderate (3–5 days/week)",
+  "activityActive": "Active (6–7 days/week)",
+  "activityVeryActive": "Very active (intense daily)",
+  "age": "Age",
+  "ageYears": "Age (years)",
+  "weight": "Weight",
+  "navProfile": "Profile"
 }

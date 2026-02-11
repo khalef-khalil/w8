@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../l10n/app_localizations.dart';
 import '../../models/weight_entry.dart';
 import '../../features/home/views/main_scaffold.dart';
 import '../../features/add_weight/views/add_weight_screen.dart';
@@ -13,6 +14,11 @@ import '../../features/settings/views/edit_goal_screen.dart';
 import '../../features/settings/views/education_page.dart';
 import '../../features/settings/views/achievements_page.dart';
 import '../../features/home/views/estimation_calculator_screen.dart';
+import '../../features/tools/views/tools_screen.dart';
+import '../../features/tools/views/bmi_calculator_screen.dart';
+import '../../features/tools/views/maintenance_calories_screen.dart';
+import '../../features/profile/views/edit_profile_screen.dart';
+import '../../features/settings/views/settings_screen.dart';
 import '../../core/services/goal_storage_service.dart';
 
 /// Custom page transitions
@@ -172,5 +178,72 @@ final appRouter = GoRouter(
         state,
       ),
     ),
+    GoRoute(
+      path: '/tools',
+      name: 'tools',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const ToolsScreen(),
+        state,
+      ),
+    ),
+    GoRoute(
+      path: '/tools/projections',
+      name: 'tools-projections',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const EstimationCalculatorScreen(),
+        state,
+      ),
+    ),
+    GoRoute(
+      path: '/tools/bmi',
+      name: 'tools-bmi',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const BmiCalculatorScreen(),
+        state,
+      ),
+    ),
+    GoRoute(
+      path: '/tools/calories',
+      name: 'tools-calories',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const MaintenanceCaloriesScreen(),
+        state,
+      ),
+    ),
+    GoRoute(
+      path: '/profile/edit',
+      name: 'profile-edit',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const EditProfileScreen(),
+        state,
+      ),
+    ),
+    GoRoute(
+      path: '/settings',
+      name: 'settings',
+      pageBuilder: (context, state) => _buildPageWithTransition(
+        const _SettingsRouteWrapper(),
+        state,
+      ),
+    ),
   ],
 );
+
+class _SettingsRouteWrapper extends StatelessWidget {
+  const _SettingsRouteWrapper();
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(l10n.settingsTitle),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => GoRouter.of(context).pop(),
+        ),
+      ),
+      body: const SettingsScreen(),
+    );
+  }
+}

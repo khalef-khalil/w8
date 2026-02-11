@@ -53,7 +53,7 @@ class _EstimationCalculatorScreenState
         title: Text(l10n.estimationCalculatorTitle),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => context.go('/'),
+          onPressed: () => context.pop(),
         ),
       ),
       body: homeState.when(
@@ -68,9 +68,10 @@ class _EstimationCalculatorScreenState
               ? '${rate >= 0 ? '+' : ''}${WeightConverter.forDisplay(rate.abs(), unit).toStringAsFixed(2)} $unitStr'
               : '—';
 
+          final bottomPadding = MediaQuery.of(context).padding.bottom + 32;
           if (!canEstimate) {
             return SingleChildScrollView(
-              padding: const EdgeInsets.all(20),
+              padding: EdgeInsets.fromLTRB(20, 20, 20, bottomPadding),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -164,7 +165,7 @@ class _EstimationCalculatorScreenState
           }
 
           return SingleChildScrollView(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.fromLTRB(20, 20, 20, bottomPadding),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [

@@ -1040,13 +1040,13 @@ abstract class AppLocalizations {
   /// No description provided for @weightToGoLabel.
   ///
   /// In en, this message translates to:
-  /// **'Weight to go'**
+  /// **'Remaining'**
   String get weightToGoLabel;
 
   /// No description provided for @weightToLoseLabel.
   ///
   /// In en, this message translates to:
-  /// **'Weight to lose'**
+  /// **'Remaining'**
   String get weightToLoseLabel;
 
   /// No description provided for @weeksLeft.
@@ -2474,6 +2474,354 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Weight tracking is a marathon, not a sprint.\n\nRemember:\n• Progress isn\'t always linear\n• Small daily actions compound over time\n• Setbacks are part of the journey\n• Celebrate non-scale victories too\n\nFocus on building sustainable habits. Every day you track is a win!'**
   String get educationStayingMotivatedContent;
+
+  /// No description provided for @toolsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get toolsTitle;
+
+  /// No description provided for @toolsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculators and utilities for your weight journey'**
+  String get toolsDescription;
+
+  /// No description provided for @toolProjections.
+  ///
+  /// In en, this message translates to:
+  /// **'Projections'**
+  String get toolProjections;
+
+  /// No description provided for @toolProjectionsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimate when you\'ll reach a weight or what weight to expect by a date'**
+  String get toolProjectionsDesc;
+
+  /// No description provided for @toolBmi.
+  ///
+  /// In en, this message translates to:
+  /// **'BMI Calculator'**
+  String get toolBmi;
+
+  /// No description provided for @toolBmiDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your Body Mass Index and see where you stand'**
+  String get toolBmiDesc;
+
+  /// No description provided for @toolMaintenanceCalories.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Calories'**
+  String get toolMaintenanceCalories;
+
+  /// No description provided for @toolMaintenanceCaloriesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily energy expenditure and how intake affects weight over time'**
+  String get toolMaintenanceCaloriesDesc;
+
+  /// No description provided for @profileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get profileTitle;
+
+  /// No description provided for @profileDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Your info for BMI and calorie tools'**
+  String get profileDescription;
+
+  /// No description provided for @editProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get editProfile;
+
+  /// No description provided for @editProfileTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit profile'**
+  String get editProfileTitle;
+
+  /// No description provided for @height.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get height;
+
+  /// No description provided for @heightCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Height (cm)'**
+  String get heightCm;
+
+  /// No description provided for @heightHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. 175'**
+  String get heightHint;
+
+  /// No description provided for @gender.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get gender;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @birthDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date of birth'**
+  String get birthDate;
+
+  /// No description provided for @birthDateHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For age in calorie calculator'**
+  String get birthDateHint;
+
+  /// No description provided for @saveToProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Save to profile'**
+  String get saveToProfile;
+
+  /// No description provided for @profileSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile saved'**
+  String get profileSaved;
+
+  /// No description provided for @openSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get openSettings;
+
+  /// No description provided for @openSettingsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Theme, language, reminders, goal, export'**
+  String get openSettingsDesc;
+
+  /// No description provided for @bmiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'BMI Calculator'**
+  String get bmiTitle;
+
+  /// No description provided for @bmiDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Mass Index from your height and weight. Use profile data or enter below.'**
+  String get bmiDescription;
+
+  /// No description provided for @bmiUnderweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Underweight'**
+  String get bmiUnderweight;
+
+  /// No description provided for @bmiNormal.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy'**
+  String get bmiNormal;
+
+  /// No description provided for @bmiOverweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Overweight'**
+  String get bmiOverweight;
+
+  /// No description provided for @bmiObese.
+  ///
+  /// In en, this message translates to:
+  /// **'Obese'**
+  String get bmiObese;
+
+  /// No description provided for @bmiSevereThinness.
+  ///
+  /// In en, this message translates to:
+  /// **'Severe thinness'**
+  String get bmiSevereThinness;
+
+  /// No description provided for @bmiModerateThinness.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate thinness'**
+  String get bmiModerateThinness;
+
+  /// No description provided for @bmiMildThinness.
+  ///
+  /// In en, this message translates to:
+  /// **'Mild thinness'**
+  String get bmiMildThinness;
+
+  /// No description provided for @bmiObeseClass1.
+  ///
+  /// In en, this message translates to:
+  /// **'Obese Class I'**
+  String get bmiObeseClass1;
+
+  /// No description provided for @bmiObeseClass2.
+  ///
+  /// In en, this message translates to:
+  /// **'Obese Class II'**
+  String get bmiObeseClass2;
+
+  /// No description provided for @bmiObeseClass3.
+  ///
+  /// In en, this message translates to:
+  /// **'Obese Class III'**
+  String get bmiObeseClass3;
+
+  /// No description provided for @yourBmi.
+  ///
+  /// In en, this message translates to:
+  /// **'Your BMI'**
+  String get yourBmi;
+
+  /// No description provided for @enterHeightAndWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter height and weight (or set them in Profile)'**
+  String get enterHeightAndWeight;
+
+  /// No description provided for @useCurrentWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Use current weight from tracking'**
+  String get useCurrentWeight;
+
+  /// No description provided for @weightForBmi.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight for BMI'**
+  String get weightForBmi;
+
+  /// No description provided for @maintenanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance Calories'**
+  String get maintenanceTitle;
+
+  /// No description provided for @maintenanceDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated daily energy expenditure (TDEE) and how your intake affects weight.'**
+  String get maintenanceDescription;
+
+  /// No description provided for @maintenanceTdee.
+  ///
+  /// In en, this message translates to:
+  /// **'Maintenance (TDEE)'**
+  String get maintenanceTdee;
+
+  /// No description provided for @maintenanceTdeeResult.
+  ///
+  /// In en, this message translates to:
+  /// **'About {calories} kcal/day'**
+  String maintenanceTdeeResult(String calories);
+
+  /// No description provided for @dailyIntake.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily intake (kcal)'**
+  String get dailyIntake;
+
+  /// No description provided for @dailyIntakeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional: see effect on weight'**
+  String get dailyIntakeHint;
+
+  /// No description provided for @periodWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Period (weeks)'**
+  String get periodWeeks;
+
+  /// No description provided for @projectedChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Projected change'**
+  String get projectedChange;
+
+  /// No description provided for @activityLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity level'**
+  String get activityLevel;
+
+  /// No description provided for @activitySedentary.
+  ///
+  /// In en, this message translates to:
+  /// **'Sedentary (little or no exercise)'**
+  String get activitySedentary;
+
+  /// No description provided for @activityLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light (1–3 days/week)'**
+  String get activityLight;
+
+  /// No description provided for @activityModerate.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate (3–5 days/week)'**
+  String get activityModerate;
+
+  /// No description provided for @activityActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active (6–7 days/week)'**
+  String get activityActive;
+
+  /// No description provided for @activityVeryActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Very active (intense daily)'**
+  String get activityVeryActive;
+
+  /// No description provided for @age.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get age;
+
+  /// No description provided for @ageYears.
+  ///
+  /// In en, this message translates to:
+  /// **'Age (years)'**
+  String get ageYears;
+
+  /// No description provided for @weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get weight;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get navProfile;
 }
 
 class _AppLocalizationsDelegate
