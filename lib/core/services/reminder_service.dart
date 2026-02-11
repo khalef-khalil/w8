@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:hive_flutter/hive_flutter.dart';
@@ -15,8 +16,14 @@ class ReminderService {
   static Future<void> initialize() async {
     if (_initialized) return;
 
-    // Initialize timezone
+    // Load timezone data and set device's local timezone (required for zonedSchedule to fire at the right time)
     tz.initializeTimeZones();
+    try {
+      final timeZoneName = (await FlutterTimezone.getLocalTimezone()).identifier;
+      tz.setLocalLocation(tz.getLocation(timeZoneName));
+    } catch (e) {
+      debugPrint('ReminderService: Could not set local timezone ($e), using default');
+    }
 
     // Android initialization settings
     const androidSettings = AndroidInitializationSettings('@mipmap/ic_launcher');
